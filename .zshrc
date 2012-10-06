@@ -39,8 +39,9 @@ if ls -F --color=auto >&/dev/null; then
 else
   alias ls='ls -F -G'
 fi
-alias ll='ls -l'
 alias l.='ls -d .[^.]*'
+alias ll='ls -l'
+alias ll.='ls -l -d .[^.]*'
 alias lsd='ls -ld *(-/DN)'
 
 alias md='mkdir -p'
