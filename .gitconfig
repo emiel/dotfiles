@@ -1,0 +1,40 @@
+[user]
+	name = Emiel van de Laar
+	email = gemiel@gmail.com
+
+[core]
+	pager = less -FRSX
+	editor = vim
+
+[color]
+	branch = auto
+	ui = auto
+	diff = auto
+	status = auto
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "diff"]
+	meta = blue bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+
+[merge]
+	tool = vimdiff
+
+[alias]
+	br = branch
+	ci = commit
+	co = checkout
+	df = diff
+	lg = log -p
+	st = status
