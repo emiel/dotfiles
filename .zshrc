@@ -3,12 +3,12 @@ autoload -Uz compinit && compinit
 
 # Prompt
 autoload -U promptinit && promptinit
-prompt walters
+prompt suse
 
 # History
 HISTFILE=~/.zhistory
-HISTSIZE=5000
-SAVEHIST=5000
+HISTSIZE=1000
+SAVEHIST=1000
 
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
@@ -22,17 +22,19 @@ setopt SHARE_HISTORY
 # Misc
 setopt AUTO_CD
 setopt EXTENDED_GLOB
+setopt NO_BEEP
 
-## vi editing
+# Vi editing
 bindkey -v
 
-## file rename magick
+# File rename magick
 bindkey '^[m' copy-prev-shell-word
 
 # Aliases 
-alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
+alias mv='nocorrect mv'
+alias rm='nocorrect rm'
 
 if ls -F --color=auto >&/dev/null; then
   alias ls='ls --color=auto -F'
@@ -47,12 +49,11 @@ alias lsd='ls -ld *(-/DN)'
 alias md='mkdir -p'
 alias rd='rmdir'
 
-alias cd..='cd ..'
-alias ..='cd ..'
 alias po='popd'
 alias pu='pushd'
 
 alias cp='cp -v -i'
+alias mkdir='mkdir -v'
 alias mv='mv -v -i'
 alias rm='rm -v -i'
 
