@@ -1,15 +1,6 @@
 export EDITOR="vim"
-export PAGER="less -R"
-
 export MAILDIR="${HOME}/Maildir"
-
-export DEBFULLNAME="Emiel van de Laar"
-export DEBEMAIL=emielvandelaar@optiver.com
-
-export EMAIL=emielvandelaar@optiver.com
-export RPM_PACKAGER="Emiel van de Laar <emielvandelaar@optiver.com>"
-
-export EDITOR=vim
+export PAGER="less -R"
 
 # GNUPG
 #eval `gpg-agent --daemon`
