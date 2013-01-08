@@ -77,7 +77,7 @@ if [ "$TERM" != "dumb" ]; then
 	#export LS_OPTIONS="-F -G"
 fi
 
-eval `keychain -q --nogui --eval id_rsa`
+eval `keychain -q -Q --nogui --eval id_rsa`
 
 # tmux
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
