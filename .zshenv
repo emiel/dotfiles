@@ -1,6 +1,12 @@
+export PATH="${PATH}:${HOME}/bin"
+
 export EDITOR="vim"
 export MAILDIR="${HOME}/Maildir"
 export PAGER="less -R"
+
+# virtualenvwrapper
+export WORKON_HOME=~/envs
+
 
 # GNUPG
 #eval `gpg-agent --daemon`
