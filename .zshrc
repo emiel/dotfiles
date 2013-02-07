@@ -71,7 +71,7 @@ alias term_xtermcolor='export TERM=xterm-color; tset -I -Q'
 case `uname -s` in
 'Darwin'| 'FreeBSD')
 	export CLICOLOR=1
-	export LSCOLORS=Exfxcxdxbxegedabagacad
+	export LSCOLORS=exfxcxdxbxegedabagacad
 	;;
 'Linux')
 	eval `dircolors ~/.dircolors`
