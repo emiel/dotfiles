@@ -36,8 +36,9 @@ alias mkdir='nocorrect mkdir'
 alias mv='nocorrect mv'
 alias rm='nocorrect rm'
 
+# ls
 if ls -F --color=auto >&/dev/null; then
-  alias ls='ls --color=auto -F'
+  alias ls='ls -F --color=auto'
 else
   alias ls='ls -F -G'
 fi
@@ -59,23 +60,27 @@ alias rm='rm -v -i'
 
 alias v='vim'
 
-alias vt220='export TERM=vt220; tset -I -Q'
-alias vt102='export TERM=vt102; tset -I -Q'
-alias wsvt25='export TERM=wsvt25; tset -I -Q'
-alias pcvt25='export TERM=pcvt25; tset -I -Q'
-alias xterm256='export TERM=xterm-256color; tset -I -Q'
-alias xtermcolor='export TERM=xterm-color; tset -I -Q'
+alias term_vt220='export TERM=vt220; tset -I -Q'
+alias term_vt102='export TERM=vt102; tset -I -Q'
+alias term_wsvt25='export TERM=wsvt25; tset -I -Q'
+alias term_pcvt25='export TERM=pcvt25; tset -I -Q'
+alias term_xterm256='export TERM=xterm-256color; tset -I -Q'
+alias term_xtermcolor='export TERM=xterm-color; tset -I -Q'
 
-eval `dircolors ~/.dircolors`
+# ls colors
+case `uname -s` in
+'Darwin'| 'FreeBSD')
+	export CLICOLOR=1
+	export LSCOLORS=Exfxcxdxbxegedabagacad
+	;;
+'Linux')
+	eval `dircolors ~/.dircolors`
+	;;
+esac
 
 # Colorful completion listings
 zmodload -i zsh/complist
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
-if [ "$TERM" != "dumb" ]; then
-	export LS_OPTIONS="--color=auto"
-	#export LS_OPTIONS="-F -G"
-fi
 
 eval `keychain -q -Q --nogui --eval id_rsa`
 

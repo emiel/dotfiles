@@ -4,9 +4,11 @@ export EDITOR="vim"
 export MAILDIR="${HOME}/Maildir"
 export PAGER="less -R"
 
+# Tell grep to highlight matches
+export GREP_OPTIONS='--color=auto'
+
 # virtualenvwrapper
 export WORKON_HOME=~/envs
-
 
 # GNUPG
 #eval `gpg-agent --daemon`
