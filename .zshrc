@@ -66,11 +66,13 @@ alias rm='rm -v -i'
 
 alias v='vim'
 
-alias term_rxvt='export TERM=rxvt; tset -I -Q'
-alias term_vt102='export TERM=vt102; tset -I -Q'
-alias term_vt220='export TERM=vt220; tset -I -Q'
-alias term_xterm256='export TERM=xterm-256color; tset -I -Q'
-alias term_xtermcolor='export TERM=xterm-color; tset -I -Q'
+# Terminal
+_terms=(rxvt rxvt-unicode vt102 vt220 xterm-color xterm-256color)
+for term in $_terms; do
+	alias term_${term}='eval `tset -s -I -Q '${term}'`'
+done
+
+alias ssh='TERM=xterm-color ssh'
 
 # Colorful completion listings
 zmodload -i zsh/complist
