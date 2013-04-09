@@ -1,1 +1,4 @@
 \set COMP_KEYWORD_CASE lower
+--\set HISTFILESIZE
+--\set HISTSIZE
+\timing
