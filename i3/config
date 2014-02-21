@@ -37,7 +37,7 @@ bindsym $mod+d exec dmenu_run
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
-bindsym $mod+k focus up 
+bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
