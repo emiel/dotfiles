@@ -4,6 +4,7 @@ install: \
 	install-i3 \
 	install-psql \
 	install-tmux \
+	install-vim \
 	install-zsh
 
 install-gdb:
@@ -27,6 +28,12 @@ install-psql:
 install-tmux:
 	rm -f $(HOME)/.tmux.conf
 	ln -s `pwd`/tmux/tmux.conf $(HOME)/.tmux.conf
+
+install-vim:
+	git submodule update --init
+	rm -rf $(HOME)/.vim $(HOME)/.vimrc
+	ln -s `pwd`/vim $(HOME)/.vim
+	ln -s $(HOME)/.vim/vimrc $(HOME)/.vimrc
 
 install-zsh:
 	rm -f $(HOME)/.zlogout $(HOME)/.zshenv $(HOME)/.zshrc
