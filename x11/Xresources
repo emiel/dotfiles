@@ -19,8 +19,8 @@ URxvt.skipScroll: true
 URxvt.perl-lib: /usr/lib/urxvt/perl/
 URxvt.perl-ext-common: default,matcher,searchable-scrollback
 
-URxvt.font:     -nil-profont-medium-r-normal--15-150-72-72-c-70-iso8859-1
-URxvt.boldFont: -nil-profont-medium-r-normal--15-150-72-72-c-70-iso8859-1
+!URxvt.font:     -nil-profont-medium-r-normal--15-150-72-72-c-70-iso8859-1
+!URxvt.boldFont: -nil-profont-medium-r-normal--15-150-72-72-c-70-iso8859-1
 !URxvt.font: terminus-14
 !URxvt.boldFont: terminus-bold-14
 

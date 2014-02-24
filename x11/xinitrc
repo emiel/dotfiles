@@ -1,4 +1,5 @@
-synergys &
+xrdb -load $HOME/.Xresources &
 urxvtd -q -f -o &
 xcompmgr -r4.2 -o.55 -c -l-5 -t-5 -c &
 xwrits typetime=8:00 breaktime=0:30 +mouse +multiscreen +clock +top mono &
+i3

@@ -41,3 +41,6 @@
 	sm = submodule
 [push]
 	default = simple
+
+[http]
+	proxy = http://proxy3.optiver.com:8080

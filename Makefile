@@ -5,6 +5,7 @@ install: \
 	install-psql \
 	install-tmux \
 	install-vim \
+	install-x11 \
 	install-zsh
 
 install-gdb:
@@ -34,6 +35,11 @@ install-vim:
 	rm -rf $(HOME)/.vim $(HOME)/.vimrc
 	ln -s `pwd`/vim $(HOME)/.vim
 	ln -s $(HOME)/.vim/vimrc $(HOME)/.vimrc
+
+install-x11:
+	rm -f $(HOME)/.xinitrc $(HOME)/.Xresources
+	ln -s `pwd`/x11/xinitrc $(HOME)/.xinitrc
+	ln -s `pwd`/x11/Xresources $(HOME)/.Xresources
 
 install-zsh:
 	rm -f $(HOME)/.zlogout $(HOME)/.zshenv $(HOME)/.zshrc

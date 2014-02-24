@@ -30,7 +30,7 @@ bindkey -v
 # File rename magick
 bindkey '^[m' copy-prev-shell-word
 
-# Aliases 
+# Aliases
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 alias mv='nocorrect mv'
