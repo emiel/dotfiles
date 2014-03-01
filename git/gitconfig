@@ -39,5 +39,3 @@
 	lg = log -p
 	st = status
 	sm = submodule
-[push]
-	default = simple
