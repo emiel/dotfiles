@@ -27,6 +27,23 @@ setopt NO_BEEP
 # Vi editing
 bindkey -v
 
+bindkey -M viins "^P" vi-up-line-or-history
+bindkey -M viins "^N" vi-down-line-or-history
+
+bindkey -M viins "^[[1~" vi-beginning-of-line   # Home
+bindkey -M viins "^[[4~" vi-end-of-line         # End
+bindkey -M viins '^[[2~' beep                   # Insert
+bindkey -M viins '^[[3~' delete-char            # Del
+bindkey -M viins '^[[5~' vi-backward-blank-word # Page Up
+bindkey -M viins '^[[6~' vi-forward-blank-word  # Page Down
+
+[[ -z "$terminfo[cuu1]" ]] || bindkey -M viins "$terminfo[cuu1]" vi-up-line-or-history
+[[ -z "$terminfo[cuf1]" ]] || bindkey -M viins "$terminfo[cuf1]" vi-forward-char
+[[ -z "$terminfo[kcuu1]" ]] || bindkey -M viins "$terminfo[kcuu1]" vi-up-line-or-history
+[[ -z "$terminfo[kcud1]" ]] || bindkey -M viins "$terminfo[kcud1]" vi-down-line-or-history
+[[ -z "$terminfo[kcuf1]" ]] || bindkey -M viins "$terminfo[kcuf1]" vi-forward-char
+[[ -z "$terminfo[kcub1]" ]] || bindkey -M viins "$terminfo[kcub1]" vi-backward-char
+
 # File rename magick
 bindkey '^[m' copy-prev-shell-word
 

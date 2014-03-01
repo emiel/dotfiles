@@ -39,3 +39,5 @@
 	lg = log -p
 	st = status
 	sm = submodule
+[http]
+	proxy = http://proxy3.optiver.com:8080
