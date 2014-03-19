@@ -16,24 +16,18 @@ URxvt.scrollstyle: plain
 URxvt.secondaryScroll: true
 URxvt.skipScroll: true
 
-URxvt.perl-lib: /usr/lib/urxvt/perl/
-URxvt.perl-ext-common: default,matcher,searchable-scrollback,vtwheel,clipboard
 URxvt.iso14755: false
-URxvt.keysym.M-c: perl:clipboard:copy
-URxvt.keysym.M-v: perl:clipboard:paste
-URxvt.keysym.M-C-p: perl:clipboard:paste_escaped
+
+URxvt.perl-lib: /usr/lib/urxvt/perl/
+URxvt.perl-ext-common: default,matcher,searchable-scrollback,clip
+
+!URxvt.clipboard.autocopy: true
+!URxvt.keysym.M-c: perl:clipboard:copy
+!URxvt.keysym.M-v: perl:clipboard:paste
+!URxvt.keysym.M-C-p: perl:clipboard:paste_escaped
 
 URxvt.font: -nil-profont-medium-r-normal--12-120-72-72-c-60-iso8859-1
 URxvt.boldFont: -nil-profont-medium-r-normal--12-120-72-72-c-60-iso8859-1
-
-!URxvt.font: -nil-profont-medium-r-normal--15-150-72-72-c-70-iso8859-1
-!URxvt.boldFont: -nil-profont-medium-r-normal--15-150-72-72-c-70-iso8859-1
-
-!URxvt.font: terminus-12
-!URxvt.boldFont: terminus-bold-12
-
-!URxvt.font: terminus-14
-!URxvt.boldFont: terminus-bold-14
 
 !URxvt.transparent: true
 !URxvt.shading: 20
