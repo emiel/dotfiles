@@ -93,7 +93,7 @@ map <silent> <leader>N :set norelativenumber<CR>
 map <silent> <leader>n :set relativenumber<CR>
 
 "
-autocmd FileType c,cpp,python autocmd BufWritePre <buffer> :%s/\s\+$//e
+"autocmd FileType c,cpp,python autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " Jump to last position in file after opening. Nice!
 autocmd BufReadPost *

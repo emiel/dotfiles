@@ -37,7 +37,10 @@
 	co = checkout
 	df = diff
 	lg = log -p
+	lgg = log --graph
 	st = status
 	sm = submodule
 [push]
 	default = simple
+[http]
+	proxy = http://proxy3.optiver.com:8080
