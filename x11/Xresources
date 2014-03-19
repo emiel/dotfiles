@@ -26,8 +26,8 @@ URxvt.perl-ext-common: default,matcher,searchable-scrollback,clip
 !URxvt.keysym.M-v: perl:clipboard:paste
 !URxvt.keysym.M-C-p: perl:clipboard:paste_escaped
 
-URxvt.font: -nil-profont-medium-r-normal--12-120-72-72-c-60-iso8859-1
-URxvt.boldFont: -nil-profont-medium-r-normal--12-120-72-72-c-60-iso8859-1
+URxvt.font: -nil-profont-medium-r-normal--15-150-72-72-c-70-iso8859-1
+URxvt.boldFont: -nil-profont-medium-r-normal--15-150-72-72-c-70-iso8859-1
 
 !URxvt.transparent: true
 !URxvt.shading: 20
