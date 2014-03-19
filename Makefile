@@ -14,7 +14,7 @@ install-gdb:
 
 install-git:
 	rm -f $(HOME)/.gitconfig
-	ln -s `pwd`/git/gitconfig $(HOME)/.gitconfig
+	cp `pwd`/git/gitconfig $(HOME)/.gitconfig
 
 install-i3:
 	rm -rf $(HOME)/.i3
