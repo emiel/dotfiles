@@ -39,7 +39,6 @@
 	lg = log -p
 	st = status
 	sm = submodule
-[push]
-	default = simple
+	lgg = log --graph
 [http]
 	proxy = http://proxy3.optiver.com:8080
