@@ -43,3 +43,5 @@
 	lgg = log --graph
 [http]
 	proxy = http://proxy3.optiver.com:8080
+[push]
+	default = simple
