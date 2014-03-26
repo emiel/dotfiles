@@ -64,7 +64,7 @@ nnoremap <leader>n :nohlsearch<cr>
 " Catch trailing whitespace
 "set listchars=tab:>-,trail:·,eol:$
 "nmap <silent> <leader>w :set nolist!<cr>
-match ErrorMsg '\s\+$'
+"match ErrorMsg '\s\+$'
 nnoremap ,rtw :%s/\s\+$//e<CR>
 
 " Swap similar keys

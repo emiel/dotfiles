@@ -1,3 +1,5 @@
+!! rxvt
+
 URxvt.saveLines: 16384
 URxvt.cursorBlink: true
 URxvt.urgentOnBell: true
@@ -18,16 +20,18 @@ URxvt.skipScroll: true
 
 URxvt.iso14755: false
 
-URxvt.perl-lib: /usr/lib/urxvt/perl/
-URxvt.perl-ext-common: default,matcher,searchable-scrollback,clip
+URxvt.perl-lib: /usr/lib64/urxvt/perl
+URxvt.perl-ext-common: default,matcher,searchable-scrollback
+URxvt.clipboard.autocopy: true
 
-!URxvt.clipboard.autocopy: true
 !URxvt.keysym.M-c: perl:clipboard:copy
 !URxvt.keysym.M-v: perl:clipboard:paste
 !URxvt.keysym.M-C-p: perl:clipboard:paste_escaped
 
-URxvt.font: -nil-profont-medium-r-normal--15-150-72-72-c-70-iso8859-1
-URxvt.boldFont: -nil-profont-medium-r-normal--15-150-72-72-c-70-iso8859-1
+URxvt.font: 7x13euro
+URxvt.boldFont: 7x13eurobold
+!URxvt.font: 8x13
+!URxvt.boldFont: 8x13bold
 
 !URxvt.transparent: true
 !URxvt.shading: 20

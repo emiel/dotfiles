@@ -20,6 +20,10 @@ install-i3:
 	rm -rf $(HOME)/.i3
 	ln -s `pwd`/i3 $(HOME)/.i3
 
+install-i3status:
+	rm -f $(HOME)/.i3status.conf
+	ln -s `pwd`/i3status/i3status.conf $(HOME)/.i3status.conf
+
 install-psql:
 	rm -f $(HOME)/.psqlrc*
 	ln -s `pwd`/psql/psqlrc $(HOME)/.psqlrc
@@ -34,7 +38,7 @@ install-vim:
 	git submodule update --init
 	rm -rf $(HOME)/.vim $(HOME)/.vimrc
 	ln -s `pwd`/vim $(HOME)/.vim
-	ln -s $(HOME)/.vim/vimrc $(HOME)/.vimrc
+	ln -s `pwd`/vim/vimrc $(HOME)/.vimrc
 
 install-x11:
 	rm -f $(HOME)/.xinitrc $(HOME)/.Xresources
