@@ -31,9 +31,17 @@ install-psql:
 	ln -s `pwd`/psql/psqlrc-9.2 $(HOME)/.psqlrc-9.2
 	ln -s `pwd`/psql/psqlrc-9.3 $(HOME)/.psqlrc-9.3
 
+install-subversion:
+	rm -f $(HOME)/.subversion/config
+	ln -s `pwd`/subversion/config $(HOME)/.subversion/config
+
 install-tmux:
 	rm -f $(HOME)/.tmux.conf
 	ln -s `pwd`/tmux/tmux.conf $(HOME)/.tmux.conf
+
+install-urxvt:
+	rm -f $(HOME)/.urxvt
+	ln -s `pwd`/urxvt $(HOME)/.urxvt
 
 install-vim:
 	git submodule update --init
@@ -51,7 +59,3 @@ install-zsh:
 	ln -s `pwd`/zsh/zlogout $(HOME)/.zlogout
 	ln -s `pwd`/zsh/zshenv $(HOME)/.zshenv
 	ln -s `pwd`/zsh/zshrc $(HOME)/.zshrc
-install-urxvt:
-	rm -f $(HOME)/.urxvt
-	ln -s `pwd`/urxvt $(HOME)/.urxvt
-
