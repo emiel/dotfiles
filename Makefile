@@ -4,6 +4,7 @@ install: \
 	install-i3 \
 	install-psql \
 	install-tmux \
+	install-urxvt \
 	install-vim \
 	install-x11 \
 	install-zsh
@@ -50,3 +51,7 @@ install-zsh:
 	ln -s `pwd`/zsh/zlogout $(HOME)/.zlogout
 	ln -s `pwd`/zsh/zshenv $(HOME)/.zshenv
 	ln -s `pwd`/zsh/zshrc $(HOME)/.zshrc
+install-urxvt:
+	rm -f $(HOME)/.urxvt
+	ln -s `pwd`/urxvt $(HOME)/.urxvt
+
