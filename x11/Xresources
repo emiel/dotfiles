@@ -1,11 +1,14 @@
+!! rxvt
+
 URxvt.saveLines: 16384
 URxvt.cursorBlink: true
 URxvt.urgentOnBell: true
 
-URxvt.internalBorder: 3
-URxvt.externalBorder: 3
+URxvt.internalBorder: 2
+URxvt.externalBorder: 2
 
 URxvt.jumpScroll: true
+URxvt.skipScroll: true
 URxvt.scrollBar: true
 URxvt.scrollBar_right: true
 URxvt.scrollColor: #6c6c6c
@@ -13,30 +16,14 @@ URxvt.scrollTtyKeypress: true
 URxvt.scrollTtyOutput: false
 URxvt.scrollWithBuffer: false
 URxvt.scrollstyle: plain
-URxvt.secondaryScroll: true
-URxvt.skipScroll: true
 
-URxvt.perl-lib: /usr/lib/urxvt/perl/
-URxvt.perl-ext-common: default,matcher,searchable-scrollback,vtwheel,clipboard
-URxvt.iso14755: false
-URxvt.keysym.M-c: perl:clipboard:copy
-URxvt.keysym.M-v: perl:clipboard:paste
-URxvt.keysym.M-C-p: perl:clipboard:paste_escaped
+URxvt.perl-ext-common: default,matcher,searchable-scrollback,clipboard
+URxvt.clipboard.autocopy: true
 
-!URxvt.font: -nil-profont-medium-r-normal--12-120-72-72-c-60-iso8859-1
-!URxvt.boldFont: -nil-profont-medium-r-normal--12-120-72-72-c-60-iso8859-1
-
-!URxvt.font: -nil-profont-medium-r-normal--15-150-72-72-c-70-iso8859-1
-!URxvt.boldFont: -nil-profont-medium-r-normal--15-150-72-72-c-70-iso8859-1
-
-!URxvt.font: terminus-12
-!URxvt.boldFont: terminus-bold-12
-
-!URxvt.font: terminus-14
-!URxvt.boldFont: terminus-bold-14
-
-!URxvt.transparent: true
-!URxvt.shading: 20
+URxvt.font: 7x13euro
+URxvt.boldFont: 7x13eurobold
+!URxvt.font: 8x13
+!URxvt.boldFont: 8x13bold
 
 !! drop in Solarized colorscheme for Xresources/Xdefaults
 

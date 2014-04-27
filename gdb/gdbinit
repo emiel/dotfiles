@@ -1,2 +1,5 @@
+set history save on
+set history size unlimited
+
 set follow-fork-mode child
 show follow-fork-mode

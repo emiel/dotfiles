@@ -40,6 +40,10 @@
 	lgg = log --graph
 	st = status
 	sm = submodule
+
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
+	lgg = log --graph
+[push]
+	default = simple

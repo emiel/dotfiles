@@ -21,3 +21,5 @@ export WORKON_HOME=~/envs
 #fi
 #
 #export GPG_TTY=`tty`
+
+#export MAKEFLAGS=-j4

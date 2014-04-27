@@ -82,6 +82,7 @@ alias mv='mv -v -i'
 alias rm='rm -v -i'
 
 alias v='vim'
+alias view='vim -R'
 
 # Terminal
 _terms=(rxvt rxvt-unicode vt102 vt220 xterm-color xterm-256color)
