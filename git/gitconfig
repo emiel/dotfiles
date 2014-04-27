@@ -37,5 +37,9 @@
 	co = checkout
 	df = diff
 	lg = log -p
+	lgg = log --graph
 	st = status
 	sm = submodule
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
