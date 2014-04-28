@@ -40,16 +40,12 @@
 	lgg = log --graph
 	st = status
 	sm = submodule
-<<<<<<< HEAD
 
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
 	lgg = log --graph
-=======
-	lgg = log --graph
 [http]
 	proxy = http://proxy3.optiver.com:8080
->>>>>>> 7b8ca6e6d23b15e1b67e4f094f65937d7f811ea1
 [push]
 	default = simple
