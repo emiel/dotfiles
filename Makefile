@@ -1,6 +1,5 @@
 install: \
 	install-gdb \
-	install-git \
 	install-i3 \
 	install-i3status \
 	install-psql \
@@ -13,6 +12,10 @@ install: \
 install-gdb:
 	rm -f $(HOME)/.gdbinit
 	ln -s `pwd`/gdb/gdbinit $(HOME)/.gdbinit
+
+install-ghci:
+	rm -f $(HOME)/.ghci
+	ln -s `pwd`/ghci/ghci $(HOME)/.ghci
 
 install-git:
 	rm -f $(HOME)/.gitconfig
