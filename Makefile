@@ -1,6 +1,5 @@
 install: \
 	install-gdb \
-	install-git \
 	install-i3 \
 	install-i3status \
 	install-psql \
