@@ -13,6 +13,10 @@ install-gdb:
 	rm -f $(HOME)/.gdbinit
 	ln -s `pwd`/gdb/gdbinit $(HOME)/.gdbinit
 
+install-ghci:
+	rm -f $(HOME)/.ghci
+	ln -s `pwd`/ghci/ghci $(HOME)/.ghci
+
 install-git:
 	rm -f $(HOME)/.gitconfig
 	cp `pwd`/git/gitconfig $(HOME)/.gitconfig
