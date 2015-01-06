@@ -5,7 +5,7 @@
 \pset null '<null>'
 
 -- nicer tables
-\pset linestyle unicode
+--\pset linestyle unicode
 
 -- enable timers
 \timing
