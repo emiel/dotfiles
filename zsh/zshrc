@@ -84,6 +84,9 @@ alias rm='rm -v -i'
 alias v='vim'
 alias view='vim -R'
 
+# Grep
+alias grep='grep --color=auto'
+
 # Terminal
 _terms=(rxvt rxvt-unicode vt102 vt220 xterm-color xterm-256color)
 for term in $_terms; do
