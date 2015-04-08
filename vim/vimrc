@@ -59,17 +59,15 @@ end
 let mapleader = ","
 
 " Clear highlight search
-nnoremap <leader>n :nohlsearch<cr>
-
-" Catch trailing whitespace
-"set listchars=tab:>-,trail:·,eol:$
-"nmap <silent> <leader>w :set nolist!<cr>
-"match ErrorMsg '\s\+$'
-nnoremap ,rtw :%s/\s\+$//e<CR>
+nnoremap <leader>n :nohlsearch<CR>
 
 " Swap similar keys
 nnoremap ' `
 nnoremap ` '
+
+" Swap
+nnoremap ; :
+nnoremap : ;
 
 " Scroll the viewport faster
 nnoremap <c-e> 4<c-e>
@@ -83,16 +81,20 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
-" Show whitespace
-set listchars=tab:>·,trail:·
-map <silent> <leader>W :set nolist<CR>
-map <silent> <leader>w :set list<CR>
+" Show unwanted whitespace
+set listchars=tab:>·,trail:·,nbsp:~
+set list
+"nmap <silent> <leader>W :set nolist<CR>
+"nmap <silent> <leader>w :set nolist!<CR>
+
+" Catch trailing whitespace
+"match ErrorMsg '\s\+$'
+nnoremap ,rtw :%s/\s\+$//e<CR>
 
 " Relative line numbers
-map <silent> <leader>N :set norelativenumber<CR>
-map <silent> <leader>n :set relativenumber<CR>
+nmap <silent> <leader>N :set norelativenumber<CR>
+nmap <silent> <leader>n :set relativenumber<CR>
 
-"
 "autocmd FileType c,cpp,python autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " Jump to last position in file after opening. Nice!
@@ -104,6 +106,9 @@ autocmd BufReadPost *
 " tags
 set tags=tags;~
 
+nmap <silent> <leader>s :set spell!<CR>
+set spelllang=en_US
+
 " Spell checking on for commit messages
 autocmd FileType gitcommit setlocal spell
 autocmd Filetype svn setlocal spell
@@ -113,12 +118,12 @@ autocmd Filetype svn setlocal spell
 ""
 
 " NERD Tree
-map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<cr>
+map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 " tagbar
 let g:tagbar_ctags_bin = "/usr/bin/ctags"
-nnoremap <silent> <leader>t :TagbarOpenAutoClose<cr>
-nnoremap <silent> <leader>T :TagbarToggle<cr>
+nnoremap <silent> <leader>t :TagbarOpenAutoClose<CR>
+nnoremap <silent> <leader>T :TagbarToggle<CR>
 
 "
 " Ack (ack-grep)
