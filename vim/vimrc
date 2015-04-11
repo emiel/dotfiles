@@ -1,9 +1,18 @@
-" This must be first, because it changes other options as a side effect.
 set nocompatible
 
-call pathogen#infect()
-call pathogen#helptags()
-
+" Vundle
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'ervandew/supertab'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tmhedberg/matchit'
+call vundle#end()
 filetype plugin indent on
 
 set autoindent
@@ -66,8 +75,8 @@ nnoremap ' `
 nnoremap ` '
 
 " Swap
-nnoremap ; :
-nnoremap : ;
+"nnoremap ; :
+"nnoremap : ;
 
 " Scroll the viewport faster
 nnoremap <c-e> 4<c-e>
