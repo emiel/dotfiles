@@ -45,7 +45,5 @@
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
 	lgg = log --graph
-[http]
-	proxy = http://proxy3.optiver.com:8080
 [push]
 	default = simple
