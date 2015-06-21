@@ -17,7 +17,7 @@ setopt HIST_REDUCE_BLANKS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_VERIFY
 setopt INC_APPEND_HISTORY
-setopt SHARE_HISTORY
+#setopt SHARE_HISTORY
 
 # Misc
 setopt AUTO_CD
@@ -94,6 +94,9 @@ for term in $_terms; do
 done
 
 alias ssh='TERM=xterm-color ssh'
+
+# jq: pretty print json
+alias ppjson="jq '.'"
 
 # Colorful completion listings
 zmodload -i zsh/complist
