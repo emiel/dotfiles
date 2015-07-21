@@ -4,10 +4,13 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'bling/vim-airline'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'ervandew/supertab'
 Plugin 'gmarik/Vundle.vim'
+Plugin 'hdima/python-syntax'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdcommenter'
@@ -54,10 +57,13 @@ set wildmode=list:longest
 ""
 
 syntax on
-colorscheme solarized
+
+set t_Co=256
+" colorscheme solarized
+colorscheme PaperColor-Dark
 
 if has('gui_running')
-  set background=light
+"  set background=light
 else
   set background=dark
 end
@@ -105,6 +111,8 @@ nnoremap ,rtw :%s/\s\+$//e<CR>
 nmap <silent> <leader>N :set norelativenumber<CR>
 nmap <silent> <leader>n :set relativenumber<CR>
 
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+
 "autocmd FileType c,cpp,python autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " Jump to last position in file after opening. Nice!
@@ -117,7 +125,7 @@ autocmd BufReadPost *
 set tags=tags;~
 
 nmap <silent> <leader>s :set spell!<CR>
-set spelllang=en_US
+set spelllang=en_us
 
 " Spell checking on for commit messages
 autocmd FileType gitcommit setlocal spell
@@ -139,3 +147,10 @@ nnoremap <silent> <leader>T :TagbarToggle<CR>
 " Ack (ack-grep)
 "
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+
+"
+" Python syntax
+"
+let python_highlight_all = 1
+
+let g:airline_theme='PaperColor'
