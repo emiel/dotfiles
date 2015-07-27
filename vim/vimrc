@@ -60,13 +60,14 @@ syntax on
 
 set t_Co=256
 " colorscheme solarized
-colorscheme PaperColor-Dark
+colorscheme PaperColor
 
-if has('gui_running')
+"if has('gui_running')
 "  set background=light
-else
-  set background=dark
-end
+"else
+"  set background=dark
+"end
+set background=dark
 
 ""
 "" Mapping
