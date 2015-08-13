@@ -1,5 +1,6 @@
 install: \
 	install-gdb \
+	install-ghci \
 	install-i3 \
 	install-i3status \
 	install-psql \

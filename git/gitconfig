@@ -40,6 +40,7 @@
 	lgg = log --graph
 	st = status
 	sm = submodule
+	lggg = log --all --graph --oneline --decorate
 
 [filter "media"]
 	clean = git-media-clean %f
