@@ -4,12 +4,14 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+
+" Plugins
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'ervandew/supertab'
-Plugin 'gmarik/Vundle.vim'
 Plugin 'hdima/python-syntax'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
