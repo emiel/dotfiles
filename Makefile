@@ -30,6 +30,10 @@ install-i3status:
 	rm -f $(HOME)/.i3status.conf
 	ln -s `pwd`/i3status/i3status.conf $(HOME)/.i3status.conf
 
+install-mutt:
+	rm -rf $(HOME)/.mutt
+	ln -s `pwd`/mutt $(HOME)/.mutt
+
 install-psql:
 	rm -f $(HOME)/.psqlrc*
 	ln -s `pwd`/psql/psqlrc $(HOME)/.psqlrc
