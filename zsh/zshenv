@@ -2,9 +2,6 @@ export EDITOR="vim"
 export MAILDIR="${HOME}/Maildir"
 export PAGER="less -R"
 
-# virtualenvwrapper
-export WORKON_HOME=~/envs
-
 # GNUPG
 #eval `gpg-agent --daemon`
 #
@@ -20,15 +17,3 @@ export WORKON_HOME=~/envs
 # Pelican
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-
-# MacPorts
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-
-# MacPorts postgres
-export PATH="/opt/local/lib/postgresql94/bin:$PATH"
-
-# MacPorts mysql
-export PATH="/opt/local/lib/mysql51/bin:$PATH"
-
-# Packer
-export PATH="${HOME}/packer:$PATH"
