@@ -1,24 +1,21 @@
 set nocompatible
 
-" Vundle
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/plugged')
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'altercation/vim-colors-solarized'
+Plug 'chase/vim-ansible-yaml'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ervandew/supertab'
+Plug 'gabrielelana/vim-markdown'
+Plug 'hdima/python-syntax'
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf.vim'
+Plug 'majutsushi/tagbar'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'tmhedberg/matchit'
+call plug#end()
 
-" Plugins
-Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'bling/vim-airline'
-Plugin 'chase/vim-ansible-yaml'
-Plugin 'ervandew/supertab'
-Plugin 'hdima/python-syntax'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'tmhedberg/matchit'
-call vundle#end()
 filetype plugin indent on
 
 set autoindent
@@ -46,6 +43,7 @@ set showmatch
 set showmode
 set smartcase
 set smartindent
+" Auto reformat using (visual mode 'gq')
 set textwidth=79
 set title
 set ttyfast
@@ -108,7 +106,7 @@ set list
 
 " Catch trailing whitespace
 "match ErrorMsg '\s\+$'
-nnoremap ,rtw :%s/\s\+$//e<CR>
+nnoremap <leader>rtw :%s/\s\+$//e<CR>
 
 " Relative line numbers
 nmap <silent> <leader>N :set norelativenumber<CR>
@@ -134,6 +132,8 @@ set spelllang=en_us
 autocmd FileType gitcommit setlocal spell
 autocmd Filetype svn setlocal spell
 
+set mouse=a
+
 ""
 "" Bundles
 ""
@@ -154,6 +154,6 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 "
 " Python syntax
 "
-let python_highlight_all = 1
+let python_highlight_all=1
 
 let g:airline_theme='PaperColor'
