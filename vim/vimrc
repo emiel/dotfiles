@@ -2,15 +2,14 @@ set nocompatible
 
 call plug#begin('~/.vim/plugged')
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'altercation/vim-colors-solarized'
 Plug 'chase/vim-ansible-yaml'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ervandew/supertab'
 Plug 'gabrielelana/vim-markdown'
-Plug 'hdima/python-syntax'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar'
+Plug 'rhysd/committia.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tmhedberg/matchit'
@@ -20,6 +19,7 @@ filetype plugin indent on
 
 set autoindent
 set backspace=indent,eol,start
+set clipboard=unnamed
 set confirm
 set copyindent
 set cursorline
@@ -56,18 +56,10 @@ set wildmode=list:longest
 "" Color Scheme
 ""
 
-syntax on
-
-set t_Co=256
-" colorscheme solarized
 colorscheme PaperColor
-
-"if has('gui_running')
-"  set background=light
-"else
-"  set background=dark
-"end
 set background=dark
+set t_Co=256
+syntax on
 
 ""
 "" Mapping
@@ -82,39 +74,18 @@ nnoremap <leader>n :nohlsearch<CR>
 nnoremap ' `
 nnoremap ` '
 
-" Swap
-"nnoremap ; :
-"nnoremap : ;
-
 " Scroll the viewport faster
 nnoremap <c-e> 4<c-e>
 nnoremap <c-y> 4<c-y>
 vnoremap <c-e> 4<c-e>
 vnoremap <c-y> 4<c-y>
 
-" Navigate splits
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
-
 " Show unwanted whitespace
-set listchars=tab:>·,trail:·,nbsp:~
 set list
-"nmap <silent> <leader>W :set nolist<CR>
-"nmap <silent> <leader>w :set nolist!<CR>
+set listchars=tab:>·,trail:·,nbsp:~
 
 " Catch trailing whitespace
-"match ErrorMsg '\s\+$'
 nnoremap <leader>rtw :%s/\s\+$//e<CR>
-
-" Relative line numbers
-nmap <silent> <leader>N :set norelativenumber<CR>
-nmap <silent> <leader>n :set relativenumber<CR>
-
-autocmd BufNewFile,BufRead *.md set filetype=markdown
-
-"autocmd FileType c,cpp,python autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " Jump to last position in file after opening. Nice!
 autocmd BufReadPost *
@@ -122,20 +93,19 @@ autocmd BufReadPost *
 \   exe "normal! g`\"" |
 \ endif
 
-" tags
+" Tags
 set tags=tags;~
 
-nmap <silent> <leader>s :set spell!<CR>
+" Spell checking
 set spelllang=en_us
-
-" Spell checking on for commit messages
+nmap <silent> <leader>s :set spell!<CR>
 autocmd FileType gitcommit setlocal spell
-autocmd Filetype svn setlocal spell
 
+" Mouse
 set mouse=a
 
 ""
-"" Bundles
+"" Plugins
 ""
 
 " NERD Tree
@@ -146,14 +116,10 @@ let g:tagbar_ctags_bin = "/usr/bin/ctags"
 nnoremap <silent> <leader>t :TagbarOpenAutoClose<CR>
 nnoremap <silent> <leader>T :TagbarToggle<CR>
 
-"
 " Ack (ack-grep)
-"
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
-"
-" Python syntax
-"
-let python_highlight_all=1
-
-let g:airline_theme='PaperColor'
+" lightline
+let g:lightline = {
+        \ 'colorscheme': 'PaperColor',
+        \ }
