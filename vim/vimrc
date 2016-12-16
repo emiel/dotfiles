@@ -80,6 +80,12 @@ nnoremap <c-y> 4<c-y>
 vnoremap <c-e> 4<c-e>
 vnoremap <c-y> 4<c-y>
 
+" Navigate splits
+map <c-h> <c-w>h
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-l> <c-w>l
+
 " Show unwanted whitespace
 set list
 set listchars=tab:>·,trail:·,nbsp:~
