@@ -1,8 +1,29 @@
 #source ~/.mutt/aliases
-source ~/.mutt/mutt-colors-solarized-dark-256.muttrc
+#source ~/.mutt/mutt-colors-solarized-dark-16.muttrc
 
-mailboxes ~/Mail
+#mailboxes ~/Maildir
 #mailboxes `/home/emiel/bin/mailboxes_maildir.rb`
+
+mailboxes + `\
+for file in ~/Maildir/.*; do \
+  box=$(basename "$file"); \
+  if [ ! "$box" = '.' -a ! "$box" = '..' -a ! "$box" = '.customflags' \
+    -a ! "$box" = '.subscriptions' ]; then \
+    echo -n "\"+$box\" "; \
+  fi; \
+done; \
+for folder in ~/Maildir/*; do \
+  if [ -x $folder ]; then \
+    box=$(basename "$folder"); \
+    for file in ~/.maildir/$box/.*; do \
+      box2=$(basename "$file"); \
+      if [ ! "$box2" = '.' -a ! "$box2" = '..' -a ! "$box2" = '.customflags' \
+        -a ! "$box2" = '.subscriptions' ]; then \
+        echo -n "\"+$box/$box2\" "; \
+      fi; \
+      done; \
+  fi; \
+done`
 
 set alias_file = ~/.mutt/aliases
 set allow_8bit = no
@@ -18,6 +39,7 @@ set editor="vim '+/^$'"
 set encode_from = yes
 set fast_reply = yes
 set fcc_clear = yes
+set folder = ~/Maildir/
 set folder_format = "%F %-8.8u %-8.8g %d %8s %N %f"
 set force_name = yes
 set forward_decrypt = no
@@ -28,7 +50,7 @@ set implicit_autoview = yes
 set index_format="%4C %Z %[!%d/%m] %-17.17F (%3l) %s"
 set ispell = "aspell -e -c"
 set mark_old = no
-set mbox = ~/Mail
+set mbox = ~/Maildir/
 set mbox_type = "Maildir"
 set menu_scroll = yes
 set mh_purge = yes
@@ -51,7 +73,7 @@ set pgp_verify_command="/usr/local/bin/gpg --status-fd=2 --no-verbose --quiet --
 set pgp_verify_key_command="/usr/local/bin/gpg --verbose --batch  --fingerprint --check-sigs %r"
 set pipe_decode = yes
 set pipe_split = yes
-set postponed = ~/Mail/Postponed/
+set postponed = ~/Maildir/Postponed/
 set prompt_after = no
 set quote_regexp = "^( {0,4}-?[>|:]| {0,4}[a-z0-9]+[>|]+)+"
 set read_inc = 20
@@ -63,6 +85,7 @@ set save_empty = no
 set score = no
 set simple_search = "~f %s | ~C %s | ~s %s"
 set sort_re = no
+set spoolfile=~/Maildir/
 set status_on_top = yes
 set suspend = no
 set tilde = yes
