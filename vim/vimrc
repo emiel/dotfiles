@@ -9,10 +9,13 @@ Plug 'gabrielelana/vim-markdown'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar'
+Plug 'nvie/vim-flake8'
 Plug 'rhysd/committia.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tmhedberg/matchit'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 filetype plugin indent on
@@ -38,6 +41,7 @@ set scrolloff=3
 set shell=zsh
 set shortmess=atI
 set showbreak=+++
+set pastetoggle=<F10>
 set showcmd
 set showmatch
 set showmode
@@ -129,3 +133,7 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 let g:lightline = {
         \ 'colorscheme': 'PaperColor',
         \ }
+
+
+" vim-flake8
+autocmd FileType python map <buffer> <leader>f :call Flake8()<CR>
