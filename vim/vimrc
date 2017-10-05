@@ -9,13 +9,14 @@ Plug 'gabrielelana/vim-markdown'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar'
-Plug 'nvie/vim-flake8'
+Plug 'mileszs/ack.vim'
 Plug 'rhysd/committia.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tmhedberg/matchit'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'w0rp/ale'
 call plug#end()
 
 filetype plugin indent on
@@ -92,7 +93,7 @@ map <c-l> <c-w>l
 
 " Show unwanted whitespace
 set list
-set listchars=tab:>�,trail:�,nbsp:~
+set listchars=tab:>·,trail:·,nbsp:~
 
 " Catch trailing whitespace
 nnoremap <leader>rtw :%s/\s\+$//e<CR>
@@ -114,6 +115,15 @@ autocmd FileType gitcommit setlocal spell
 " Mouse
 set mouse=a
 
+if executable('ripgrep')
+  set grepprg=rg\ --no-heading\ --vimgrep\ --smart-case
+  set grepformat=%f:%l:%c:%m
+endif
+
+if executable("ack")
+  set grepprg=ack\ -k
+endif
+
 ""
 "" Plugins
 ""
@@ -126,14 +136,11 @@ let g:tagbar_ctags_bin = "/usr/bin/ctags"
 nnoremap <silent> <leader>t :TagbarOpenAutoClose<CR>
 nnoremap <silent> <leader>T :TagbarToggle<CR>
 
-" Ack (ack-grep)
-let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+" Ack
+let g:ackprg="ack -H --nocolor --nogroup --column"
 
 " lightline
-let g:lightline = {
-        \ 'colorscheme': 'PaperColor',
-        \ }
+let g:lightline = { 'colorscheme': 'PaperColor' }
 
-
-" vim-flake8
-autocmd FileType python map <buffer> <leader>f :call Flake8()<CR>
+" Asynchronous Lint Engine (ALE)
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
