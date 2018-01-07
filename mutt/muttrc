@@ -1,6 +1,3 @@
-#source ~/.mutt/aliases
-#source ~/.mutt/mutt-colors-solarized-dark-16.muttrc
-
 #mailboxes ~/Maildir
 #mailboxes `/home/emiel/bin/mailboxes_maildir.rb`
 
