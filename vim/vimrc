@@ -3,17 +3,16 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'chase/vim-ansible-yaml'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'ervandew/supertab'
 Plug 'gabrielelana/vim-markdown'
 Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
 Plug 'rhysd/committia.vim'
-Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tmhedberg/matchit'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
@@ -115,13 +114,9 @@ autocmd FileType gitcommit setlocal spell
 " Mouse
 set mouse=a
 
-if executable('ripgrep')
-  set grepprg=rg\ --no-heading\ --vimgrep\ --smart-case
+if executable("ag")
+  set grepprg=ag\ --vimgrep\ $*
   set grepformat=%f:%l:%c:%m
-endif
-
-if executable("ack")
-  set grepprg=ack\ -k
 endif
 
 ""
@@ -136,8 +131,18 @@ let g:tagbar_ctags_bin = "/usr/bin/ctags"
 nnoremap <silent> <leader>t :TagbarOpenAutoClose<CR>
 nnoremap <silent> <leader>T :TagbarToggle<CR>
 
+" fzf.vim
+nmap <leader>fb :Buffers<CR>
+nmap <Leader>ff :Files<CR>
+nmap <Leader>ft :Tags<CR>
+
 " Ack
-let g:ackprg="ack -H --nocolor --nogroup --column"
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
+let g:ack_autoclose=1
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep --smart-case -s -H --nocolor --nogroup --column'
+endif
 
 " lightline
 let g:lightline = { 'colorscheme': 'PaperColor' }
