@@ -35,13 +35,8 @@ install-mutt:
 	ln -s `pwd`/mutt $(HOME)/.mutt
 
 install-psql:
-	rm -f $(HOME)/.psqlrc*
+	rm -f $(HOME)/.psqlrc
 	ln -s `pwd`/psql/psqlrc $(HOME)/.psqlrc
-	ln -s `pwd`/psql/psqlrc-9.2 $(HOME)/.psqlrc-9.2
-	ln -s `pwd`/psql/psqlrc-9.3 $(HOME)/.psqlrc-9.3
-	ln -s `pwd`/psql/psqlrc-9.4 $(HOME)/.psqlrc-9.4
-	ln -s `pwd`/psql/psqlrc-9.5 $(HOME)/.psqlrc-9.5
-	ln -s `pwd`/psql/psqlrc-9.6 $(HOME)/.psqlrc-9.6
 
 install-subversion:
 	rm -f $(HOME)/.subversion/config
