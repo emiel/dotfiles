@@ -34,6 +34,10 @@ install-mutt:
 	rm -rf $(HOME)/.mutt
 	ln -s `pwd`/mutt $(HOME)/.mutt
 
+install-npm:
+	rm -f $(HOME)/.npmrc
+	ln -s `pwd`/npm/npmrc $(HOME)/.npmrc
+
 install-psql:
 	rm -f $(HOME)/.psqlrc
 	ln -s `pwd`/psql/psqlrc $(HOME)/.psqlrc
