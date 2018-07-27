@@ -153,3 +153,6 @@ let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
 " Vagrantfile
 autocmd BufRead Vagrantfile set filetype=ruby
+
+" Mutt
+autocmd BufRead /tmp/mutt-* set tw=72
