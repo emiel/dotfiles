@@ -64,7 +64,6 @@ install-x11:
 	rm -f $(HOME)/.xinitrc $(HOME)/.Xresources
 	ln -s `pwd`/x11/xinitrc $(HOME)/.xinitrc
 	ln -s `pwd`/x11/Xresources $(HOME)/.Xresources
-	xrdb $(HOME)/.Xresources
 
 install-zsh:
 	rm -f $(HOME)/.zlogout $(HOME)/.zshenv $(HOME)/.zshrc
