@@ -52,7 +52,6 @@ set smartindent
 set textwidth=79
 set title
 set ttyfast
-set viminfo='20,<50,s10,h,%
 set visualbell
 set wildmenu
 set wildmode=list:longest
