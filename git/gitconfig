@@ -29,22 +29,26 @@
 	untracked = cyan
 
 [merge]
-	tool = vimdiff
+	tool = opendiff
 
 [alias]
 	br = branch
 	ci = commit
 	co = checkout
-	df = diff
+	df = diff -w
 	lg = log -p
-	lgg = log --graph
+	lgl = log --oneline
+	lgg = log --graph --oneline --decorate --all
+	lgcmp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset | %an' --abbrev-commit --date=relative
 	st = status
-	sm = submodule
-	lggg = log --all --graph --oneline --decorate
 
-[filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
-	lgg = log --graph
 [push]
 	default = simple
+
+[sendemail]
+	annotate = yes
+	smtpencryption = tls
+	smtpserver = dragon.ttyout.net
+	smtpserverport = 587
+	smtpuser = emiel
+	verify = off
