@@ -109,7 +109,7 @@ set tags=tags;~
 " Spell checking
 set spelllang=en_us
 nmap <silent> <leader>s :set spell!<CR>
-autocmd FileType gitcommit setlocal spell
+
 
 " Mouse
 set mouse=a
@@ -155,3 +155,6 @@ autocmd BufRead Vagrantfile set filetype=ruby
 
 " Mutt
 autocmd BufRead /tmp/mutt-* set tw=72
+
+" git commit
+autocmd FileType gitcommit setlocal spell textwidth=72
