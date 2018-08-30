@@ -2,6 +2,7 @@ set nocompatible
 
 call plug#begin('~/.vim/plugged')
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'ambv/black'
 Plug 'chase/vim-ansible-yaml'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -158,3 +159,7 @@ autocmd BufRead /tmp/mutt-* set tw=72
 
 " git commit
 autocmd FileType gitcommit setlocal spell textwidth=72
+
+" ale prettier
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier']
