@@ -9,6 +9,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'raichoo/purescript-vim'
 Plug 'rhysd/committia.vim'
 Plug 'scrooloose/nerdtree'
