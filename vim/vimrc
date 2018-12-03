@@ -16,6 +16,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'tmhedberg/matchit'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-git'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
@@ -36,8 +37,10 @@ set hlsearch
 set ignorecase
 set incsearch
 set laststatus=2
+set lazyredraw
 set modelines=0
 set nobackup
+set nojoinspaces
 set preserveindent
 set ruler
 set scrolloff=3
@@ -151,15 +154,6 @@ let g:lightline = { 'colorscheme': 'PaperColor' }
 
 " Asynchronous Lint Engine (ALE)
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-
-" Vagrantfile
-autocmd BufRead Vagrantfile set filetype=ruby
-
-" Mutt
-autocmd BufRead /tmp/mutt-* set tw=72
-
-" git commit
-autocmd FileType gitcommit setlocal spell textwidth=72
 
 " ale prettier
 let g:ale_fixers = {}
