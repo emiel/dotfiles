@@ -38,16 +38,18 @@ set ignorecase
 set incsearch
 set laststatus=2
 set lazyredraw
+set list "show whitepspace
+set listchars=tab:>·,trail:·,nbsp:~
 set modelines=0
 set nobackup
 set nojoinspaces
+set pastetoggle=<F10>
 set preserveindent
 set ruler
 set scrolloff=3
 set shell=zsh
 set shortmess=atI
 set showbreak=+++
-set pastetoggle=<F10>
 set showcmd
 set showmatch
 set showmode
@@ -66,7 +68,7 @@ set wildmode=list:longest
 ""
 
 colorscheme PaperColor
-set background=dark
+set background=light
 set t_Co=256
 syntax on
 
@@ -75,6 +77,7 @@ syntax on
 ""
 
 let mapleader = ","
+nnoremap , <Nop>
 
 " Clear highlight search
 nnoremap <leader>n :nohlsearch<CR>
@@ -90,17 +93,13 @@ vnoremap <c-e> 4<c-e>
 vnoremap <c-y> 4<c-y>
 
 " Navigate splits
-map <c-h> <c-w>h
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-
-" Show unwanted whitespace
-set list
-set listchars=tab:>·,trail:·,nbsp:~
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
 
 " Catch trailing whitespace
-nnoremap <leader>rtw :%s/\s\+$//e<CR>
+nnoremap <silent> <leader>rtw :%s/\s\+$//e<CR>
 
 " Jump to last position in file after opening. Nice!
 autocmd BufReadPost *
@@ -113,8 +112,10 @@ set tags=tags;~
 
 " Spell checking
 set spelllang=en_us
-nmap <silent> <leader>s :set spell!<CR>
+nnoremap <silent> <leader>s :set spell!<CR>
 
+" Inserting dates
+inoremap <C-g><C-t> [<C-r>=strftime("%d/%b/%y %H:%M")<CR>]
 
 " Mouse
 set mouse=a
@@ -129,7 +130,7 @@ endif
 ""
 
 " NERD Tree
-map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+nnoremap <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 " tagbar
 let g:tagbar_ctags_bin = "/usr/bin/ctags"
@@ -137,9 +138,9 @@ nnoremap <silent> <leader>t :TagbarOpenAutoClose<CR>
 nnoremap <silent> <leader>T :TagbarToggle<CR>
 
 " fzf.vim
-nmap <leader>fb :Buffers<CR>
-nmap <Leader>ff :Files<CR>
-nmap <Leader>ft :Tags<CR>
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <Leader>ff :Files<CR>
+nnoremap <Leader>ft :Tags<CR>
 
 " Ack
 cnoreabbrev Ack Ack!
