@@ -2,20 +2,24 @@ set nocompatible
 
 call plug#begin('~/.vim/plugged')
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'ambv/black'
 Plug 'chase/vim-ansible-yaml'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'ervandew/supertab'
-Plug 'gabrielelana/vim-markdown'
 Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar'
-Plug 'nvie/vim-flake8'
+Plug 'mileszs/ack.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'raichoo/purescript-vim'
 Plug 'rhysd/committia.vim'
-Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tmhedberg/matchit'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-surround'
+Plug 'w0rp/ale'
 call plug#end()
 
 filetype plugin indent on
@@ -33,15 +37,19 @@ set hlsearch
 set ignorecase
 set incsearch
 set laststatus=2
+set lazyredraw
+set list "show whitepspace
+set listchars=tab:>·,trail:·,nbsp:~
 set modelines=0
 set nobackup
+set nojoinspaces
+set pastetoggle=<F10>
 set preserveindent
 set ruler
 set scrolloff=3
 set shell=zsh
 set shortmess=atI
 set showbreak=+++
-set pastetoggle=<F10>
 set showcmd
 set showmatch
 set showmode
@@ -51,7 +59,6 @@ set smartindent
 set textwidth=79
 set title
 set ttyfast
-set viminfo='20,<50,s10,h,%
 set visualbell
 set wildmenu
 set wildmode=list:longest
@@ -60,8 +67,8 @@ set wildmode=list:longest
 "" Color Scheme
 ""
 
-"colorscheme PaperColor
-set background=dark
+colorscheme PaperColor
+set background=light
 set t_Co=256
 syntax on
 
@@ -70,6 +77,7 @@ syntax on
 ""
 
 let mapleader = ","
+nnoremap , <Nop>
 
 " Clear highlight search
 nnoremap <leader>n :nohlsearch<CR>
@@ -85,17 +93,13 @@ vnoremap <c-e> 4<c-e>
 vnoremap <c-y> 4<c-y>
 
 " Navigate splits
-map <c-h> <c-w>h
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-
-" Show unwanted whitespace
-set list
-set listchars=tab:>�,trail:�,nbsp:~
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
 
 " Catch trailing whitespace
-nnoremap <leader>rtw :%s/\s\+$//e<CR>
+nnoremap <silent> <leader>rtw :%s/\s\+$//e<CR>
 
 " Jump to last position in file after opening. Nice!
 autocmd BufReadPost *
@@ -108,32 +112,50 @@ set tags=tags;~
 
 " Spell checking
 set spelllang=en_us
-nmap <silent> <leader>s :set spell!<CR>
-autocmd FileType gitcommit setlocal spell
+nnoremap <silent> <leader>s :set spell!<CR>
+
+" Inserting dates
+inoremap <C-g><C-t> [<C-r>=strftime("%d/%b/%y %H:%M")<CR>]
 
 " Mouse
 set mouse=a
+
+if executable("ag")
+  set grepprg=ag\ --vimgrep\ $*
+  set grepformat=%f:%l:%c:%m
+endif
 
 ""
 "" Plugins
 ""
 
 " NERD Tree
-map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+nnoremap <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 " tagbar
 let g:tagbar_ctags_bin = "/usr/bin/ctags"
 nnoremap <silent> <leader>t :TagbarOpenAutoClose<CR>
 nnoremap <silent> <leader>T :TagbarToggle<CR>
 
-" Ack (ack-grep)
-let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+" fzf.vim
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <Leader>ff :Files<CR>
+nnoremap <Leader>ft :Tags<CR>
+
+" Ack
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
+let g:ack_autoclose=1
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep --smart-case -s -H --nocolor --nogroup --column'
+endif
 
 " lightline
-let g:lightline = {
-        \ 'colorscheme': 'PaperColor',
-        \ }
+let g:lightline = { 'colorscheme': 'PaperColor' }
 
+" Asynchronous Lint Engine (ALE)
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
-" vim-flake8
-autocmd FileType python map <buffer> <leader>f :call Flake8()<CR>
+" ale prettier
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier']

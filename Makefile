@@ -34,14 +34,13 @@ install-mutt:
 	rm -rf $(HOME)/.mutt
 	ln -s `pwd`/mutt $(HOME)/.mutt
 
+install-npm:
+	rm -f $(HOME)/.npmrc
+	ln -s `pwd`/npm/npmrc $(HOME)/.npmrc
+
 install-psql:
-	rm -f $(HOME)/.psqlrc*
+	rm -f $(HOME)/.psqlrc
 	ln -s `pwd`/psql/psqlrc $(HOME)/.psqlrc
-	ln -s `pwd`/psql/psqlrc-9.2 $(HOME)/.psqlrc-9.2
-	ln -s `pwd`/psql/psqlrc-9.3 $(HOME)/.psqlrc-9.3
-	ln -s `pwd`/psql/psqlrc-9.4 $(HOME)/.psqlrc-9.4
-	ln -s `pwd`/psql/psqlrc-9.5 $(HOME)/.psqlrc-9.5
-	ln -s `pwd`/psql/psqlrc-9.6 $(HOME)/.psqlrc-9.6
 
 install-subversion:
 	rm -f $(HOME)/.subversion/config
@@ -65,7 +64,6 @@ install-x11:
 	rm -f $(HOME)/.xinitrc $(HOME)/.Xresources
 	ln -s `pwd`/x11/xinitrc $(HOME)/.xinitrc
 	ln -s `pwd`/x11/Xresources $(HOME)/.Xresources
-	xrdb $(HOME)/.Xresources
 
 install-zsh:
 	rm -f $(HOME)/.zlogout $(HOME)/.zshenv $(HOME)/.zshrc

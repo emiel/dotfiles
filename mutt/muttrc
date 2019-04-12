@@ -1,6 +1,3 @@
-#source ~/.mutt/aliases
-#source ~/.mutt/mutt-colors-solarized-dark-16.muttrc
-
 #mailboxes ~/Maildir
 #mailboxes `/home/emiel/bin/mailboxes_maildir.rb`
 
@@ -35,7 +32,7 @@ set bounce_delivered = no
 set collapse_unread = no
 set confirmappend = no
 set default_hook="~f %s | ~t %s"
-set editor="vim '+/^$'"
+set editor="vim"
 set encode_from = yes
 set fast_reply = yes
 set fcc_clear = yes

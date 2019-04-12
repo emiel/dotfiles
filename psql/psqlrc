@@ -1,33 +1,15 @@
--- disable output temporarily
 \set QUIET on
 
--- nicer rendering for null
-\pset null '<null>'
+\timing on
 
--- nicer tables
---\pset linestyle unicode
-
--- enable timers
-\timing
-
--- disable default pager
+\pset expanded auto
+\pset null '(null)'
 \pset pager off
 
--- automatically switch to \x for large outputs
-\x auto
-
--- nicer prompt
-\set PROMPT1 '\npsql %[%033[0;33;32m%]%/%[%033[0m%] on %[%033[0;33;33m%]%M%[%033[0m%] as %[%033[0;33;35m%]%n%[%033[0m%] %[%033[0;33;36m%]%x%[%033[0m%]\n%R> '
-\set PROMPT2 '%R> '
-
--- better errors
+\set COMP_KEYWORD_CASE preserve-lower
+\set HISTCONTROL ignoredups
+\set PROMPT1 '%n@%M %/%R%# '
+\set PROMPT2 '%n@%M %/%R%# '
 \set VERBOSITY verbose
 
--- keep inputs in the history once
-\set HISTCONTROL ignoredups
-
--- always auto complete in lowercase
-\set COMP_KEYWORD_CASE lower
-
--- output back on
 \set QUIET off

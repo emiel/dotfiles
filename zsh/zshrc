@@ -10,7 +10,6 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 RPROMPT=\$vcs_info_msg_0_
-#PROMPT=\$vcs_info_msg_0_'%# '
 zstyle ':vcs_info:git:*' formats '%b'
 
 # History
@@ -60,8 +59,6 @@ alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 alias mv='nocorrect mv'
 alias rm='nocorrect rm'
-
-alias ansible-vault-smartpr='ansible-vault --vault-password-file=~/.vault-smartpr'
 
 # ls
 case `uname -s` in
@@ -116,8 +113,11 @@ if [[ -e `which keychain` ]]; then
 	eval `keychain -q -Q --nogui --eval id_rsa`
 fi
 
-# The next line updates PATH for the Google Cloud SDK.
-#source '/Users/emiel/google-cloud-sdk/path.zsh.inc'
+# My logbook
+function lb() {
+	local lbdir=~/logbook
+	[[ ! -d $lbdir ]] && mkdir $lbdir
+	vim $lbdir/$(date '+%Yw%V').md
+}
 
-# The next line enables shell command completion for gcloud.
-#source '/Users/emiel/google-cloud-sdk/completion.zsh.inc'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
