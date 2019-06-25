@@ -1,4 +1,5 @@
 install: \
+	install-flake8 \
 	install-gdb \
 	install-ghci \
 	install-i3 \
@@ -9,6 +10,11 @@ install: \
 	install-vim \
 	install-x11 \
 	install-zsh
+
+install-flake8:
+	rm -f $(HOME)/.config/flake8
+	mkdir -p $(HOME)/.config
+	ln -s `pwd`/flake8/flake8 $(HOME)/.config/flake8
 
 install-gdb:
 	rm -f $(HOME)/.gdbinit
