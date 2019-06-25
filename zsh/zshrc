@@ -1,41 +1,44 @@
-# Completion
-autoload -Uz compinit && compinit
+##
+## PARAMETERS (zshparam)
+##
 
-# Prompt
-autoload -U promptinit && promptinit
-prompt suse
-
-autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-setopt prompt_subst
-RPROMPT=\$vcs_info_msg_0_
-zstyle ':vcs_info:git:*' formats '%b'
-
-# History
 HISTFILE=~/.zhistory
 HISTSIZE=1000
 SAVEHIST=1000
 
+##
+## OPTIONS (zshoptions)
+##
+
+# Changing directories
+setopt AUTO_CD
+
+# Expansion and Globbing
+setopt EXTENDED_GLOB
+
+# History
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_VERIFY
-#setopt INC_APPEND_HISTORY
-#setopt SHARE_HISTORY
 
-# Misc
-setopt AUTO_CD
-setopt EXTENDED_GLOB
-setopt NO_BEEP
+# Prompting
+setopt PROMPT_SUBST
+
+# Zle
+unsetopt BEEP
+
+##
+## ZLE (zshzle)
+##
 
 # Vi editing
 bindkey -v
 
-#bindkey -M viins "^P" vi-up-line-or-history
-#bindkey -M viins "^N" vi-down-line-or-history
+bindkey '^[m' copy-prev-shell-word # File rename magick
+bindkey '^r' history-incremental-search-backward
 
 bindkey -M viins "^[[1~" vi-beginning-of-line   # Home
 bindkey -M viins "^[[4~" vi-end-of-line         # End
@@ -44,80 +47,71 @@ bindkey -M viins '^[[3~' delete-char            # Del
 bindkey -M viins '^[[5~' vi-backward-blank-word # Page Up
 bindkey -M viins '^[[6~' vi-forward-blank-word  # Page Down
 
-#[[ -z "$terminfo[cuu1]" ]] || bindkey -M viins "$terminfo[cuu1]" vi-up-line-or-history
-#[[ -z "$terminfo[cuf1]" ]] || bindkey -M viins "$terminfo[cuf1]" vi-forward-char
-#[[ -z "$terminfo[kcuu1]" ]] || bindkey -M viins "$terminfo[kcuu1]" vi-up-line-or-history
-#[[ -z "$terminfo[kcud1]" ]] || bindkey -M viins "$terminfo[kcud1]" vi-down-line-or-history
-#[[ -z "$terminfo[kcuf1]" ]] || bindkey -M viins "$terminfo[kcuf1]" vi-forward-char
-#[[ -z "$terminfo[kcub1]" ]] || bindkey -M viins "$terminfo[kcub1]" vi-backward-char
+##
+## Aliases
+##
 
-# File rename magick
-bindkey '^[m' copy-prev-shell-word
+alias cp='nocorrect cp -v -i'
+alias mkdir='nocorrect mkdir -v'
+alias mv='nocorrect mv -v -i'
+alias rm='nocorrect rm -v -i'
 
-# Aliases
-alias cp='nocorrect cp'
-alias mkdir='nocorrect mkdir'
-alias mv='nocorrect mv'
-alias rm='nocorrect rm'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+alias ssh='TERM=xterm-color ssh'
+alias view='vim -R'
 
 # ls
-case `uname -s` in
+case $(uname -s) in
 'Darwin'| 'FreeBSD')
 	export LSCOLORS=exfxcxdxbxegedabagacad
 	alias ls='ls -F -G'
 	;;
 'Linux')
 	alias ls='ls -F --color=auto'
-	eval `dircolors ~/.dircolors`
+	eval "$(dircolors ~/.dircolors)"
 	;;
 esac
 
 alias l.='ls -d .[^.]*'
-alias ll='ls -l'
 alias ll.='ls -l -d .[^.]*'
+alias ll='ls -l'
 alias lsd='ls -ld *(-/DN)'
 
-alias md='mkdir -p'
-alias rd='rmdir'
+##
+## Completion
+##
 
-alias po='popd'
-alias pu='pushd'
+autoload -Uz compinit
+compinit
 
-alias cp='cp -v -i'
-alias mkdir='mkdir -v'
-alias mv='mv -v -i'
-alias rm='rm -v -i'
+##
+## Extras
+##
 
-alias v='vim'
-alias view='vim -R'
-
-# Grep
-alias grep='grep --color=auto'
-
-# Terminal
-_terms=(rxvt rxvt-unicode vt102 vt220 xterm-color xterm-256color)
-for term in $_terms; do
-	alias term_${term}='eval `tset -s -I -Q '${term}'`'
-done
-
-alias ssh='TERM=xterm-color ssh'
-
-# jq: pretty print json
-alias ppjson="jq '.'"
-
-# Colorful completion listings
-zmodload -i zsh/complist
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
-if [[ -e `which keychain` ]]; then
-	eval `keychain -q -Q --nogui --eval id_rsa`
-fi
+# Include git branch name in prompt
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+RPROMPT=\$vcs_info_msg_0_
+zstyle ':vcs_info:git:*' formats '%b'
 
 # My logbook
 function lb() {
 	local lbdir=~/logbook
 	[[ ! -d $lbdir ]] && mkdir $lbdir
-	vim $lbdir/$(date '+%Yw%V').md
+	vim "$lbdir/$(date '+%Yw%V').md"
 }
 
+# keychain
+[ -x "$(command -v keychain)" ] && eval "$(keychain -q -Q --nogui --eval id_rsa)"
+
+# direnv
+[ -x "$(command -v direnv)" ] && eval "$(direnv hook zsh)"
+
+# Fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Haskell Platform
+[ -f ~/.ghcup/env ] && source ~/.ghcup/env
