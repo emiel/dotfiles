@@ -110,8 +110,5 @@ function lb() {
 # direnv
 [ -x "$(command -v direnv)" ] && eval "$(direnv hook zsh)"
 
-# Fuzzy finder
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # Haskell Platform
 [ -f ~/.ghcup/env ] && source ~/.ghcup/env
