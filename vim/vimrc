@@ -1,14 +1,16 @@
 set nocompatible
 
+""
+"" Plugins
+""
+
 call plug#begin('~/.vim/plugged')
+Plug '/opt/local/share/fzf/vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'ambv/black'
-Plug 'chase/vim-ansible-yaml'
 Plug 'elmcast/elm-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf.vim'
-Plug '/opt/local/share/fzf/vim'
-Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'raichoo/purescript-vim'
@@ -24,6 +26,10 @@ Plug 'w0rp/ale'
 call plug#end()
 
 filetype plugin indent on
+
+""
+"" Global Options
+""
 
 set autoindent
 set backspace=indent,eol,start
@@ -42,6 +48,7 @@ set lazyredraw
 set list "show whitepspace
 set listchars=tab:>·,trail:·,nbsp:~
 set modelines=0
+set mouse=a
 set nobackup
 set nojoinspaces
 set pastetoggle=<F10>
@@ -56,7 +63,8 @@ set showmatch
 set showmode
 set smartcase
 set smartindent
-" Auto reformat using (visual mode 'gq')
+set spelllang=en_us
+set tags=tags;~
 set textwidth=79
 set title
 set ttyfast
@@ -64,24 +72,18 @@ set visualbell
 set wildmenu
 set wildmode=list:longest
 
-""
-"" Color Scheme
-""
-
-colorscheme PaperColor
-set background=light
-set t_Co=256
-syntax on
+" Prefer ag (The Silver Searcher) over grep
+if executable("ag")
+  set grepprg=ag\ --vimgrep\ $*
+  set grepformat=%f:%l:%c:%m
+endif
 
 ""
 "" Mapping
 ""
 
-let mapleader = ","
+let mapleader = ','
 nnoremap , <Nop>
-
-" Clear highlight search
-nnoremap <leader>n :nohlsearch<CR>
 
 " Swap similar keys
 nnoremap ' `
@@ -99,8 +101,47 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 
-" Catch trailing whitespace
-nnoremap <silent> <leader>rtw :%s/\s\+$//e<CR>
+""
+"" Mappings used frequently
+""
+
+" Clear highlight search
+nnoremap <leader>h :nohlsearch<CR>
+
+" Strip trailing whitespace
+"nnoremap <silent> <leader>rtw :<C-U>call StripTrailingWhitespace()<CR>
+
+" Ack
+cnoreabbrev Ack Ack!
+cnoreabbrev AckFile AckFile!
+nnoremap <leader>a :Ack!<Space>
+nnoremap <leader>af :AckFile!<Space>
+" Ack - Search for word under cursor
+nnoremap K :Ack! <cword> *<CR>
+
+" ALE
+nnoremap <leader>F :ALEFix<CR>
+nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
+nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
+
+" fzf.vim
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>t :Tags<CR>
+
+" NERDTree
+nnoremap <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+" nnoremap \f :NERDTreeFind<CR>
+
+" Spell checking
+nnoremap <silent> <leader>s :set spell!<CR>
+
+" Toggle pasting...
+nnoremap <leader>p :set paste!<CR>:set paste?<CR>
+
+""
+"" File type triggers
+""
 
 " Jump to last position in file after opening. Nice!
 autocmd BufReadPost *
@@ -108,55 +149,39 @@ autocmd BufReadPost *
 \   exe "normal! g`\"" |
 \ endif
 
-" Tags
-set tags=tags;~
+""
+"" Colors
+""
 
-" Spell checking
-set spelllang=en_us
-nnoremap <silent> <leader>s :set spell!<CR>
+syntax on
 
-" Inserting dates
-inoremap <C-g><C-t> [<C-r>=strftime("%d/%b/%y %H:%M")<CR>]
+let g:lightline = { 'colorscheme': 'PaperColor' }
 
-" Mouse
-set mouse=a
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default': {
+  \       'transparent_background': 1
+  \     }
+  \   }
+  \ }
 
-if executable("ag")
-  set grepprg=ag\ --vimgrep\ $*
-  set grepformat=%f:%l:%c:%m
-endif
+set background=light
+
+colorscheme PaperColor
 
 ""
 "" Plugins
 ""
 
-" NERD Tree
-nnoremap <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
-
-" tagbar
-let g:tagbar_ctags_bin = "/usr/bin/ctags"
-nnoremap <silent> <leader>t :TagbarOpenAutoClose<CR>
-nnoremap <silent> <leader>T :TagbarToggle<CR>
-
-" fzf.vim
-nnoremap <leader>fb :Buffers<CR>
-nnoremap <Leader>ff :Files<CR>
-nnoremap <Leader>ft :Tags<CR>
-
 " ack.vim
-cnoreabbrev Ack Ack!
-nnoremap <Leader>a :Ack!<Space>
-let g:ack_autoclose=1
+let g:ack_autoclose = 1
+let g:ack_mappings = {
+      \  'v':  '<C-W><CR><C-W>L<C-W>p<C-W>J<C-W>p',
+      \ 'gv': '<C-W><CR><C-W>L<C-W>p<C-W>J' }
+
 if executable('ag')
   let g:ackprg = 'ag --vimgrep --smart-case -s -H --nocolor --nogroup --column'
 endif
 
-" lightline
-let g:lightline = { 'colorscheme': 'PaperColor' }
-
-" Asynchronous Lint Engine (ALE)
+" ALE
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-
-" ale prettier
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
