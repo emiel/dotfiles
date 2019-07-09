@@ -185,3 +185,6 @@ endif
 
 " ALE
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+
+" NERDTree
+let g:NERDTreeIgnore = ['^__pycache__$', '\~$']
