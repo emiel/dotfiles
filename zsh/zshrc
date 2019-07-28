@@ -60,7 +60,8 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
 alias ssh='TERM=xterm-color ssh'
-alias view='vim -R'
+alias view='vim -N -R'
+alias vim='vim -N'
 
 # ls
 case $(uname -s) in
