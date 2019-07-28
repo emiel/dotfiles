@@ -1,5 +1,3 @@
-set nocompatible
-
 ""
 "" Plugins
 ""
@@ -9,10 +7,10 @@ Plug '/opt/local/share/fzf/vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'ambv/black'
 Plug 'elmcast/elm-vim'
-Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'posva/vim-vue'
 Plug 'raichoo/purescript-vim'
 Plug 'rhysd/committia.vim'
 Plug 'scrooloose/nerdtree'
@@ -32,12 +30,14 @@ filetype plugin indent on
 ""
 
 set autoindent
+set autoread
 set backspace=indent,eol,start
 set clipboard=unnamed
 set confirm
 set copyindent
 set cursorline
 set encoding=utf-8
+set formatoptions+=j
 set hidden
 set history=256
 set hlsearch
@@ -45,41 +45,42 @@ set ignorecase
 set incsearch
 set laststatus=2
 set lazyredraw
-set list "show whitepspace
+set list
 set listchars=tab:>·,trail:·,nbsp:~
 set modelines=0
 set mouse=a
 set nobackup
 set nojoinspaces
 set pastetoggle=<F10>
+set path-=/usr/include
 set preserveindent
 set ruler
 set scrolloff=3
 set shell=zsh
-set shortmess=atI
+set shortmess=at
 set showbreak=+++
 set showcmd
 set showmatch
-set showmode
 set smartcase
-set smartindent
+set smarttab
 set spelllang=en_us
 set tags=tags;~
-set textwidth=79
 set title
 set ttyfast
 set visualbell
+set wildcharm=<C-z>
+set wildignore+=*.o,*.pyc
 set wildmenu
 set wildmode=list:longest
 
 " Prefer ag (The Silver Searcher) over grep
 if executable("ag")
-  set grepprg=ag\ --vimgrep\ $*
-  set grepformat=%f:%l:%c:%m
+    set grepprg=ag\ --vimgrep\ --nogroup\ --nocolor\ $*
+    set grepformat=%f:%l:%c:%m
 endif
 
 ""
-"" Mapping
+"" Mappings
 ""
 
 let mapleader = ','
@@ -102,21 +103,26 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 
 ""
+"" Completion mappings
+""
+
+inoremap <silent> ,f <C-x><C-f>
+inoremap <silent> ,i <C-x><C-i>
+inoremap <silent> ,l <C-x><C-l>
+inoremap <silent> ,n <C-x><C-n>
+inoremap <silent> ,o <C-x><C-o>
+inoremap <silent> ,t <C-x><C-]>
+inoremap <silent> ,u <C-x><C-u>
+
+""
 "" Mappings used frequently
 ""
 
-" Clear highlight search
-nnoremap <leader>h :nohlsearch<CR>
-
-" Strip trailing whitespace
-"nnoremap <silent> <leader>rtw :<C-U>call StripTrailingWhitespace()<CR>
+nnoremap <silent> <leader>stw :<C-U>call StripTrailingWhitespace()<CR>
 
 " Ack
 cnoreabbrev Ack Ack!
-cnoreabbrev AckFile AckFile!
-nnoremap <leader>a :Ack!<Space>
-nnoremap <leader>af :AckFile!<Space>
-" Ack - Search for word under cursor
+nnoremap <leader>g :Ack!<SPACE>
 nnoremap K :Ack! <cword> *<CR>
 
 " ALE
@@ -126,12 +132,13 @@ nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " fzf.vim
 nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>e :e **/*<C-z><S-Tab>
 nnoremap <leader>f :Files<CR>
+nnoremap <leader>m :Marks<CR>
 nnoremap <leader>t :Tags<CR>
 
 " NERDTree
 nnoremap <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
-" nnoremap \f :NERDTreeFind<CR>
 
 " Spell checking
 nnoremap <silent> <leader>s :set spell!<CR>
@@ -154,8 +161,6 @@ autocmd BufReadPost *
 ""
 
 syntax on
-
-let g:lightline = { 'colorscheme': 'PaperColor' }
 
 let g:PaperColor_Theme_Options = {
   \   'theme': {
@@ -181,6 +186,11 @@ let g:ack_mappings = {
 
 if executable('ag')
   let g:ackprg = 'ag --vimgrep --smart-case -s -H --nocolor --nogroup --column'
+endif
+
+" fzf.vim
+if (executable('ag'))
+    let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 endif
 
 " ALE
