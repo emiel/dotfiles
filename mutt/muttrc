@@ -1,38 +1,13 @@
-#mailboxes ~/Maildir
-#mailboxes `/home/emiel/bin/mailboxes_maildir.rb`
-
-mailboxes + `\
-for file in ~/Maildir/.*; do \
-  box=$(basename "$file"); \
-  if [ ! "$box" = '.' -a ! "$box" = '..' -a ! "$box" = '.customflags' \
-    -a ! "$box" = '.subscriptions' ]; then \
-    echo -n "\"+$box\" "; \
-  fi; \
-done; \
-for folder in ~/Maildir/*; do \
-  if [ -x $folder ]; then \
-    box=$(basename "$folder"); \
-    for file in ~/.maildir/$box/.*; do \
-      box2=$(basename "$file"); \
-      if [ ! "$box2" = '.' -a ! "$box2" = '..' -a ! "$box2" = '.customflags' \
-        -a ! "$box2" = '.subscriptions' ]; then \
-        echo -n "\"+$box/$box2\" "; \
-      fi; \
-      done; \
-  fi; \
-done`
-
 set alias_file = ~/.mutt/aliases
 set allow_8bit = no
 set ascii_chars = yes
-set attribution = "* %n (%a) wrote:"
 set auto_tag = yes
 set autoedit = yes
 set bounce_delivered = no
 set collapse_unread = no
 set confirmappend = no
 set default_hook="~f %s | ~t %s"
-set editor="vim"
+set edit_headers = yes
 set encode_from = yes
 set fast_reply = yes
 set fcc_clear = yes
@@ -58,16 +33,16 @@ set pager_stop = yes
 set pgp_decode_command="/usr/local/bin/gpg --status-fd=2 %?p?--passphrase-fd 0? --no-verbose --quiet --batch --output - %f"
 set pgp_decrypt_command="/usr/local/bin/gpg --status-fd=2 --passphrase-fd 0 --no-verbose --quiet --batch --output - %f"
 set pgp_encrypt_only_command="pgpewrap /usr/local/bin/gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust -- -r %r -- %f"
-set pgp_encrypt_sign_command="pgpewrap /usr/local/bin/gpg --passphrase-fd 0  --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust -- -r %r -- %f"
+set pgp_encrypt_sign_command="pgpewrap /usr/local/bin/gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust -- -r %r -- %f"
 set pgp_export_command="/usr/local/bin/gpg --no-verbose --export --armor %r"
 set pgp_good_sign="^\\[GNUPG:\\] VALIDSIG"
 set pgp_import_command="/usr/local/bin/gpg --no-verbose --import -v %f"
-set pgp_list_pubring_command="/usr/local/bin/gpg --no-verbose --batch --quiet   --with-colons --list-keys %r"
-set pgp_list_secring_command="/usr/local/bin/gpg --no-verbose --batch --quiet   --with-colons --list-secret-keys %r"
+set pgp_list_pubring_command="/usr/local/bin/gpg --no-verbose --batch --quiet --with-colons --list-keys %r"
+set pgp_list_secring_command="/usr/local/bin/gpg --no-verbose --batch --quiet --with-colons --list-secret-keys %r"
 set pgp_show_unusable = no
 set pgp_sign_command="/usr/local/bin/gpg --no-verbose --batch --quiet --output - --passphrase-fd 0 --armor --detach-sign --textmode %?a?-u %a? %f"
 set pgp_verify_command="/usr/local/bin/gpg --status-fd=2 --no-verbose --quiet --batch --output - --verify %s %f"
-set pgp_verify_key_command="/usr/local/bin/gpg --verbose --batch  --fingerprint --check-sigs %r"
+set pgp_verify_key_command="/usr/local/bin/gpg --verbose --batch --fingerprint --check-sigs %r"
 set pipe_decode = yes
 set pipe_split = yes
 set postponed = ~/Maildir/Postponed/
@@ -90,71 +65,8 @@ set use_from = no
 set wait_key = no
 set write_bcc = no
 
-auto_view text/html text/enriched application/x-gunzip application/postscript /gif application/x-tar-gz application/pgp-signature image/*
-
-bind attach ' ' select-entry
-
-bind index   \t    next-new
-bind pager   \t    next-new
-bind index   ' '   next-unread
-bind pager   ' '   next-unread
-bind index   V     show-version
-bind pager   V     show-version
-bind index   A     create-alias
-bind pager   A     create-alias
-macro index  S     <pipe-message>add_spammer.pl<enter>s="SPAM\n"
-macro pager  S     <pipe-message>add_spammer.pl<enter>s="SPAM\n"
-macro index  X     <pipe-message>"add_spammer.pl --domain"<enter>s="SPAM\n"
-macro pager  X     <pipe-message>"add_spammer.pl --domain"<enter>s="SPAM\n"
-
-macro generic   ,vr   "!vim ~/.mutt/muttrc &\r"
-macro generic   ,va   "!vim ~/.mutt/aliases &\r"
-macro generic   ,sr   "!source ~/.mutt/muttrc &\r"
-
-bind index   P          recall-message
-bind index   s          save-message
-bind browser x          check-new
-bind index   <pagedown> next-page
-bind index   <pageup>   previous-page
-bind index   x          sync-mailbox
-bind index   a          tag-prefix
-bind index   \;         tag-entry
-
-macro index  \cb        "|urlview\n"
-macro index  ,l         "l~N ! ~p\n"
-macro index  ,n         "l~N\n"
-
-macro index  "\\s"  "c=sent\r"
-macro index  I      "c!\n" "Go to Inbox"
-macro pager  "\\S"  "c=sent\r"
-macro pager  I      "c!\n" "Go to Inbox"
-
-bind pager     /   search
-bind pager     L   list-reply
-bind pager     b   bounce-message
-bind pager     f   forward-message
-bind pager     m   mail
-bind pager     g   group-reply
-bind pager     j   next-line
-bind pager     k   previous-line
-bind pager     :   enter-command
-bind pager     p   previous-undeleted
-bind pager     n   next-undeleted
-bind pager     \n  next-unread
-bind compose   \n  send-message
-bind compose   s   edit-subject
-bind pager     ,p  print-message
-
-macro pager J "!gpg --keyserver wwwkeys.eu.pgp.net --recv-key " "Get PGP Key"
-macro pager K "!gpg --lsign-key " "Sign PGP Key"
-
-bind  pager   <up>     previous-line
-bind  pager   <down>   next-line
-bind  pager   <left>   exit
-bind  pager   <right>  view-attachments
-bind  attach  <left>   exit
-bind  attach  <right>  view-attach
-bind  index   <right>  display-message
+alternative_order text/plain text/html
+auto_view text/html text/enriched application/x-gunzip application/postscript application/x-tar-gz application/pgp-signature image/*
 
 ignore *
 unignore from: date subject to cc reply-to:
@@ -162,10 +74,38 @@ unignore organization organisation
 unignore user-agent: x-agent: x-mailer: x-newsreader:
 unignore newsgroups: posted-to: x-spam-rule:
 
-alternative_order text/plain
+bind index ' ' next-unread
+bind index <pagedown> next-page
+bind index <pageup> previous-page
 
-folder-hook . set timeout=30
+bind pager ' ' next-unread
+bind pager j next-line
+bind pager k previous-line
+bind pager n next-undeleted
+bind pager p previous-undeleted
+
+folder-hook "!" set timeout=5
 folder-hook . set sort=threads
 folder-hook . set sort_aux=date-sent
+folder-hook . set timeout=30
 
-folder-hook "!"  set timeout=5
+mailboxes + `\
+for file in ~/Maildir/.*; do \
+  box=$(basename "$file"); \
+  if [ ! "$box" = '.' -a ! "$box" = '..' -a ! "$box" = '.customflags' \
+    -a ! "$box" = '.subscriptions' ]; then \
+    echo -n "\"+$box\" "; \
+  fi; \
+done; \
+for folder in ~/Maildir/*; do \
+  if [ -x $folder ]; then \
+    box=$(basename "$folder"); \
+    for file in ~/.maildir/$box/.*; do \
+      box2=$(basename "$file"); \
+      if [ ! "$box2" = '.' -a ! "$box2" = '..' -a ! "$box2" = '.customflags' \
+        -a ! "$box2" = '.subscriptions' ]; then \
+        echo -n "\"+$box/$box2\" "; \
+      fi; \
+      done; \
+  fi; \
+done`
