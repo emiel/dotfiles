@@ -11,7 +11,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'posva/vim-vue'
-Plug 'raichoo/purescript-vim'
+Plug 'purescript-contrib/purescript-vim'
 Plug 'rhysd/committia.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tmhedberg/matchit'
@@ -68,14 +68,14 @@ set tags=tags;~
 set title
 set ttyfast
 set visualbell
-set wildcharm=<C-z>
+set wildcharm=<C-Z>
 set wildignore+=*.o,*.pyc
 set wildmenu
 set wildmode=list:longest
 
-" Prefer ag (The Silver Searcher) over grep
-if executable("ag")
-    set grepprg=ag\ --vimgrep\ --nogroup\ --nocolor\ $*
+" Prefer ripgrep over grep
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --nogroup\ --nocolor\ $*
     set grepformat=%f:%l:%c:%m
 endif
 
@@ -91,60 +91,56 @@ nnoremap ' `
 nnoremap ` '
 
 " Scroll the viewport faster
-nnoremap <c-e> 4<c-e>
-nnoremap <c-y> 4<c-y>
-vnoremap <c-e> 4<c-e>
-vnoremap <c-y> 4<c-y>
+nnoremap <C-E> 4<C-E>
+nnoremap <C-Y> 4<C-Y>
+vnoremap <C-E> 4<C-E>
+vnoremap <C-Y> 4<C-Y>
 
-" Navigate splits
-nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
+" Stop highlighting in addition to clearing and redrawing the screen.
+"nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
 
 ""
 "" Completion mappings
 ""
 
-inoremap <silent> ,f <C-x><C-f>
-inoremap <silent> ,i <C-x><C-i>
-inoremap <silent> ,l <C-x><C-l>
-inoremap <silent> ,n <C-x><C-n>
-inoremap <silent> ,o <C-x><C-o>
-inoremap <silent> ,t <C-x><C-]>
-inoremap <silent> ,u <C-x><C-u>
+inoremap <silent> <Leader>f <C-X><C-F>
+inoremap <silent> <Leader>i <C-X><C-I>
+inoremap <silent> <Leader>l <C-X><C-L>
+inoremap <silent> <Leader>n <C-X><C-N>
+inoremap <silent> <Leader>o <C-X><C-O>
+inoremap <silent> <Leader>t <C-X><C-]>
+inoremap <silent> <Leader>u <C-X><C-U>
 
 ""
 "" Mappings used frequently
 ""
 
-nnoremap <silent> <leader>stw :<C-U>call StripTrailingWhitespace()<CR>
+nnoremap <Leader>stw :<C-U>call StripTrailingWhitespace()<CR>
 
 " Ack
 cnoreabbrev Ack Ack!
-nnoremap <leader>g :Ack!<SPACE>
+nnoremap <Leader>g :Ack!<SPACE>
 nnoremap K :Ack! <cword> *<CR>
 
 " ALE
-nnoremap <leader>F :ALEFix<CR>
-nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
-nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
+nnoremap <Leader>F :ALEFix<CR>
 
 " fzf.vim
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>e :e **/*<C-z><S-Tab>
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>m :Marks<CR>
-nnoremap <leader>t :Tags<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>e :edit **/*<C-Z><S-Tab>
+nnoremap <Leader>f :find **/*<C-z><S-Tab>
+"nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>m :Marks<CR>
+nnoremap <Leader>t :Tags<CR>
 
 " NERDTree
-nnoremap <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+nnoremap <silent> <Leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 " Spell checking
-nnoremap <silent> <leader>s :set spell!<CR>
+nnoremap <Leader>s :set spell!<CR>
 
 " Toggle pasting...
-nnoremap <leader>p :set paste!<CR>:set paste?<CR>
+nnoremap <Leader>p :set paste!<CR>:set paste?<CR>
 
 ""
 "" File type triggers
@@ -184,13 +180,13 @@ let g:ack_mappings = {
       \  'v':  '<C-W><CR><C-W>L<C-W>p<C-W>J<C-W>p',
       \ 'gv': '<C-W><CR><C-W>L<C-W>p<C-W>J' }
 
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep --smart-case -s -H --nocolor --nogroup --column'
+if executable('rg')
+  let g:ackprg = 'rg --vimgrep --smart-case -s -H --nocolor --nogroup --column'
 endif
 
 " fzf.vim
-if (executable('ag'))
-    let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+if (executable('rg'))
+    let $FZF_DEFAULT_COMMAND = 'rg --hidden --ignore .git -g ""'
 endif
 
 " ALE
