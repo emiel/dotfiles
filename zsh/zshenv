@@ -12,11 +12,10 @@ export PAGER="less -R"
 path=(~/bin $path)
 
 # NPM
-export NPM_PACKAGES=${HOME}/.npm-packages
+NPM_PACKAGES=${HOME}/.npm-packages
 path=(${NPM_PACKAGES}/bin $path)
 manpath=(${NPM_PACKAGES}/share/man $manpath)
 
 # FZF
-export FZF_DEFAULT_COMMAND='ag --files --hidden --follow --glob "!.git/*"'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+#export FZF_DEFAULT_COMMAND='ag --files --hidden --follow --glob "!.git/*"'
+#export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'

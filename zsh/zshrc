@@ -109,7 +109,4 @@ function lb() {
 [ -x "$(command -v keychain)" ] && eval "$(keychain -q -Q --nogui --eval id_rsa)"
 
 # direnv
-[ -x "$(command -v direnv)" ] && eval "$(direnv hook zsh)"
-
-# Haskell Platform
-[ -f ~/.ghcup/env ] && source ~/.ghcup/env
+# [ -x "$(command -v direnv)" ] && eval "$(direnv hook zsh)"
