@@ -3,12 +3,13 @@
 ""
 
 call plug#begin('~/.vim/plugged')
-Plug '/opt/local/share/fzf/vim'
+Plug '/usr/local/opt/fzf'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'ambv/black'
+"Plug 'ambv/black'
+Plug 'dense-analysis/ale'
 Plug 'elmcast/elm-vim'
 Plug 'junegunn/fzf.vim'
-Plug 'mileszs/ack.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'posva/vim-vue'
 Plug 'purescript-contrib/purescript-vim'
@@ -20,7 +21,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-surround'
-Plug 'w0rp/ale'
 call plug#end()
 
 filetype plugin indent on
@@ -32,6 +32,7 @@ filetype plugin indent on
 set autoindent
 set autoread
 set backspace=indent,eol,start
+set breakindent
 set clipboard=unnamed
 set confirm
 set copyindent
@@ -75,7 +76,7 @@ set wildmode=list:longest
 
 " Prefer ripgrep over grep
 if executable("rg")
-    set grepprg=rg\ --vimgrep\ --nogroup\ --nocolor\ $*
+    set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
     set grepformat=%f:%l:%c:%m
 endif
 
@@ -115,23 +116,23 @@ inoremap <silent> <Leader>u <C-X><C-U>
 "" Mappings used frequently
 ""
 
+"nnoremap <Leader>e :edit **/*<C-Z><S-Tab>
+"nnoremap <Leader>f :find **/*<C-z><S-Tab>
 nnoremap <Leader>stw :<C-U>call StripTrailingWhitespace()<CR>
-
-" Ack
-cnoreabbrev Ack Ack!
-nnoremap <Leader>g :Ack!<SPACE>
-nnoremap K :Ack! <cword> *<CR>
 
 " ALE
 nnoremap <Leader>F :ALEFix<CR>
+"nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
+"nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " fzf.vim
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>e :edit **/*<C-Z><S-Tab>
-nnoremap <Leader>f :find **/*<C-z><S-Tab>
-"nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>m :Marks<CR>
-nnoremap <Leader>t :Tags<CR>
+nnoremap <Leader>b :FzfBuffers<CR>
+nnoremap <Leader>f :FzfFiles<CR>
+nnoremap <Leader>g :FzfRg<SPACE>
+nnoremap <Leader>h :FzfHelp<SPACE>
+nnoremap <Leader>m :FzfMarks<CR>
+nnoremap <Leader>t :FzfTags<CR>
+nnoremap <silent>K :call SearchCurrentWordWithFzf()<CR>
 
 " NERDTree
 nnoremap <silent> <Leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
@@ -174,23 +175,21 @@ colorscheme PaperColor
 "" Plugins
 ""
 
-" ack.vim
-let g:ack_autoclose = 1
-let g:ack_mappings = {
-      \  'v':  '<C-W><CR><C-W>L<C-W>p<C-W>J<C-W>p',
-      \ 'gv': '<C-W><CR><C-W>L<C-W>p<C-W>J' }
-
-if executable('rg')
-  let g:ackprg = 'rg --vimgrep --smart-case -s -H --nocolor --nogroup --column'
-endif
-
 " fzf.vim
-if (executable('rg'))
-    let $FZF_DEFAULT_COMMAND = 'rg --hidden --ignore .git -g ""'
-endif
+let g:fzf_command_prefix = 'Fzf'
+
+function! SearchCurrentWordWithFzf()
+    execute 'FzfRg' expand('<cword>')
+endfunction
+
+"if (executable('rg'))
+"    let $FZF_DEFAULT_COMMAND = 'rg --vimgrep --no-heading --smart-case'
+"endif
 
 " ALE
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+
+
 
 " NERDTree
 let g:NERDTreeIgnore = ['^__pycache__$', '\~$']
