@@ -2,8 +2,11 @@ install: \
 	install-flake8 \
 	install-gdb \
 	install-ghci \
+	install-git \
 	install-i3 \
 	install-i3status \
+	install-mutt \
+	install-npm \
 	install-psql \
 	install-tmux \
 	install-urxvt \
@@ -47,10 +50,6 @@ install-npm:
 install-psql:
 	rm -f $(HOME)/.psqlrc
 	ln -s `pwd`/psql/psqlrc $(HOME)/.psqlrc
-
-install-subversion:
-	rm -f $(HOME)/.subversion/config
-	ln -s `pwd`/subversion/config $(HOME)/.subversion/config
 
 install-tmux:
 	rm -f $(HOME)/.tmux.conf
