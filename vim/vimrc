@@ -3,7 +3,7 @@
 ""
 
 call plug#begin('~/.vim/plugged')
-Plug '/usr/local/opt/fzf'
+Plug '/usr/share/doc/fzf/examples'
 Plug 'NLKNguyen/papercolor-theme'
 "Plug 'ambv/black'
 Plug 'dense-analysis/ale'

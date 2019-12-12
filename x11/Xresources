@@ -1,9 +1,12 @@
 ! urxvt
-URxvt.boldFont: 7x13eurobold
+
+!! urxvt - font
+URxvt*font: xft:Fira Code:pixelsize=12:antialias=true:hinting=true
+URxvt*fontBold: xft:Fira Code Bold:pixelsize=12:antialias=true:hinting=true
+
 URxvt.clipboard.autocopy: true
 URxvt.cursorBlink: true
 URxvt.externalBorder: 2
-URxvt.font: 7x13euro
 URxvt.internalBorder: 2
 URxvt.jumpScroll: true
 URxvt.perl-ext-common: default,matcher,searchable-scrollback,clipboard
@@ -18,4 +21,12 @@ URxvt.scrollstyle: plain
 URxvt.skipScroll: true
 URxvt.urgentOnBell: true
 
-#include .Xresources.d/theme-papercolor
+Xft.antialias: 1
+Xft.autohint: 0
+Xft.dpi: 96
+Xft.hinting: 0
+Xft.hintstyle: hintnone
+Xft.lcdfilter: lcddefault
+Xft.rgba: rgb
+
+#include ".Xresources.d/theme-papercolor"
