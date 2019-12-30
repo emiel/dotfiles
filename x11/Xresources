@@ -1,8 +1,8 @@
 ! urxvt
 
 !! urxvt - font
-URxvt*font: xft:Fira Code:pixelsize=12:antialias=true:hinting=true
-URxvt*fontBold: xft:Fira Code Bold:pixelsize=12:antialias=true:hinting=true
+URxvt*font: xft:Fira Code:pixelsize=11:antialias=true:hinting=true
+URxvt*fontBold: xft:Fira Code Bold:pixelsize=11:antialias=true:hinting=true
 
 URxvt.clipboard.autocopy: true
 URxvt.cursorBlink: true
@@ -24,8 +24,8 @@ URxvt.urgentOnBell: true
 Xft.antialias: 1
 Xft.autohint: 0
 Xft.dpi: 96
-Xft.hinting: 0
-Xft.hintstyle: hintnone
+Xft.hinting: 1
+Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 Xft.rgba: rgb
 
