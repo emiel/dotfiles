@@ -1,3 +1,4 @@
+let b:ale_fixers = ['pgformatter']
 setlocal expandtab
 setlocal shiftwidth=4
 setlocal smartindent
