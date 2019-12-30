@@ -26,6 +26,7 @@ setopt HIST_VERIFY
 
 # Prompting
 setopt PROMPT_SUBST
+PROMPT='%n@%m:%~%# '
 
 # Zle
 unsetopt BEEP
