@@ -4,12 +4,11 @@
 URxvt*font: xft:Fira Code:pixelsize=11:antialias=true:hinting=true
 URxvt*fontBold: xft:Fira Code Bold:pixelsize=11:antialias=true:hinting=true
 
-URxvt.clipboard.autocopy: true
 URxvt.cursorBlink: true
 URxvt.externalBorder: 2
 URxvt.internalBorder: 2
 URxvt.jumpScroll: true
-URxvt.perl-ext-common: default,matcher,searchable-scrollback,clipboard
+URxvt.perl-ext-common: default,matcher,searchable-scrollback,selection-to-clipboard
 URxvt.saveLines: 16384
 URxvt.scrollBar: true
 URxvt.scrollBar_right: true
