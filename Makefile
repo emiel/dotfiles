@@ -9,7 +9,6 @@ install: \
 	install-npm \
 	install-psql \
 	install-tmux \
-	install-urxvt \
 	install-vim \
 	install-x11 \
 	install-zsh
@@ -55,10 +54,6 @@ install-tmux:
 	rm -f $(HOME)/.tmux.conf
 	ln -s `pwd`/tmux/tmux.conf $(HOME)/.tmux.conf
 
-install-urxvt:
-	rm -f $(HOME)/.urxvt
-	ln -s `pwd`/urxvt $(HOME)/.urxvt
-
 install-vim:
 	git submodule update --init
 	rm -rf $(HOME)/.vim $(HOME)/.vimrc
@@ -66,9 +61,10 @@ install-vim:
 	ln -s `pwd`/vim/vimrc $(HOME)/.vimrc
 
 install-x11:
-	rm -f $(HOME)/.xinitrc $(HOME)/.Xresources
+	rm -f $(HOME)/.xinitrc $(HOME)/.Xresources $(HOME)/.Xresources.d
 	ln -s `pwd`/x11/xinitrc $(HOME)/.xinitrc
 	ln -s `pwd`/x11/Xresources $(HOME)/.Xresources
+	ln -s `pwd`/x11/Xresources.d $(HOME)/.Xresources.d
 
 install-zsh:
 	rm -f $(HOME)/.zlogout $(HOME)/.zshenv $(HOME)/.zshrc
