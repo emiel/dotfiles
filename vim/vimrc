@@ -3,9 +3,14 @@
 ""
 
 call plug#begin('~/.vim/plugged')
-Plug '/usr/share/doc/fzf/examples'
+
+""" Locate fzf plugin (brew, debian)
+if filereadable("/usr/local/opt/fzf/plugin/fzf.vim")
+  Plug '/usr/local/opt/fzf'
+elseif filereadable("/usr/share/doc/fzf/examples/plugin/fzf.vim")
+  Plug '/usr/share/doc/fzf/examples'
+endif
 Plug 'NLKNguyen/papercolor-theme'
-"Plug 'ambv/black'
 Plug 'dense-analysis/ale'
 Plug 'elmcast/elm-vim'
 Plug 'junegunn/fzf.vim'
@@ -76,8 +81,8 @@ set wildmode=list:longest
 
 " Prefer ripgrep over grep
 if executable("rg")
-    set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-    set grepformat=%f:%l:%c:%m
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+  set grepformat=%f:%l:%c:%m
 endif
 
 ""
@@ -179,17 +184,15 @@ colorscheme PaperColor
 let g:fzf_command_prefix = 'Fzf'
 
 function! SearchCurrentWordWithFzf()
-    execute 'FzfRg' expand('<cword>')
+  execute 'FzfRg' expand('<cword>')
 endfunction
 
 "if (executable('rg'))
-"    let $FZF_DEFAULT_COMMAND = 'rg --vimgrep --no-heading --smart-case'
+"  let $FZF_DEFAULT_COMMAND = 'rg --vimgrep --no-heading --smart-case'
 "endif
 
 " ALE
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-
-
 
 " NERDTree
 let g:NERDTreeIgnore = ['^__pycache__$', '\~$']
