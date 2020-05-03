@@ -14,7 +14,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'dense-analysis/ale'
 Plug 'elmcast/elm-vim'
 Plug 'junegunn/fzf.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'posva/vim-vue'
 Plug 'purescript-contrib/purescript-vim'
@@ -92,10 +92,6 @@ endif
 let mapleader = ','
 nnoremap , <Nop>
 
-" Swap similar keys
-nnoremap ' `
-nnoremap ` '
-
 " Scroll the viewport faster
 nnoremap <C-E> 4<C-E>
 nnoremap <C-Y> 4<C-Y>
@@ -103,18 +99,31 @@ vnoremap <C-E> 4<C-E>
 vnoremap <C-Y> 4<C-Y>
 
 " Stop highlighting in addition to clearing and redrawing the screen.
-"nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
+nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
 
 ""
 "" Completion mappings
 ""
 
+" Completing file names
 inoremap <silent> <Leader>f <C-X><C-F>
+
+" Completing keywords in the current and included files
 inoremap <silent> <Leader>i <C-X><C-I>
+
+" Completing whole lines
 inoremap <silent> <Leader>l <C-X><C-L>
+
+" Completing keywords in current file
 inoremap <silent> <Leader>n <C-X><C-N>
+
+" Omni completion
 inoremap <silent> <Leader>o <C-X><C-O>
+
+" Completing tags
 inoremap <silent> <Leader>t <C-X><C-]>
+
+" User defined completion
 inoremap <silent> <Leader>u <C-X><C-U>
 
 ""
@@ -126,9 +135,9 @@ inoremap <silent> <Leader>u <C-X><C-U>
 nnoremap <Leader>stw :<C-U>call StripTrailingWhitespace()<CR>
 
 " ALE
-nnoremap <Leader>F :ALEFix<CR>
-"nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
-"nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
+nnoremap <Leader>Af :ALEFix<CR>
+"nmap <silent> <Leader>An <Plug>(ale_next_wrap)
+"nmap <silent> <Leader>Ap <Plug>(ale_previous_wrap)
 
 " fzf.vim
 nnoremap <Leader>b :FzfBuffers<CR>
@@ -192,7 +201,11 @@ endfunction
 "endif
 
 " ALE
+let g:ale_completion_enabled = 1
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
 " NERDTree
 let g:NERDTreeIgnore = ['^__pycache__$', '\~$']
+
+" Coc
+" inoremap <silent><expr> <Leader>c coc#refresh()

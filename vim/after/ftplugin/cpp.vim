@@ -1,3 +1,4 @@
+let b:ale_fixers = ['clang-format']
 setlocal expandtab
 setlocal shiftwidth=4
 setlocal smartindent
