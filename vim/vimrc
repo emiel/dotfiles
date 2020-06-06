@@ -10,12 +10,12 @@ if filereadable("/usr/local/opt/fzf/plugin/fzf.vim")
 elseif filereadable("/usr/share/doc/fzf/examples/plugin/fzf.vim")
   Plug '/usr/share/doc/fzf/examples'
 endif
+"Plug 'frigoeu/psc-ide-vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'dense-analysis/ale'
 Plug 'elmcast/elm-vim'
 Plug 'junegunn/fzf.vim'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'posva/vim-vue'
 Plug 'purescript-contrib/purescript-vim'
 Plug 'rhysd/committia.vim'
