@@ -64,12 +64,6 @@ alias ssh='TERM=xterm-color ssh'
 alias view='vim -N -R'
 alias vim='vim -N'
 
-# PHP composer
-alias composer="COMPOSER_MEMORY_LIMIT=-1 ${HOME}/bin/composer.phar"
-
-# Python virtualenv
-alias venv='python3 -m venv venv && . ./venv/bin/activate && pip install --upgrade pip -q'
-
 # ls
 case $(uname -s) in
 'Darwin'| 'FreeBSD')
@@ -86,6 +80,12 @@ alias l.='ls -d .[^.]*'
 alias ll.='ls -l -d .[^.]*'
 alias ll='ls -l'
 alias lsd='ls -ld *(-/DN)'
+
+# PHP composer
+alias composer="COMPOSER_MEMORY_LIMIT=-1 ${HOME}/bin/composer.phar"
+
+# Python virtualenv
+alias venv='python3 -m venv venv && . ./venv/bin/activate && pip install --upgrade pip -q'
 
 ##
 ## Completion

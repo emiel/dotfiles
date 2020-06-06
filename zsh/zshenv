@@ -17,7 +17,7 @@ path=(${NPM_PACKAGES}/bin $path)
 manpath=(${NPM_PACKAGES}/share/man $manpath)
 
 # PHP Composer
-path=(~/.composer/vendor/bin $path)
+path=(~/.config/composer/vendor/bin $path)
 
 # Brew
 path=(/usr/local/opt/python@3.8/bin $path)

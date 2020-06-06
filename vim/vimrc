@@ -15,6 +15,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'dense-analysis/ale'
 Plug 'elmcast/elm-vim'
 Plug 'junegunn/fzf.vim'
+Plug 'lumiliet/vim-twig'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'posva/vim-vue'
 Plug 'purescript-contrib/purescript-vim'
@@ -38,7 +39,7 @@ set autoindent
 set autoread
 set backspace=indent,eol,start
 set breakindent
-set clipboard=unnamed
+set clipboard^=unnamed,unnamedplus
 set confirm
 set copyindent
 set cursorline
