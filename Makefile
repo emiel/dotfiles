@@ -56,9 +56,8 @@ install-tmux:
 
 install-vim:
 	git submodule update --init
-	rm -rf $(HOME)/.vim $(HOME)/.vimrc
+	rm -rf $(HOME)/.vim
 	ln -s `pwd`/vim $(HOME)/.vim
-	ln -s `pwd`/vim/vimrc $(HOME)/.vimrc
 
 install-x11:
 	rm -f $(HOME)/.xinitrc $(HOME)/.Xresources $(HOME)/.Xresources.d
