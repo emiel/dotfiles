@@ -89,7 +89,9 @@ endif
 ""
 
 let mapleader = ','
-nnoremap , <Nop>
+
+" Remap , (Reverse last character-search command) to \ (default leader)
+noremap \ ,
 
 " Scroll the viewport faster
 nnoremap <C-E> 4<C-E>
@@ -185,6 +187,13 @@ set background=light
 colorscheme PaperColor
 
 ""
+"" Commands
+""
+
+" ctags
+command! MakeTags !ctags -R .
+
+""
 "" Plugins
 ""
 
@@ -206,5 +215,9 @@ let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 " NERDTree
 let g:NERDTreeIgnore = ['^__pycache__$', '\~$']
 
-" Coc
-" inoremap <silent><expr> <Leader>c coc#refresh()
+" netrw
+let g:netrw_banner=0
+let g:netrw_browse_split=4
+let g:netrw_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide=netrw_gitignore#Hide()
