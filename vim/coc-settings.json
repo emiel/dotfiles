@@ -1,16 +1,14 @@
 {
-  "coc": {
-    "preferences": {
-      "extensionUpdateCheck": "never",
-      "hoverTarget": "preview",
-      "previewAutoClose": false,
-      "snippets": {
-        "enable": false
-      }
-    }
+  "coc.preferences.hoverTarget": "preview",
+  "coc.preferences.previewAutoClose": false,
+  "coc.preferences.snippets.enable": false,
+  "list.insertMappings": {
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k"
   },
-  "suggest": {
-    "autoTrigger": "none"
+  "list.normalMappings": {
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k"
   },
   "languageserver": {
     "purescript": {
@@ -33,29 +31,6 @@
           "buildCommand": "spago build --purs-args --json-errors"
         }
       }
-    },
-    "typescript": {
-      "command": "./node_modules/.bin/typescript-language-server",
-      "args": [
-        "--stdio"
-      ],
-      "filetypes": [
-        "typescript"
-      ],
-      "rootPatterns": [
-        "tsconfig.json",
-        "package.json"
-      ]
-    }
-  },
-  "list": {
-    "insertMappings": {
-      "<C-n>": "normal:j",
-      "<C-p>": "normal:k"
-    },
-    "normalMappings": {
-      "<C-n>": "normal:j",
-      "<C-p>": "normal:k"
     }
   }
 }
