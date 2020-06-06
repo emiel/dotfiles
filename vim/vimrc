@@ -57,7 +57,6 @@ set modelines=0
 set mouse=a
 set nobackup
 set nojoinspaces
-set pastetoggle=<F10>
 set path-=/usr/include
 set preserveindent
 set ruler
