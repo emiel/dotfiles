@@ -10,14 +10,14 @@ if filereadable("/usr/local/opt/fzf/plugin/fzf.vim")
 elseif filereadable("/usr/share/doc/fzf/examples/plugin/fzf.vim")
   Plug '/usr/share/doc/fzf/examples'
 endif
-"Plug 'frigoeu/psc-ide-vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'dense-analysis/ale'
-Plug 'elmcast/elm-vim'
 Plug 'junegunn/fzf.vim'
 Plug 'lumiliet/vim-twig'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'posva/vim-vue'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'purescript-contrib/purescript-vim'
 Plug 'rhysd/committia.vim'
 Plug 'scrooloose/nerdtree'
@@ -40,6 +40,7 @@ set autoread
 set backspace=indent,eol,start
 set breakindent
 set clipboard^=unnamed,unnamedplus
+set completeopt=menuone,noinsert,noselect,preview "vim-lsp
 set confirm
 set copyindent
 set cursorline
@@ -63,19 +64,17 @@ set preserveindent
 set ruler
 set scrolloff=3
 set shell=zsh
-set shortmess+=c "coc
-set shortmess=at
+set shortmess=atc
 set showbreak=+++
 set showcmd
 set showmatch
-set signcolumn=number "coc
 set smartcase
 set smarttab
 set spelllang=en_us
 set tags=tags;~
 set title
 set ttyfast
-set updatetime=300 "coc
+set updatetime=1000
 set visualbell
 set wildcharm=<C-Z>
 set wildignore+=*.o,*.pyc
@@ -111,38 +110,36 @@ nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
 ""
 
 " Completing file names
-inoremap <silent> <Leader>f <C-X><C-F>
+"inoremap <silent> <Leader>f <C-X><C-F>
 
 " Completing keywords in the current and included files
-inoremap <silent> <Leader>i <C-X><C-I>
+"inoremap <silent> <Leader>i <C-X><C-I>
 
 " Completing whole lines
-inoremap <silent> <Leader>l <C-X><C-L>
+"inoremap <silent> <Leader>l <C-X><C-L>
 
 " Completing keywords in current file
-inoremap <silent> <Leader>n <C-X><C-N>
+"inoremap <silent> <Leader>n <C-X><C-N>
 
 " Omni completion
-inoremap <silent> <Leader>o <C-X><C-O>
+"inoremap <silent> <Leader>o <C-X><C-O>
 
 " Completing tags
-inoremap <silent> <Leader>t <C-X><C-]>
+"inoremap <silent> <Leader>t <C-X><C-]>
 
 " User defined completion
-inoremap <silent> <Leader>u <C-X><C-U>
+"inoremap <silent> <Leader>u <C-X><C-U>
 
 ""
 "" Mappings used frequently
 ""
 
-"nnoremap <Leader>e :edit **/*<C-Z><S-Tab>
-"nnoremap <Leader>f :find **/*<C-z><S-Tab>
 nnoremap <Leader>stw :<C-U>call StripTrailingWhitespace()<CR>
 
 " ALE
 nnoremap <Leader>Af :ALEFix<CR>
-"nmap <silent> <Leader>An <Plug>(ale_next_wrap)
-"nmap <silent> <Leader>Ap <Plug>(ale_previous_wrap)
+nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
+nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " fzf.vim
 nnoremap <Leader>b :FzfBuffers<CR>
@@ -159,7 +156,7 @@ nnoremap <silent> <Leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 " Spell checking
 nnoremap <Leader>s :set spell!<CR>
 
-" Toggle pasting...
+" Toggle pasting
 nnoremap <Leader>p :set paste!<CR>:set paste?<CR>
 
 ""
@@ -176,8 +173,6 @@ autocmd BufReadPost *
 "" Colors
 ""
 
-syntax on
-
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default': {
@@ -186,7 +181,7 @@ let g:PaperColor_Theme_Options = {
   \   }
   \ }
 
-set background=light
+syntax on
 
 colorscheme PaperColor
 
@@ -195,13 +190,15 @@ colorscheme PaperColor
 ""
 
 " ctags
-command! MakeTags !ctags -R .
+"command! MakeTags !ctags -R .
 
 ""
-"" Plugins
+"" Plugin Configuration
 ""
 
+"
 " fzf.vim
+"
 let g:fzf_command_prefix = 'Fzf'
 
 function! SearchCurrentWordWithFzf()
@@ -212,150 +209,81 @@ endfunction
 "  let $FZF_DEFAULT_COMMAND = 'rg --vimgrep --no-heading --smart-case'
 "endif
 
+"
 " ALE
-let g:ale_completion_enabled = 1
+"
+let g:ale_completion_enabled = 0
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
+"
 " NERDTree
+"
 let g:NERDTreeIgnore = ['^__pycache__$', '\~$']
 
+"
 " netrw
+"
 " let g:netrw_altv=1
 " let g:netrw_banner=0
 " let g:netrw_browse_split=4
 " let g:netrw_list_hide=netrw_gitignore#Hide()
 " let g:netrw_liststyle=3
 
-" CoC
-let g:coc_global_extensions = [
-  \ 'coc-css',
-  \ 'coc-json',
-  \ 'coc-phpls',
-  \ 'coc-python',
-  \ 'coc-snippets',
-  \ 'coc-tailwindcss',
-  \ 'coc-yaml',
-  \ ]
+"
+" vim-lsp
+"
+let g:lsp_enable_lua = (has('lua') && has('patch-8.2.0775'))
+let g:lsp_preview_float = has('patch-8.1.1517')
+" let g:lsp_log_file = expand('~/vim-lsp.log')
+" let g:lsp_log_verbose = 1
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
 endif
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+if executable('purescript-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'purescript',
+        \ 'cmd': {server_info->
+            \ [&shell, &shellcmdflag, 'purescript-language-server --stdio']},
+        \ 'whitelist': ['purescript'],
+        \ 'workspace_config': {
+            \ 'purescript.addNpmPath': v:true,
+            \ 'purescript.addSpagoSources': v:true,
+            \ 'purescript.buildCommand': 'spago build --purs-args --json-errors'
+        \ }
+        \ })
+endif
 
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=number
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gh <plug>(lsp-hover)
+    nmap <buffer> gr <plug>(lsp-references)
 endfunction
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+"
+" asyncomplete
+"
+"let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
-" Formatting selected code.
-"xmap <leader>f  <Plug>(coc-format-selected)
-"nmap <leader>f  <Plug>(coc-format-selected)
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+imap <c-space> <Plug>(asyncomplete_force_refresh)
 
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-" xmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-" nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-" nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-" xmap if <Plug>(coc-funcobj-i)
-" omap if <Plug>(coc-funcobj-i)
-" xmap af <Plug>(coc-funcobj-a)
-" omap af <Plug>(coc-funcobj-a)
-" xmap ic <Plug>(coc-classobj-i)
-" omap ic <Plug>(coc-classobj-i)
-" xmap ac <Plug>(coc-classobj-a)
-" omap ac <Plug>(coc-classobj-a)
-
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
-" nmap <silent> <C-s> <Plug>(coc-range-select)
-" xmap <silent> <C-s> <Plug>(coc-range-select)
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Mappings using CoCList:
-" Show all diagnostics.
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
