@@ -27,3 +27,6 @@ path=(~/.cargo/bin $path)
 
 # Symfony
 path=(~/.symfony/bin $path)
+
+# Go
+path=(~/go/bin $path)
