@@ -2,8 +2,8 @@
 
 !! urxvt - font
 !! Use following to try out fonts: printf '\e]710;%s\007' "xft:<font>"
-URxvt*font: xft:Fira Code::regular:pixelsize=11:antialias=true:hinting=true
-URxvt*fontBold: xft:Fira Code:bold:pixelsize=11:antialias=true:hinting=true
+URxvt*font: xft:Fira Code::regular:pixelsize=12:antialias=true:hinting=true
+URxvt*fontBold: xft:Fira Code:bold:pixelsize=12:antialias=true:hinting=true
 
 URxvt.cursorBlink: true
 URxvt.externalBorder: 2
