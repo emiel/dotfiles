@@ -113,7 +113,7 @@ function lb() {
 }
 
 # keychain
-[ -x "$(command -v keychain)" ] && eval "$(keychain -q -Q --nogui --eval id_rsa)"
+# [ -x "$(command -v keychain)" ] && eval "$(keychain -q -Q --nogui --eval id_ed25519)"
 
 # direnv
 # [ -x "$(command -v direnv)" ] && eval "$(direnv hook zsh)"
