@@ -10,15 +10,18 @@ if filereadable("/usr/local/opt/fzf/plugin/fzf.vim")
 elseif filereadable("/usr/share/doc/fzf/examples/plugin/fzf.vim")
   Plug '/usr/share/doc/fzf/examples'
 endif
-Plug 'NLKNguyen/papercolor-theme' " crashes with vim-lsp under Debian buster
+" Plug 'NLKNguyen/papercolor-theme' " crashes with vim-lsp under Debian buster
 Plug 'chrisbra/matchit'
 Plug 'dense-analysis/ale'
+Plug 'habamax/vim-polar'
+Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'preservim/nerdtree'
+Plug 'purescript-contrib/purescript-vim'
 Plug 'rhysd/committia.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -70,6 +73,7 @@ set smartcase
 set smarttab
 set spelllang=en_us
 set tags=tags;~
+set termguicolors
 set title
 set ttyfast
 set updatetime=1000
@@ -181,7 +185,7 @@ let g:PaperColor_Theme_Options = {
 
 syntax on
 
-colorscheme PaperColor
+colorscheme polar
 
 ""
 "" Commands
@@ -203,9 +207,9 @@ function! SearchCurrentWordWithFzf()
   execute 'FzfRg' expand('<cword>')
 endfunction
 
-"if (executable('rg'))
-"  let $FZF_DEFAULT_COMMAND = 'rg --vimgrep --no-heading --smart-case'
-"endif
+if (executable('rg'))
+  let $FZF_DEFAULT_COMMAND = 'rg --files'
+endif
 
 "
 " ALE
@@ -230,8 +234,11 @@ let g:NERDTreeIgnore = ['^__pycache__$', '\~$']
 "
 " vim-lsp
 "
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_enable_lua = (has('lua') && has('patch-8.2.0775'))
 let g:lsp_preview_float = has('patch-8.1.1517')
+
 " let g:lsp_log_file = expand('~/vim-lsp.log')
 " let g:lsp_log_verbose = 1
 
@@ -294,7 +301,9 @@ function! s:on_lsp_buffer_enabled() abort
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> gh <plug>(lsp-hover)
+    nmap <buffer> gi <plug>(lsp-implementation)
     nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gt <plug>(lsp-type-definition)
 endfunction
 
 augroup lsp_install
