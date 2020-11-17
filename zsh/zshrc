@@ -24,9 +24,24 @@ setopt HIST_REDUCE_BLANKS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_VERIFY
 
-# Prompting
+# Command prompt
 setopt PROMPT_SUBST
-PROMPT='%n@%m:%~/ > '
+
+# Include git branch name in prompt
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' formats '@%b'
+
+PROMPT='%n@%m:%~/ %F{32}${vcs_info_msg_0_}%f> '
+
+##
+## Completion
+##
+
+autoload -Uz compinit
+compinit
 
 # Zle
 unsetopt BEEP
@@ -85,25 +100,11 @@ alias lsd='ls -ld *(-/DN)'
 alias composer="COMPOSER_MEMORY_LIMIT=-1 ${HOME}/bin/composer.phar"
 
 # Python virtualenv
-alias venv='python3 -m venv venv && . ./venv/bin/activate && pip install --upgrade pip -q'
+alias venv='python3.8 -m venv venv && . ./venv/bin/activate && pip install --upgrade pip -q'
 
-##
-## Completion
-##
-
-autoload -Uz compinit
-compinit
-
-##
-## Extras
-##
-
-# Include git branch name in prompt
-autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-RPROMPT=\$vcs_info_msg_0_
-zstyle ':vcs_info:git:*' formats '%b'
+# GenomeScan
+alias gonos-be='cd ~/GenomeScan/gonos/src'
+alias gonos-fe='cd ~/GenomeScan/gonos/src/gonos/frontend'
 
 # My logbook
 function lb() {
