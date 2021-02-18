@@ -10,12 +10,12 @@ if filereadable("/usr/local/opt/fzf/plugin/fzf.vim")
 elseif filereadable("/usr/share/doc/fzf/examples/plugin/fzf.vim")
   Plug '/usr/share/doc/fzf/examples'
 endif
-" Plug 'NLKNguyen/papercolor-theme' " crashes with vim-lsp under Debian buster
 Plug 'chrisbra/matchit'
 Plug 'dense-analysis/ale'
 Plug 'habamax/vim-polar'
-Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -215,6 +215,8 @@ endif
 " ALE
 "
 let g:ale_completion_enabled = 0
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_save = 1
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
 "
@@ -234,28 +236,24 @@ let g:NERDTreeIgnore = ['^__pycache__$', '\~$']
 "
 " vim-lsp
 "
-let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_enable_lua = (has('lua') && has('patch-8.2.0775'))
 let g:lsp_preview_float = has('patch-8.1.1517')
-
 " let g:lsp_log_file = expand('~/vim-lsp.log')
 " let g:lsp_log_verbose = 1
 
 if executable('pyls')
-    " pip install python-language-server
     au User lsp_setup call lsp#register_server({
         \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'pyls']},
         \ 'whitelist': ['python'],
         \ })
 endif
 
 if executable('purescript-language-server')
     au User lsp_setup call lsp#register_server({
-        \ 'name': 'purescript',
-        \ 'cmd': {server_info->
-            \ [&shell, &shellcmdflag, 'purescript-language-server --stdio']},
+        \ 'name': 'purescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'purescript-language-server --stdio']},
         \ 'whitelist': ['purescript'],
         \ 'workspace_config': {
             \ 'purescript.addNpmPath': v:true,
@@ -265,34 +263,14 @@ if executable('purescript-language-server')
         \ })
 endif
 
-if executable('intelephense')
-  augroup LspPHPIntelephense
-    au!
+if executable('typescript-language-server')
     au User lsp_setup call lsp#register_server({
-        \ 'name': 'intelephense',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'intelephense --stdio']},
-        \ 'whitelist': ['php'],
-        \ 'initialization_options': {'storagePath': '/tmp/intelephense'},
-        \ 'workspace_config': {
-        \   'intelephense': {
-        \     'files': {
-        \       'maxSize': 1000000,
-        \       'associations': ['*.php', '*.phtml'],
-        \       'exclude': [],
-        \     },
-        \     'completion': {
-        \       'insertUseDeclaration': v:true,
-        \       'fullyQualifyGlobalConstantsAndFunctions': v:false,
-        \       'triggerParameterHints': v:true,
-        \       'maxItems': 100,
-        \     },
-        \     'format': {
-        \       'enable': v:true
-        \     },
-        \   },
-        \ }
-        \})
-  augroup END
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'whitelist': ['typescript', 'typescript.tsx', 'typescriptreact'],
+        \ 'languageId': {server_info->'typescript'},
+        \ })
 endif
 
 function! s:on_lsp_buffer_enabled() abort
@@ -324,3 +302,10 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+"
+" NERDTree
+"
+" prevent other buffers replacing NERDTree in its window
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
