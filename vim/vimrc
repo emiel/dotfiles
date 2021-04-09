@@ -3,16 +3,11 @@
 ""
 
 call plug#begin('~/.vim/plugged')
-
-""" Locate fzf plugin (brew, debian)
-if filereadable("/usr/local/opt/fzf/plugin/fzf.vim")
-  Plug '/usr/local/opt/fzf'
-elseif filereadable("/usr/share/doc/fzf/examples/plugin/fzf.vim")
-  Plug '/usr/share/doc/fzf/examples'
-endif
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'chrisbra/matchit'
 Plug 'dense-analysis/ale'
 Plug 'habamax/vim-polar'
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
@@ -144,12 +139,10 @@ nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
 nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " fzf.vim
-nnoremap <Leader>b :FzfBuffers<CR>
-nnoremap <Leader>f :FzfFiles<CR>
-nnoremap <Leader>g :FzfRg<SPACE>
-nnoremap <Leader>h :FzfHelp<SPACE>
-nnoremap <Leader>m :FzfMarks<CR>
-nnoremap <Leader>t :FzfTags<CR>
+nnoremap <Leader>fb :FzfBuffers<CR>
+nnoremap <Leader>ff :FzfFiles<CR>
+nnoremap <Leader>fg :FzfRg<SPACE>
+nnoremap <Leader>fh :FzfHelptags<CR>
 nnoremap <silent>K :call SearchCurrentWordWithFzf()<CR>
 
 " NERDTree
@@ -185,7 +178,7 @@ let g:PaperColor_Theme_Options = {
 
 syntax on
 
-colorscheme polar
+colorscheme papercolor
 
 ""
 "" Commands
@@ -208,7 +201,7 @@ function! SearchCurrentWordWithFzf()
 endfunction
 
 if (executable('rg'))
-  let $FZF_DEFAULT_COMMAND = 'rg --files'
+  let $FZF_DEFAULT_COMMAND = 'rg --files  --hidden --glob "!{node_modules,.git}"'
 endif
 
 "
@@ -237,6 +230,10 @@ let g:NERDTreeIgnore = ['^__pycache__$', '\~$']
 " vim-lsp
 "
 let g:lsp_diagnostics_float_cursor = 1
+
+" Disable "A> " (actions) from showing up in the sign column"
+let g:lsp_document_code_action_signs_enabled = 0
+
 let g:lsp_enable_lua = (has('lua') && has('patch-8.2.0775'))
 let g:lsp_preview_float = has('patch-8.1.1517')
 " let g:lsp_log_file = expand('~/vim-lsp.log')
