@@ -79,6 +79,8 @@ alias ssh='TERM=xterm-color ssh'
 alias view='vim -N -R'
 alias vim='vim -N'
 
+alias rg='rg --smart-case'
+
 # ls
 case $(uname -s) in
 'Darwin'| 'FreeBSD')
@@ -100,7 +102,7 @@ alias lsd='ls -ld *(-/DN)'
 alias composer="COMPOSER_MEMORY_LIMIT=-1 ${HOME}/bin/composer.phar"
 
 # Python virtualenv
-alias venv='python3.8 -m venv venv && . ./venv/bin/activate && pip install --upgrade pip -q'
+alias venv='python3.9 -m venv venv && . ./venv/bin/activate && pip install --upgrade pip -q'
 
 # GenomeScan
 alias gonos-be='cd ~/GenomeScan/gonos/src'
@@ -110,7 +112,7 @@ alias gonos-fe='cd ~/GenomeScan/gonos/src/gonos/frontend'
 function lb() {
 	local lbdir=~/logbook
 	[[ ! -d $lbdir ]] && mkdir $lbdir
-	vim "$lbdir/$(date '+%Yw%V').md"
+	vim "$lbdir/$(date '+%Y')/$(date '+%Yw%V').md"
 }
 
 # keychain
