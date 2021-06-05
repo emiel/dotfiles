@@ -6,7 +6,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'chrisbra/matchit'
 Plug 'dense-analysis/ale'
-Plug 'habamax/vim-polar'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'leafgarland/typescript-vim'
@@ -139,10 +138,10 @@ nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
 nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " fzf.vim
-nnoremap <Leader>fb :FzfBuffers<CR>
-nnoremap <Leader>ff :FzfFiles<CR>
-nnoremap <Leader>fg :FzfRg<SPACE>
-nnoremap <Leader>fh :FzfHelptags<CR>
+nnoremap <Leader>g :FzfRg<SPACE>
+nnoremap <Leader>b :FzfBuffers<CR>
+nnoremap <Leader>f :FzfFiles<CR>
+nnoremap <Leader>h :FzfHelptags<CR>
 nnoremap <silent>K :call SearchCurrentWordWithFzf()<CR>
 
 " NERDTree
