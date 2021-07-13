@@ -28,22 +28,29 @@
 	changed = green
 	untracked = cyan
 
-[merge]
-	tool = opendiff
-
 [alias]
 	br = branch
 	ci = commit
-	co = checkout
 	df = diff -w
 	lg = log -p
-	lgl = log --oneline
-	lgg = log --graph --oneline --decorate --all
 	lgcmp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset | %an' --abbrev-commit --date=relative
+	lgg = log --graph --oneline --decorate --all
+	lgl = log --oneline
+	rs = restore
 	st = status
+	sw = switch
+
+[fetch]
+	prune = true
+
+[merge]
+	tool = opendiff
 
 [push]
 	default = simple
+
+[pull]
+	rebase = true
 
 [sendemail]
 	annotate = yes
