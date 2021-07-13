@@ -6,6 +6,9 @@
 	pager = less -FRSX
 	editor = vim
 
+[init]
+	defaultBranch = main
+
 [color]
 	branch = auto
 	ui = auto
@@ -28,9 +31,37 @@
 	changed = green
 	untracked = cyan
 
+[diff]
+	colorMoved = true
+	colorMovedWS = allow-indentation-change
+
+[fetch]
+	prune = true
+
+[log]
+	date = iso-local
+
+[rebase]
+	autosquash = true
+
+[stash]
+	showPatch = true
+
+[pull]
+	rebase = true
+
+[sendemail]
+	annotate = true
+	smtpencryption = tls
+	smtpserver = dragon.ttyout.net
+	smtpserverport = 587
+	smtpuser = emiel
+	verify = off
+
 [alias]
 	br = branch
 	ci = commit
+	co = checkout
 	df = diff -w
 	lg = log -p
 	lgcmp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset | %an' --abbrev-commit --date=relative
@@ -39,23 +70,3 @@
 	rs = restore
 	st = status
 	sw = switch
-
-[fetch]
-	prune = true
-
-[merge]
-	tool = opendiff
-
-[push]
-	default = simple
-
-[pull]
-	rebase = true
-
-[sendemail]
-	annotate = yes
-	smtpencryption = tls
-	smtpserver = dragon.ttyout.net
-	smtpserverport = 587
-	smtpuser = emiel
-	verify = off
