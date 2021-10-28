@@ -17,10 +17,14 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'preservim/nerdtree'
 Plug 'purescript-contrib/purescript-vim'
 Plug 'rhysd/committia.vim'
+Plug 'rhysd/vim-lsp-ale'
+Plug 'rizzatti/dash.vim'
+Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
 call plug#end()
 
@@ -130,28 +134,31 @@ nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
 "" Mappings used frequently
 ""
 
-nnoremap <Leader>stw :<C-U>call StripTrailingWhitespace()<CR>
+nnoremap <unique> <Leader>stw :<C-U>call StripTrailingWhitespace()<CR>
 
 " ALE
-nnoremap <Leader>Af :ALEFix<CR>
-nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
-nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <unique> <Leader>Ad <Plug>(ale_detail)
+nmap <unique> <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <unique> <silent> <C-k> <Plug>(ale_previous_wrap)
+
+" Dash
+nmap <unique> <silent> <leader>D <Plug>DashSearch
 
 " fzf.vim
-nnoremap <Leader>g :FzfRg<SPACE>
-nnoremap <Leader>b :FzfBuffers<CR>
-nnoremap <Leader>f :FzfFiles<CR>
-nnoremap <Leader>h :FzfHelptags<CR>
-nnoremap <silent>K :call SearchCurrentWordWithFzf()<CR>
+nnoremap <unique> <Leader>g :FzfRg<SPACE>
+nnoremap <unique> <Leader>b :FzfBuffers<CR>
+nnoremap <unique> <Leader>f :FzfFiles<CR>
+nnoremap <unique> <Leader>h :FzfHelptags<CR>
+nnoremap <unique> <silent>K :call SearchCurrentWordWithFzf()<CR>
 
 " NERDTree
 nnoremap <silent> <Leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 " Spell checking
-nnoremap <Leader>s :set spell!<CR>
+nnoremap <unique> <Leader>s :set spell!<CR>
 
 " Toggle pasting
-nnoremap <Leader>p :set paste!<CR>:set paste?<CR>
+nnoremap <unique> <Leader>p :set paste!<CR>:set paste?<CR>
 
 ""
 "" File type triggers
@@ -207,9 +214,12 @@ endif
 " ALE
 "
 let g:ale_completion_enabled = 0
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 let g:ale_fix_on_save = 1
-let g:ale_lint_on_save = 1
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+let g:ale_lint_on_save = 0
+let g:ale_sign_error = "E>"
+let g:ale_sign_info = "I>"
+let g:ale_sign_warning = "W>"
 
 "
 " NERDTree
