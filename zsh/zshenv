@@ -19,9 +19,6 @@ manpath=(${NPM_PACKAGES}/share/man $manpath)
 # PHP Composer
 path=(~/.config/composer/vendor/bin $path)
 
-# Brew
-path=(/usr/local/opt/python@3.8/bin $path)
-
 # Cargo
 path=(~/.cargo/bin $path)
 

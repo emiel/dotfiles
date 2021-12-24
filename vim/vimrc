@@ -92,6 +92,7 @@ endif
 ""
 
 let mapleader = ','
+" let maplocalleader = '-'
 
 " Remap , (Reverse last character-search command) to \ (default leader)
 noremap \ ,
@@ -138,8 +139,8 @@ nnoremap <unique> <Leader>stw :<C-U>call StripTrailingWhitespace()<CR>
 
 " ALE
 nmap <unique> <Leader>Ad <Plug>(ale_detail)
-nmap <unique> <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <unique> <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <unique> <C-j> <Plug>(ale_next_wrap)
+nmap <unique> <C-k> <Plug>(ale_previous_wrap)
 
 " Dash
 nmap <unique> <silent> <leader>D <Plug>DashSearch
@@ -152,7 +153,8 @@ nnoremap <unique> <Leader>h :FzfHelptags<CR>
 nnoremap <unique> <silent>K :call SearchCurrentWordWithFzf()<CR>
 
 " NERDTree
-nnoremap <silent> <Leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+nnoremap <unique> <silent> <Leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+nnoremap <unique> <silent> <Leader>t :NERDTreeFind<CR>
 
 " Spell checking
 nnoremap <unique> <Leader>s :set spell!<CR>

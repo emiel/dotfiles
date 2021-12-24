@@ -3,8 +3,8 @@
 ##
 
 HISTFILE=~/.zhistory
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=4096
+SAVEHIST=2048
 
 ##
 ## OPTIONS (zshoptions)
@@ -12,17 +12,19 @@ SAVEHIST=1000
 
 # Changing directories
 setopt AUTO_CD
+setopt CDABLE_VARS
+setopt CD_SILENT
 
 # Expansion and Globbing
 setopt EXTENDED_GLOB
 
 # History
-setopt EXTENDED_HISTORY
-setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_VERIFY
+setopt SHARE_HISTORY
 
 # Command prompt
 setopt PROMPT_SUBST
@@ -81,6 +83,14 @@ alias vim='vim -N'
 
 alias rg='rg --smart-case'
 
+##
+## Named directories
+##
+
+hash -d tiq-bo=~/Repos/tiqets-backoffice
+hash -d tiq-sql=~/Repos/tiqets-sql
+hash -d tiq-web=~/Repos/tiqetsweb
+
 # ls
 case $(uname -s) in
 'Darwin'| 'FreeBSD')
@@ -104,9 +114,8 @@ alias composer="COMPOSER_MEMORY_LIMIT=-1 ${HOME}/bin/composer.phar"
 # Python virtualenv
 alias venv='python3.9 -m venv venv && . ./venv/bin/activate && pip install --upgrade pip -q'
 
-# GenomeScan
-alias gonos-be='cd ~/GenomeScan/gonos/src'
-alias gonos-fe='cd ~/GenomeScan/gonos/src/gonos/frontend'
+# Temporary work around until warnings are addressed...
+alias pytest='pytest --disable-warnings'
 
 # My logbook
 function lb() {
@@ -120,3 +129,33 @@ function lb() {
 
 # direnv
 # [ -x "$(command -v direnv)" ] && eval "$(direnv hook zsh)"
+
+# Poetry
+export POETRY_VIRTUALENVS_IN_PROJECT=true
+
+# Tiqets
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
+export TIQETS_ENV=docker_compose_dependencies
+
+alias psql-tiq='psql -h localhost -p 31432 -U tiqetsweb tiqetsk8s'
+alias psql-tiq-master='psql -h localhost -p 31432 -U site_rw tiqetsk8s'
+alias psql-tiq-prod='psql -h tiqp-pg-cluster.cluster-ro-cxtyfd3a4vin.eu-west-1.rds.amazonaws.com -U site_ro tiqets_production'
+
+gsw() {
+  # git switch "$(git branch -a | fzf | tr -d '[:space:]')"
+  git switch "$(git branch --list --all | sed -e '/^*/d' -e 's/^  //' | fzf)"
+}
+
+# export ZVENV_ALLOWED_VENVS=(
+#     "/Users/emiel/Repos/tiqetsweb/venv"
+#     "/Users/emiel/Repos/tiqets-backoffice/venv"
+# )
+
+# zplug
+#export ZPLUG_HOME=/opt/homebrew/opt/zplug
+#source $ZPLUG_HOME/init.zsh
+#zplug "emiel/zsh-venv"
+#zplug load
+
+source ~/venv.zsh

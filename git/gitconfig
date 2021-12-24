@@ -62,7 +62,7 @@
 	br = branch
 	ci = commit
 	co = checkout
-	df = diff -w
+	df = diff
 	lg = log -p
 	lgcmp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset | %an' --abbrev-commit --date=relative
 	lgg = log --graph --oneline --decorate --all
