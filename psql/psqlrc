@@ -1,15 +1,15 @@
 \set QUIET on
 
-\timing on
-
+\pset border 2
 \pset expanded auto
-\pset null '(null)'
-\pset pager off
-
+\pset linestyle unicode
+\pset null ∅
 \set COMP_KEYWORD_CASE preserve-lower
 \set HISTCONTROL ignoredups
 \set PROMPT1 '%n@%M %/%R%# '
 \set PROMPT2 '%n@%M %/%R%# '
 \set VERBOSITY verbose
+\setenv PAGER 'pspg -s0'
+\timing on
 
 \set QUIET off
