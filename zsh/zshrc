@@ -90,6 +90,7 @@ alias rg='rg --smart-case'
 hash -d tiq-bo=~/Repos/tiqets-backoffice
 hash -d tiq-sql=~/Repos/tiqets-sql
 hash -d tiq-web=~/Repos/tiqetsweb
+hash -d dotfiles=~/Repos/dotfiles
 
 # ls
 case $(uname -s) in
@@ -124,12 +125,6 @@ function lb() {
 	vim "$lbdir/$(date '+%Y')/$(date '+%Yw%V').md"
 }
 
-# keychain
-# [ -x "$(command -v keychain)" ] && eval "$(keychain -q -Q --nogui --eval id_ed25519)"
-
-# direnv
-# [ -x "$(command -v direnv)" ] && eval "$(direnv hook zsh)"
-
 # Poetry
 export POETRY_VIRTUALENVS_IN_PROJECT=true
 
@@ -143,19 +138,12 @@ alias psql-tiq-master='psql -h localhost -p 31432 -U site_rw tiqetsk8s'
 alias psql-tiq-prod='psql -h tiqp-pg-cluster.cluster-ro-cxtyfd3a4vin.eu-west-1.rds.amazonaws.com -U site_ro tiqets_production'
 
 gsw() {
-  # git switch "$(git branch -a | fzf | tr -d '[:space:]')"
   git switch "$(git branch --list --all | sed -e '/^*/d' -e 's/^  //' | fzf)"
 }
 
-# export ZVENV_ALLOWED_VENVS=(
-#     "/Users/emiel/Repos/tiqetsweb/venv"
-#     "/Users/emiel/Repos/tiqets-backoffice/venv"
-# )
-
-# zplug
-#export ZPLUG_HOME=/opt/homebrew/opt/zplug
-#source $ZPLUG_HOME/init.zsh
-#zplug "emiel/zsh-venv"
-#zplug load
-
-source ~/venv.zsh
+# Emiel's zvenv
+export ZVENV_ALLOWED_VENVS=(
+     "/Users/emiel/Repos/tiqets-backoffice/venv"
+     "/Users/emiel/Repos/tiqetsweb/venv"
+)
+source "${HOME}/Repos/dotfiles/zsh/venv.zsh"
