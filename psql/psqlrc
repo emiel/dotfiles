@@ -2,14 +2,17 @@
 
 \pset border 2
 \pset expanded auto
-\pset linestyle unicode
+\pset footer on
+\pset linestyle ascii
 \pset null ∅
+\pset pager on
 \set COMP_KEYWORD_CASE preserve-lower
 \set HISTCONTROL ignoredups
+\set HISTFILE ~/.psql_history-:DBNAME
 \set PROMPT1 '%n@%M %/%R%# '
 \set PROMPT2 '%n@%M %/%R%# '
 \set VERBOSITY verbose
-\setenv PAGER 'pspg -s0'
+\setenv PSQL_PAGER 'pspg -s0'
 \timing on
 
 \set QUIET off
