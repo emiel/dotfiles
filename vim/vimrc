@@ -45,7 +45,7 @@ set cursorline
 set encoding=utf-8
 set formatoptions+=j
 set hidden
-set history=256
+set history=1024
 set hlsearch
 set ignorecase
 set incsearch
@@ -215,6 +215,7 @@ endif
 " ALE
 "
 let g:ale_completion_enabled = 0
+let g:ale_disable_lsp = 1
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_save = 0
@@ -244,38 +245,49 @@ let g:lsp_diagnostics_float_cursor = 1
 " Disable "A> " (actions) from showing up in the sign column"
 let g:lsp_document_code_action_signs_enabled = 0
 
-let g:lsp_enable_lua = (has('lua') && has('patch-8.2.0775'))
+let g:lsp_enable_lua = 1 " (has('lua') && has('patch-8.2.0775'))
 let g:lsp_preview_float = has('patch-8.1.1517')
-" let g:lsp_log_file = expand('~/vim-lsp.log')
-" let g:lsp_log_verbose = 1
+"let g:lsp_log_file = expand('~/vim-lsp.log')
+"let g:lsp_log_verbose = 1
 
-if executable('pyls')
+
+if executable('pylsp')
     au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'pyls']},
-        \ 'whitelist': ['python'],
+        \ 'name': 'pylsp',
+        \ 'cmd': ['pylsp'],
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pyproject.toml'))},
+        \ 'allowlist': ['python'],
         \ })
 endif
 
-if executable('purescript-language-server')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'purescript-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'purescript-language-server --stdio']},
-        \ 'whitelist': ['purescript'],
-        \ 'workspace_config': {
-            \ 'purescript.addNpmPath': v:true,
-            \ 'purescript.addSpagoSources': v:true,
-            \ 'purescript.buildCommand': 'spago build --purs-args --json-errors'
-        \ }
-        \ })
-endif
+" if executable('pyright-langserver')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'pyright-langserver',
+"         \ 'cmd': ['pyright-langserver', '--stdio'],
+"         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pyproject.toml'))},
+"         \ 'allowlist': ['python'],
+"         \ })
+" endif
+
+" if executable('purescript-language-server')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'purescript-language-server',
+"         \ 'cmd': ['purescript-language-server', '--stdio'],
+"         \ 'allowlist': ['purescript'],
+"         \ 'workspace_config': {
+"             \ 'purescript.addNpmPath': v:true,
+"             \ 'purescript.addSpagoSources': v:true,
+"             \ 'purescript.buildCommand': 'spago build --purs-args --json-errors'
+"         \ }
+"         \ })
+" endif
 
 if executable('typescript-language-server')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'cmd': ['typescript-language-server', '--stdio'],
         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-        \ 'whitelist': ['typescript', 'typescript.tsx', 'typescriptreact'],
+        \ 'allowlist': ['typescript', 'typescript.tsx', 'typescriptreact'],
         \ })
 endif
 

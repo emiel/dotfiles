@@ -1,7 +1,7 @@
-let b:ale_fixers = ['pgformatter']
+"let b:ale_fixers = ['pgformatter']
 setlocal expandtab
-setlocal shiftwidth=2
+setlocal shiftwidth=4
 setlocal smartindent
 setlocal smarttab
-setlocal softtabstop=2
-setlocal tabstop=2
+setlocal softtabstop=4
+setlocal tabstop=4
