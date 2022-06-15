@@ -250,43 +250,52 @@ let g:lsp_preview_float = has('patch-8.1.1517')
 "let g:lsp_log_file = expand('~/vim-lsp.log')
 "let g:lsp_log_verbose = 1
 
-
 if executable('pylsp')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'pylsp',
         \ 'cmd': ['pylsp'],
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pyproject.toml'))},
+        \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pyproject.toml'))},
         \ 'allowlist': ['python'],
+        \ 'workspace_config': {},
+        \ 'config': {},
         \ })
 endif
 
-" if executable('pyright-langserver')
-"     au User lsp_setup call lsp#register_server({
-"         \ 'name': 'pyright-langserver',
-"         \ 'cmd': ['pyright-langserver', '--stdio'],
-"         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pyproject.toml'))},
-"         \ 'allowlist': ['python'],
-"         \ })
-" endif
+"
+" Bug in pyright-langserver: You must set 'workspace_config' so a
+" 'workspace/didChangeConfiguration' is sent! Not sure what the LSP protocol
+" says about this.
+"
+if executable('pyright-langserver')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyright-langserver',
+        \ 'cmd': ['pyright-langserver', '--stdio'],
+        \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pyproject.toml'))},
+        \ 'initialization_options': v:null,
+        \ 'allowlist': ['python'],
+        \ 'workspace_config': {},
+        \ 'config': {},
+        \ })
+endif
 
-" if executable('purescript-language-server')
-"     au User lsp_setup call lsp#register_server({
-"         \ 'name': 'purescript-language-server',
-"         \ 'cmd': ['purescript-language-server', '--stdio'],
-"         \ 'allowlist': ['purescript'],
-"         \ 'workspace_config': {
-"             \ 'purescript.addNpmPath': v:true,
-"             \ 'purescript.addSpagoSources': v:true,
-"             \ 'purescript.buildCommand': 'spago build --purs-args --json-errors'
-"         \ }
-"         \ })
-" endif
+if executable('purescript-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'purescript-language-server',
+        \ 'cmd': ['purescript-language-server', '--stdio'],
+        \ 'allowlist': ['purescript'],
+        \ 'workspace_config': {
+            \ 'purescript.addNpmPath': v:true,
+            \ 'purescript.addSpagoSources': v:true,
+            \ 'purescript.buildCommand': 'spago build --purs-args --json-errors'
+        \ }
+        \ })
+endif
 
 if executable('typescript-language-server')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'typescript-language-server',
         \ 'cmd': ['typescript-language-server', '--stdio'],
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
         \ 'allowlist': ['typescript', 'typescript.tsx', 'typescriptreact'],
         \ })
 endif
@@ -298,6 +307,8 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> gh <plug>(lsp-hover)
     nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gn <plug>(lsp-rename)
+    nmap <buffer> gp <plug>(lsp-peek-definition)
     nmap <buffer> gr <plug>(lsp-references)
     nmap <buffer> gt <plug>(lsp-type-definition)
 endfunction
