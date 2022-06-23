@@ -74,6 +74,7 @@ alias mkdir='nocorrect mkdir -v'
 alias mv='nocorrect mv -v -i'
 alias rm='nocorrect rm -v -i'
 
+alias bc='bc -l'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
