@@ -1,8 +1,12 @@
-""
-"" Plugins
-""
+vim9script
 
-call plug#begin('~/.vim/plugged')
+# set verbose=9
+
+##
+## Plugins
+##
+
+plug#begin('~/.vim/plugged')
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'chrisbra/matchit'
 Plug 'dense-analysis/ale'
@@ -25,13 +29,13 @@ Plug 'tpope/vim-git'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
-call plug#end()
+plug#end()
 
 filetype plugin indent on
 
-""
-"" Global Options
-""
+##
+## Global Options
+##
 
 set autoindent
 set autoread
@@ -80,230 +84,228 @@ set wildignore+=*.o,*.pyc
 set wildmenu
 set wildmode=list:longest
 
-" Prefer rg (ripgrep) over grep
-if executable("rg")
+# Prefer rg (ripgrep) over grep
+if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
   set grepformat=%f:%l:%c:%m
 endif
 
-""
-"" Mappings
-""
+##
+## Mappings
+##
 
-let mapleader = ','
-" let maplocalleader = '-'
+g:mapleader = ','
 
-" Remap , (Reverse last character-search command) to \ (default leader)
+# Remap , (Reverse last character-search command) to \ (default leader)
 noremap \ ,
 
-" Scroll the viewport faster
+# Scroll the viewport faster
 nnoremap <C-E> 4<C-E>
 nnoremap <C-Y> 4<C-Y>
 vnoremap <C-E> 4<C-E>
 vnoremap <C-Y> 4<C-Y>
 
-" Stop highlighting in addition to clearing and redrawing the screen.
+# Stop highlighting in addition to clearing and redrawing the screen.
 nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
 
-""
-"" Completion mappings
-""
+##
+## Completion mappings
+##
 
-" Completing file names
-"inoremap <silent> <Leader>f <C-X><C-F>
+# Completing file names
+#inoremap <silent> <Leader>f <C-X><C-F>
 
-" Completing keywords in the current and included files
-"inoremap <silent> <Leader>i <C-X><C-I>
+# Completing keywords in the current and included files
+#inoremap <silent> <Leader>i <C-X><C-I>
 
-" Completing whole lines
-"inoremap <silent> <Leader>l <C-X><C-L>
+# Completing whole lines
+#inoremap <silent> <Leader>l <C-X><C-L>
 
-" Completing keywords in current file
-"inoremap <silent> <Leader>n <C-X><C-N>
+# Completing keywords in current file
+#inoremap <silent> <Leader>n <C-X><C-N>
 
-" Omni completion
-"inoremap <silent> <Leader>o <C-X><C-O>
+# Omni completion
+#inoremap <silent> <Leader>o <C-X><C-O>
 
-" Completing tags
-"inoremap <silent> <Leader>t <C-X><C-]>
+# Completing tags
+#inoremap <silent> <Leader>t <C-X><C-]>
 
-" User defined completion
-"inoremap <silent> <Leader>u <C-X><C-U>
+# User defined completion
+#inoremap <silent> <Leader>u <C-X><C-U>
 
-""
-"" Mappings used frequently
-""
+##
+## Mappings used frequently
+##
 
-nnoremap <unique> <Leader>stw :<C-U>call StripTrailingWhitespace()<CR>
+nnoremap <unique> <Leader>stw :<C-U>StripTrailingWhitespace()<CR>
 
-" ALE
+# ALE
 nmap <unique> <Leader>Ad <Plug>(ale_detail)
 nmap <unique> <C-j> <Plug>(ale_next_wrap)
 nmap <unique> <C-k> <Plug>(ale_previous_wrap)
 
-" Dash
+# Dash
 nmap <unique> <silent> <leader>D <Plug>DashSearch
 
-" fzf.vim
+# fzf.vim
 nnoremap <unique> <Leader>g :FzfRg<SPACE>
 nnoremap <unique> <Leader>b :FzfBuffers<CR>
 nnoremap <unique> <Leader>f :FzfFiles<CR>
 nnoremap <unique> <Leader>h :FzfHelptags<CR>
-nnoremap <unique> <silent>K :call SearchCurrentWordWithFzf()<CR>
+nnoremap <unique> <silent>K :execute 'FzfRg' expand('<cword>')<CR>
 
-" NERDTree
-nnoremap <unique> <silent> <Leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+# NERDTree
+nnoremap <unique> <silent> <Leader>d :execute 'NERDTreeToggle' getcwd()<CR>
 nnoremap <unique> <silent> <Leader>t :NERDTreeFind<CR>
 
-" Spell checking
+# Spell checking
 nnoremap <unique> <Leader>s :set spell!<CR>
 
-" Toggle pasting
+# Toggle pasting
 nnoremap <unique> <Leader>p :set paste!<CR>:set paste?<CR>
 
-""
-"" File type triggers
-""
+##
+## File type triggers
+##
 
-" Jump to last position in file after opening. Nice!
-autocmd BufReadPost *
-\ if line("'\"") > 0 && line("'\"") <= line("$") |
-\   exe "normal! g`\"" |
-\ endif
+# Jump to last position in file after opening. Nice!
+autocmd BufReadPost * {
+    if line("'\"") > 0 && line("'\"") <= line('$')
+        exe "normal! g`\""
+    endif
+}
 
-""
-"" Colors
-""
+##
+## Colors
+##
 
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default': {
-  \       'transparent_background': 1
-  \     }
-  \   }
-  \ }
+g:PaperColor_Theme_Options = {
+  'theme': {
+    'default': {
+      'transparent_background': 1
+    }
+  }
+}
 
 syntax on
 
 colorscheme PaperColor
 
-""
-"" Commands
-""
+##
+## Commands
+##
 
-" ctags
-"command! MakeTags !ctags -R .
+# ctags
+#command! MakeTags !ctags -R .
 
-""
-"" Plugin Configuration
-""
+##
+## Plugin Configuration
+##
 
-"
-" fzf.vim
-"
-let g:fzf_command_prefix = 'Fzf'
+#
+# fzf.vim
+#
+g:fzf_command_prefix = 'Fzf'
 
-function! SearchCurrentWordWithFzf()
-  execute 'FzfRg' expand('<cword>')
-endfunction
-
-if (executable('rg'))
-  let $FZF_DEFAULT_COMMAND = 'rg --files  --hidden --glob "!{node_modules,.git}"'
+if executable('rg')
+  $FZF_DEFAULT_COMMAND = 'rg --files  --hidden --glob "!{node_modules,.git}"'
 endif
 
-"
-" ALE
-"
-let g:ale_completion_enabled = 0
-let g:ale_disable_lsp = 1
-let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-let g:ale_fix_on_save = 1
-let g:ale_lint_on_save = 0
-let g:ale_sign_error = "E>"
-let g:ale_sign_info = "I>"
-let g:ale_sign_warning = "W>"
+#
+# ALE
+#
+g:ale_completion_enabled = 0
+g:ale_disable_lsp = 1
+g:ale_echo_msg_format = '[%linter%] %code: %%s'
+g:ale_fix_on_save = 1
+g:ale_lint_on_save = 0
+g:ale_sign_error = 'E>'
+g:ale_sign_info = 'I>'
+g:ale_sign_warning = 'W>'
 
-"
-" NERDTree
-"
-let g:NERDTreeIgnore = ['^__pycache__$', '\~$']
+#
+# NERDTree
+#
+g:NERDTreeIgnore = ['^__pycache__$', '\~$']
 
-"
-" netrw
-"
-" let g:netrw_altv=1
-" let g:netrw_banner=0
-" let g:netrw_browse_split=4
-" let g:netrw_list_hide=netrw_gitignore#Hide()
-" let g:netrw_liststyle=3
+#
+# netrw
+#
+# g:netrw_altv=1
+# g:netrw_banner=0
+# g:netrw_browse_split=4
+# g:netrw_list_hide=netrw_gitignore#Hide()
+# g:netrw_liststyle=3
 
-"
-" vim-lsp
-"
-let g:lsp_diagnostics_float_cursor = 1
+#
+# vim-lsp
+#
+g:lsp_diagnostics_float_cursor = 1
 
-" Disable "A> " (actions) from showing up in the sign column"
-let g:lsp_document_code_action_signs_enabled = 0
+# Disable 'A> ' (actions) from showing up in the sign column
+g:lsp_document_code_action_signs_enabled = 0
 
-let g:lsp_enable_lua = 1 " (has('lua') && has('patch-8.2.0775'))
-let g:lsp_preview_float = has('patch-8.1.1517')
-"let g:lsp_log_file = expand('~/vim-lsp.log')
-"let g:lsp_log_verbose = 1
+g:lsp_enable_lua = 1
+# g:lsp_log_file = expand('~/vim-lsp.log')
+# g:lsp_log_verbose = 1
 
-if executable('pylsp')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pylsp',
-        \ 'cmd': ['pylsp'],
-        \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pyproject.toml'))},
-        \ 'allowlist': ['python'],
-        \ 'workspace_config': {},
-        \ 'config': {},
-        \ })
-endif
-
-"
-" Bug in pyright-langserver: You must set 'workspace_config' so a
-" 'workspace/didChangeConfiguration' is sent! Not sure what the LSP protocol
-" says about this.
-"
+#
+# Bug in pyright-langserver: You must set 'workspace_config' so a
+# 'workspace/didChangeConfiguration' is sent! Not sure what the LSP protocol
+# says about this.
+#
 if executable('pyright-langserver')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyright-langserver',
-        \ 'cmd': ['pyright-langserver', '--stdio'],
-        \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pyproject.toml'))},
-        \ 'initialization_options': v:null,
-        \ 'allowlist': ['python'],
-        \ 'workspace_config': {},
-        \ 'config': {},
-        \ })
+    def LspRegister()
+        lsp#register_server({
+            'name': 'pyright-langserver',
+            'cmd': ['pyright-langserver', '--stdio'],
+            'root_uri': (server_info) => lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pyproject.toml')),
+            'initialization_options': v:null,
+            'allowlist': ['python'],
+            'workspace_config': {},
+            'config': {},
+        })
+    enddef
+
+    autocmd User lsp_setup LspRegister()
 endif
 
 if executable('purescript-language-server')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'purescript-language-server',
-        \ 'cmd': ['purescript-language-server', '--stdio'],
-        \ 'allowlist': ['purescript'],
-        \ 'workspace_config': {
-            \ 'purescript.addNpmPath': v:true,
-            \ 'purescript.addSpagoSources': v:true,
-            \ 'purescript.buildCommand': 'spago build --purs-args --json-errors'
-        \ }
-        \ })
+    def LspRegister()
+        lsp#register_server({
+            'name': 'purescript-language-server',
+            'cmd': ['purescript-language-server', '--stdio'],
+            'allowlist': ['purescript'],
+            'workspace_config': {
+                'purescript.addNpmPath': v:true,
+                'purescript.addSpagoSources': v:true,
+                'purescript.buildCommand': 'spago build --purs-args --json-errors'
+            }
+        })
+    enddef
+
+    autocmd User lsp_setup LspRegister()
 endif
 
 if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': ['typescript-language-server', '--stdio'],
-        \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-        \ 'allowlist': ['typescript', 'typescript.tsx', 'typescriptreact'],
-        \ })
+    def LspRegister()
+        lsp#register_server({
+            'name': 'typescript-language-server',
+            'cmd': ['typescript-language-server', '--stdio'],
+            'root_uri': (server_info) => lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json')),
+            'allowlist': ['typescript', 'typescript.tsx', 'typescriptreact'],
+         })
+    enddef
+
+    autocmd User lsp_setup LspRegister()
 endif
 
-function! s:on_lsp_buffer_enabled() abort
+def OnLspBufferEnabled()
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=number
-    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    if exists('+tagfunc')
+        setlocal tagfunc=lsp#tagfunc
+    endif
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> gh <plug>(lsp-hover)
     nmap <buffer> gi <plug>(lsp-implementation)
@@ -311,30 +313,39 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> gp <plug>(lsp-peek-definition)
     nmap <buffer> gr <plug>(lsp-references)
     nmap <buffer> gt <plug>(lsp-type-definition)
-endfunction
+enddef
 
 augroup lsp_install
-    au!
-    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+    autocmd!
+    # call OnLspBufferEnabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled OnLspBufferEnabled()
 augroup END
 
-"
-" asyncomplete.vim
-"
-"let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+#
+# asyncomplete.vim
+#
+# g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+autocmd! CompleteDone * {
+    if pumvisible() == 0
+        pclose
+    endif
+}
 
-"
-" NERDTree
-"
-" prevent other buffers replacing NERDTree in its window
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+#
+# NERDTree
+#
+
+autocmd BufEnter * {
+    # Prevent other buffers replacing NERDTree in its window
+    if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1
+        const buf = bufnr()
+        buffer #
+        normal! \<C-W>w
+        buffer buf
+    endif
+}
