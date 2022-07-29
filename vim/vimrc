@@ -137,7 +137,7 @@ nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
 ## Mappings used frequently
 ##
 
-nnoremap <unique> <Leader>stw :<C-U>StripTrailingWhitespace()<CR>
+nnoremap <unique> <Leader>stw :<C-U>call StripTrailingWhitespace()<CR>
 
 # ALE
 nmap <unique> <Leader>Ad <Plug>(ale_detail)
@@ -227,6 +227,16 @@ g:ale_sign_warning = 'W>'
 # NERDTree
 #
 g:NERDTreeIgnore = ['^__pycache__$', '\~$']
+
+autocmd BufEnter * {
+    # Prevent other buffers replacing NERDTree in its window
+    if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1
+        const buf = bufnr()
+        buffer #
+        normal! \<C-W>w
+        buffer buf
+    endif
+}
 
 #
 # netrw
@@ -333,19 +343,5 @@ imap <c-space> <Plug>(asyncomplete_force_refresh)
 autocmd! CompleteDone * {
     if pumvisible() == 0
         pclose
-    endif
-}
-
-#
-# NERDTree
-#
-
-autocmd BufEnter * {
-    # Prevent other buffers replacing NERDTree in its window
-    if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1
-        const buf = bufnr()
-        buffer #
-        normal! \<C-W>w
-        buffer buf
     endif
 }
