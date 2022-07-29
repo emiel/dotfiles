@@ -1,6 +1,5 @@
 [user]
 	name = Emiel van de Laar
-	email = gemiel@gmail.com
 
 [core]
 	pager = less -FRSX
@@ -70,3 +69,9 @@
 	rs = restore
 	st = status
 	sw = switch
+
+[includeIf "hasconfig:remote.*.url:git@github.com:emiel/**"]
+	path = config-emiel.inc
+
+[includeIf "hasconfig:remote.*.url:git@gitlab.com:tiqets/**"]
+	path = config-tiqets.inc
