@@ -1,3 +1,5 @@
+DOTFILES = $(shell pwd)
+
 install: \
 	install-flake8 \
 	install-gdb \
@@ -16,57 +18,58 @@ install: \
 install-flake8:
 	rm -f $(HOME)/.config/flake8
 	mkdir -p $(HOME)/.config
-	ln -s `pwd`/flake8/flake8 $(HOME)/.config/flake8
+	ln -s $(DOTFILES)/flake8/flake8 $(HOME)/.config/flake8
 
 install-gdb:
 	rm -f $(HOME)/.gdbinit
-	ln -s `pwd`/gdb/gdbinit $(HOME)/.gdbinit
+	ln -s $(DOTFILES)/gdb/gdbinit $(HOME)/.gdbinit
 
 install-ghci:
 	rm -f $(HOME)/.ghci
-	ln -s `pwd`/ghci/ghci $(HOME)/.ghci
+	ln -s $(DOTFILES)/ghci/ghci $(HOME)/.ghci
 
 install-git:
-	rm -f $(HOME)/.gitconfig
-	ln -s `pwd`/git/gitconfig $(HOME)/.gitconfig
+	mkdir -p $(HOME)/.config
+	rm -f $(HOME)/.config/git
+	ln -s $(DOTFILES)/git $(HOME)/.config/git
 
 install-i3:
-	rm -rf $(HOME)/.i3
-	ln -s `pwd`/i3 $(HOME)/.i3
+	rm -f $(HOME)/.i3
+	ln -s $(DOTFILES)/i3 $(HOME)/.i3
 
 install-i3status:
 	rm -f $(HOME)/.i3status.conf
-	ln -s `pwd`/i3status/i3status.conf $(HOME)/.i3status.conf
+	ln -s $(DOTFILES)/i3status/i3status.conf $(HOME)/.i3status.conf
 
 install-mutt:
-	rm -rf $(HOME)/.mutt
-	ln -s `pwd`/mutt $(HOME)/.mutt
+	rm -f $(HOME)/.mutt
+	ln -s $(DOTFILES)/mutt $(HOME)/.mutt
 
 install-npm:
 	rm -f $(HOME)/.npmrc
-	ln -s `pwd`/npm/npmrc $(HOME)/.npmrc
+	ln -s $(DOTFILES)/npm/npmrc $(HOME)/.npmrc
 
 install-psql:
 	rm -f $(HOME)/.psqlrc
-	ln -s `pwd`/psql/psqlrc $(HOME)/.psqlrc
+	ln -s $(DOTFILES)/psql/psqlrc $(HOME)/.psqlrc
 
 install-tmux:
 	rm -f $(HOME)/.tmux.conf
-	ln -s `pwd`/tmux/tmux.conf $(HOME)/.tmux.conf
+	ln -s $(DOTFILES)/tmux/tmux.conf $(HOME)/.tmux.conf
 
 install-vim:
 	git submodule update --init
-	rm -rf $(HOME)/.vim
-	ln -s `pwd`/vim $(HOME)/.vim
+	rm -f $(HOME)/.vim
+	ln -s $(DOTFILES)/vim $(HOME)/.vim
 
 install-x11:
 	rm -f $(HOME)/.xinitrc $(HOME)/.Xresources $(HOME)/.Xresources.d
-	ln -s `pwd`/x11/xinitrc $(HOME)/.xinitrc
-	ln -s `pwd`/x11/Xresources $(HOME)/.Xresources
-	ln -s `pwd`/x11/Xresources.d $(HOME)/.Xresources.d
+	ln -s $(DOTFILES)/x11/xinitrc $(HOME)/.xinitrc
+	ln -s $(DOTFILES)/x11/Xresources $(HOME)/.Xresources
+	ln -s $(DOTFILES)/x11/Xresources.d $(HOME)/.Xresources.d
 
 install-zsh:
 	rm -f $(HOME)/.zlogout $(HOME)/.zshenv $(HOME)/.zshrc
-	ln -s `pwd`/zsh/zlogout $(HOME)/.zlogout
-	ln -s `pwd`/zsh/zshenv $(HOME)/.zshenv
-	ln -s `pwd`/zsh/zshrc $(HOME)/.zshrc
+	ln -s $(DOTFILES)/zsh/zlogout $(HOME)/.zlogout
+	ln -s $(DOTFILES)/zsh/zshenv $(HOME)/.zshenv
+	ln -s $(DOTFILES)/zsh/zshrc $(HOME)/.zshrc
