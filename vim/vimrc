@@ -1,6 +1,6 @@
 vim9script
 
-# set verbose=9
+#set verbose=9
 
 ##
 ## Plugins
@@ -73,6 +73,7 @@ set showmatch
 set smartcase
 set smarttab
 set spelllang=en_us
+set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
 set tags=tags;~
 set termguicolors
 set title
@@ -165,15 +166,20 @@ nnoremap <unique> <Leader>s :set spell!<CR>
 nnoremap <unique> <Leader>p :set paste!<CR>:set paste?<CR>
 
 ##
-## File type triggers
+## Automatic commands
 ##
 
-# Jump to last position in file after opening. Nice!
-autocmd BufReadPost * {
-    if line("'\"") > 0 && line("'\"") <= line('$')
-        exe "normal! g`\""
-    endif
-}
+augroup vimrc
+    # Remove all vimrc autocommands
+    autocmd!
+
+    # Jump to last position in file after opening. Nice!
+    autocmd BufReadPost * {
+        if line("'\"") > 0 && line("'\"") <= line('$')
+            exe "normal! g`\""
+        endif
+    }
+augroup END
 
 ##
 ## Colors
@@ -227,16 +233,6 @@ g:ale_sign_warning = 'W>'
 # NERDTree
 #
 g:NERDTreeIgnore = ['^__pycache__$', '\~$']
-
-autocmd BufEnter * {
-    # Prevent other buffers replacing NERDTree in its window
-    if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1
-        const buf = bufnr()
-        buffer #
-        normal! \<C-W>w
-        buffer buf
-    endif
-}
 
 #
 # netrw
@@ -326,22 +322,17 @@ def OnLspBufferEnabled()
 enddef
 
 augroup lsp_install
+    # Remove all lsp_install autocommands
     autocmd!
-    # call OnLspBufferEnabled only for languages that has the server registered.
+
+    # Invoke OnLspBufferEnabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled OnLspBufferEnabled()
 augroup END
 
 #
 # asyncomplete.vim
 #
+g:asyncomplete_auto_popup = 0
 # g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
-inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
-
-imap <c-space> <Plug>(asyncomplete_force_refresh)
-
-autocmd! CompleteDone * {
-    if pumvisible() == 0
-        pclose
-    endif
-}
+imap <C-Space> <Plug>(asyncomplete_force_refresh)
