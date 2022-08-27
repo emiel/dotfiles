@@ -80,10 +80,10 @@ set title
 set ttyfast
 set updatetime=1000
 set visualbell
-set wildcharm=<C-Z>
 set wildignore+=*.o,*.pyc
 set wildmenu
-set wildmode=list:longest
+set wildmode=longest:full
+set wildoptions=pum
 
 # Prefer rg (ripgrep) over grep
 if executable('rg')
