@@ -110,31 +110,6 @@ vnoremap <C-Y> 4<C-Y>
 nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
 
 ##
-## Completion mappings
-##
-
-# Completing file names
-#inoremap <silent> <Leader>f <C-X><C-F>
-
-# Completing keywords in the current and included files
-#inoremap <silent> <Leader>i <C-X><C-I>
-
-# Completing whole lines
-#inoremap <silent> <Leader>l <C-X><C-L>
-
-# Completing keywords in current file
-#inoremap <silent> <Leader>n <C-X><C-N>
-
-# Omni completion
-#inoremap <silent> <Leader>o <C-X><C-O>
-
-# Completing tags
-#inoremap <silent> <Leader>t <C-X><C-]>
-
-# User defined completion
-#inoremap <silent> <Leader>u <C-X><C-U>
-
-##
 ## Mappings used frequently
 ##
 
