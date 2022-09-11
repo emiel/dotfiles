@@ -114,7 +114,8 @@ alias lsd='ls -ld *(-/DN)'
 alias composer="COMPOSER_MEMORY_LIMIT=-1 ${HOME}/bin/composer.phar"
 
 # Python virtualenv
-alias venv='python3.9 -m venv venv && . ./venv/bin/activate && pip install --upgrade pip -q'
+alias venv='python3.10 -m venv venv && . ./venv/bin/activate && pip install --upgrade pip -q'
+alias venv39='python3.9 -m venv venv && . ./venv/bin/activate && pip install --upgrade pip -q'
 
 # Temporary work around until warnings are addressed...
 alias pytest='pytest --disable-warnings'
@@ -125,9 +126,6 @@ function lb() {
 	[[ ! -d $lbdir ]] && mkdir $lbdir
 	vim "$lbdir/$(date '+%Y')/$(date '+%Yw%V').md"
 }
-
-# Poetry
-export POETRY_VIRTUALENVS_IN_PROJECT=true
 
 # Tiqets
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
