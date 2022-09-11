@@ -14,6 +14,8 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
@@ -42,7 +44,7 @@ set autoread
 set backspace=indent,eol,start
 set breakindent
 set clipboard^=unnamed,unnamedplus
-set completeopt=menuone,preview,noinsert,noselect
+set completeopt=longest,menuone,popup
 set confirm
 set copyindent
 set cursorline
@@ -154,6 +156,9 @@ augroup vimrc
             exe "normal! g`\""
         endif
     }
+
+    # Source vimrc on write
+    # autocmd BufWritePost vimrc source ~/.vim/vimrc
 augroup END
 
 ##
@@ -189,8 +194,19 @@ colorscheme PaperColor
 g:fzf_command_prefix = 'Fzf'
 
 if executable('rg')
-  $FZF_DEFAULT_COMMAND = 'rg --files  --hidden --glob "!{node_modules,.git}"'
+  $FZF_DEFAULT_COMMAND = "rg --files  --hidden --glob '!{node_modules,.git}'"
 endif
+
+def FzfRgSuper(query: string, fullscreen: bool)
+  const command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  const initial_command = printf(command_fmt, shellescape(query))
+  const reload_command = printf(command_fmt, '{q}')
+  const spec = {'options': ['--phony', '--query', query, '--bind', 'change:reload:' .. reload_command]}
+
+  fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), fullscreen)
+enddef
+
+command! -nargs=* -bang FzfRG call FzfRgSuper(<q-args>, <bang>0)
 
 #
 # ALE
@@ -307,7 +323,36 @@ augroup END
 #
 # asyncomplete.vim
 #
+g:asyncomplete_auto_completeopt = 0
 g:asyncomplete_auto_popup = 0
 # g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
-imap <C-Space> <Plug>(asyncomplete_force_refresh)
+imap <c-@> <Plug>(asyncomplete_force_refresh)
+
+def AsyncompleteRegisterSources()
+    # Using asyncomplete-buffer
+    asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+        'name': 'buffer',
+        'whitelist': ['*'],
+        'completor': function('asyncomplete#sources#buffer#completor'),
+        'config': {
+            'max_buffer_size': 5000000
+        }
+    })
+
+    # Using asyncomplete-file
+    asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+        'name': 'file',
+        'whitelist': ['*'],
+        'priority': 10,
+        'completor': function('asyncomplete#sources#file#completor')
+    })
+enddef
+
+augroup asyncomplete
+    # Remove all asyncomplete autocommands
+    autocmd!
+
+    # Register asyncomplete sources
+    autocmd User asyncomplete_setup AsyncompleteRegisterSources()
+augroup END
