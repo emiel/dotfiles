@@ -1,6 +1,9 @@
 [user]
 	name = Emiel van de Laar
 
+[advice]
+	skippedCherryPicks = false
+
 [core]
 	pager = less -FRSX
 	editor = vim
