@@ -252,7 +252,7 @@ g:lsp_enable_lua = 1
 # says about this.
 #
 if executable('pyright-langserver')
-    def LspRegister()
+    def LspRegisterPython()
         lsp#register_server({
             'name': 'pyright-langserver',
             'cmd': ['pyright-langserver', '--stdio'],
@@ -264,11 +264,11 @@ if executable('pyright-langserver')
         })
     enddef
 
-    autocmd User lsp_setup LspRegister()
+    autocmd User lsp_setup LspRegisterPython()
 endif
 
 if executable('purescript-language-server')
-    def LspRegister()
+    def LspRegisterPureScript()
         lsp#register_server({
             'name': 'purescript-language-server',
             'cmd': ['purescript-language-server', '--stdio'],
@@ -281,11 +281,11 @@ if executable('purescript-language-server')
         })
     enddef
 
-    autocmd User lsp_setup LspRegister()
+    autocmd User lsp_setup LspRegisterPureScript()
 endif
 
 if executable('typescript-language-server')
-    def LspRegister()
+    def LspRegisterTypeScript()
         lsp#register_server({
             'name': 'typescript-language-server',
             'cmd': ['typescript-language-server', '--stdio'],
@@ -294,7 +294,7 @@ if executable('typescript-language-server')
          })
     enddef
 
-    autocmd User lsp_setup LspRegister()
+    autocmd User lsp_setup LspRegisterTypeScript()
 endif
 
 def OnLspBufferEnabled()
@@ -324,10 +324,12 @@ augroup END
 # asyncomplete.vim
 #
 g:asyncomplete_auto_completeopt = 0
-g:asyncomplete_auto_popup = 0
+g:asyncomplete_auto_popup = 1
 # g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
-imap <c-@> <Plug>(asyncomplete_force_refresh)
+imap <C-@> <Plug>(asyncomplete_force_refresh)
+
+# inoremap <expr> <cr> pumvisible() ? <C-y> : <cr>
 
 def AsyncompleteRegisterSources()
     # Using asyncomplete-buffer
