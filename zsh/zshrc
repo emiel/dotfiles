@@ -114,11 +114,8 @@ alias lsd='ls -ld *(-/DN)'
 alias composer="COMPOSER_MEMORY_LIMIT=-1 ${HOME}/bin/composer.phar"
 
 # Python virtualenv
-alias venv='python3.10 -m venv venv && . ./venv/bin/activate && pip install --upgrade pip -q'
-alias venv39='python3.9 -m venv venv && . ./venv/bin/activate && pip install --upgrade pip -q'
-
-# Temporary work around until warnings are addressed...
-alias pytest='pytest --disable-warnings'
+alias venv='python3.10 -m venv .venv && . ./.venv/bin/activate && pip install --upgrade pip -q'
+alias venv39='python3.9 -m venv .venv && . ./.venv/bin/activate && pip install --upgrade pip -q'
 
 # My logbook
 function lb() {
