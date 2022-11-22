@@ -31,10 +31,10 @@ setopt PROMPT_SUBST
 
 # Include git branch name in prompt
 autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
+precmd_functions+=( vcs_info )
 zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:git:*' formats '@%b'
+zstyle ':vcs_info:git:*' formats '[%b]%m'
+zstyle ':vcs_info:git:*' actionformats '[%b|%a]'
 
 PROMPT='%n@%m:%~/ %F{32}${vcs_info_msg_0_}%f> '
 
@@ -96,13 +96,13 @@ hash -d dotfiles=~/Repos/dotfiles
 # ls
 case $(uname -s) in
 'Darwin'| 'FreeBSD')
-	export LSCOLORS=exfxcxdxbxegedabagacad
-	alias ls='ls -F -G'
-	;;
+    export LSCOLORS=exfxcxdxbxegedabagacad
+    alias ls='ls -F -G'
+    ;;
 'Linux')
-	alias ls='ls -F --color=auto'
-	eval "$(dircolors ~/.dircolors)"
-	;;
+    alias ls='ls -F --color=auto'
+    eval "$(dircolors ~/.dircolors)"
+    ;;
 esac
 
 alias l.='ls -d .[^.]*'
@@ -119,9 +119,9 @@ alias venv39='python3.9 -m venv .venv && . ./.venv/bin/activate && pip install -
 
 # My logbook
 function lb() {
-	local lbdir=~/logbook
-	[[ ! -d $lbdir ]] && mkdir $lbdir
-	vim "$lbdir/$(date '+%Y')/$(date '+%Yw%V').md"
+    local lbdir=~/logbook
+    [[ ! -d $lbdir ]] && mkdir $lbdir
+    vim "$lbdir/$(date '+%Y')/$(date '+%Yw%V').md"
 }
 
 # Tiqets
