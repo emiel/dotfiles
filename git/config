@@ -52,6 +52,9 @@
 [pull]
 	rebase = true
 
+[push]
+	autoSetupRemote = true
+
 [sendemail]
 	annotate = true
 	smtpencryption = tls
