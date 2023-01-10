@@ -220,6 +220,8 @@ g:ale_sign_error = 'E>'
 g:ale_sign_info = 'I>'
 g:ale_sign_warning = 'W>'
 
+g:ale_python_reorder_python_imports_options = '--py39-plus'
+
 #
 # NERDTree
 #
