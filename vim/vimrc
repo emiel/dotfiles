@@ -157,9 +157,6 @@ augroup vimrc
             exe "normal! g`\""
         endif
     }
-
-    # Source vimrc on write
-    # autocmd BufWritePost vimrc source ~/.vim/vimrc
 augroup END
 
 ##
