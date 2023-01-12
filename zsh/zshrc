@@ -88,10 +88,10 @@ alias rg='rg --smart-case'
 ## Named directories
 ##
 
-hash -d tiq-bo=~/Repos/tiqets-backoffice
-hash -d tiq-sql=~/Repos/tiqets-sql
-hash -d tiq-web=~/Repos/tiqetsweb
-hash -d dotfiles=~/Repos/dotfiles
+hash -d tiq-bo=~/Projects/tiqets-backoffice
+hash -d tiq-sql=~/Projects/tiqets-sql
+hash -d tiq-web=~/Projects/tiqetsweb
+hash -d dotfiles=~/Projects/dotfiles
 
 # ls
 case $(uname -s) in
@@ -114,7 +114,7 @@ alias lsd='ls -ld *(-/DN)'
 alias composer="COMPOSER_MEMORY_LIMIT=-1 ${HOME}/bin/composer.phar"
 
 # Python virtualenv
-alias venv='python3.10 -m venv .venv && . ./.venv/bin/activate && pip install --upgrade pip -q'
+alias venv='python3.11 -m venv .venv && . ./.venv/bin/activate && pip install --upgrade pip -q'
 alias venv39='python3.9 -m venv .venv && . ./.venv/bin/activate && pip install --upgrade pip -q'
 
 # My logbook
@@ -137,9 +137,10 @@ gsw() {
   git switch "$(git branch --list --all | sed -e '/^*/d' -e 's/^  //' | fzf)"
 }
 
-# Emiel's zvenv
-export ZVENV_ALLOWED_VENVS=(
-     "/Users/emiel/Repos/tiqets-backoffice/venv"
-     "/Users/emiel/Repos/tiqetsweb/venv"
+export ZVENV_TRUSTED_VENVS=(
+    "/Users/emiel/Projects/aoc-2022/.venv"
+    "/Users/emiel/Projects/blog/venv"
+    "/Users/emiel/Projects/django-lifecycle/venv"
+    "/Users/emiel/Projects/gonos/src/.venv"
 )
-source "${HOME}/Repos/dotfiles/zsh/venv.zsh"
+source "${HOME}/Projects/zsh-venv/zsh-venv.zsh"
