@@ -15,9 +15,11 @@ install: \
 	install-x11 \
 	install-zsh
 
-install-flake8:
-	rm -f $(HOME)/.config/flake8
+ensure_config:
 	mkdir -p $(HOME)/.config
+
+install-flake8: ensure_config
+	rm -f $(HOME)/.config/flake8
 	ln -s $(DOTFILES)/flake8/flake8 $(HOME)/.config/flake8
 
 install-gdb:
@@ -28,8 +30,7 @@ install-ghci:
 	rm -f $(HOME)/.ghci
 	ln -s $(DOTFILES)/ghci/ghci $(HOME)/.ghci
 
-install-git:
-	mkdir -p $(HOME)/.config
+install-git: ensure_config
 	rm -f $(HOME)/.config/git
 	ln -s $(DOTFILES)/git $(HOME)/.config/git
 
@@ -68,7 +69,10 @@ install-x11:
 	ln -s $(DOTFILES)/x11/Xresources $(HOME)/.Xresources
 	ln -s $(DOTFILES)/x11/Xresources.d $(HOME)/.Xresources.d
 
-install-zsh:
+install-zsh: ensure_config
+	rm -f $(HOME)/.config/zsh
+	ln -s $(DOTFILES)/zsh $(HOME)/.config/zsh
+
 	rm -f $(HOME)/.zlogout $(HOME)/.zshenv $(HOME)/.zshrc
 	ln -s $(DOTFILES)/zsh/zlogout $(HOME)/.zlogout
 	ln -s $(DOTFILES)/zsh/zshenv $(HOME)/.zshenv
