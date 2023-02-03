@@ -8,22 +8,7 @@ export LC_CTYPE="en_US.UTF-8"
 export MAILDIR="${HOME}/Maildir"
 export PAGER="less -R"
 
-# My bin utils
-path=(~/bin $path)
-
 # NPM
 NPM_PACKAGES=${HOME}/.npm-packages
 path=(${NPM_PACKAGES}/bin $path)
 manpath=(${NPM_PACKAGES}/share/man $manpath)
-
-# PHP Composer
-path=(~/.config/composer/vendor/bin $path)
-
-# Cargo
-path=(~/.cargo/bin $path)
-
-# Symfony
-path=(~/.symfony/bin $path)
-
-# Go
-path=(~/go/bin $path)
