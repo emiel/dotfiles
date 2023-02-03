@@ -15,8 +15,6 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
@@ -333,31 +331,3 @@ g:asyncomplete_auto_popup = 1
 imap <C-@> <Plug>(asyncomplete_force_refresh)
 
 # inoremap <expr> <cr> pumvisible() ? <C-y> : <cr>
-
-def AsyncompleteRegisterSources()
-    # Using asyncomplete-buffer
-    asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-        'name': 'buffer',
-        'whitelist': ['*'],
-        'completor': function('asyncomplete#sources#buffer#completor'),
-        'config': {
-            'max_buffer_size': 5000000
-        }
-    })
-
-    # Using asyncomplete-file
-    asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-        'name': 'file',
-        'whitelist': ['*'],
-        'priority': 10,
-        'completor': function('asyncomplete#sources#file#completor')
-    })
-enddef
-
-augroup asyncomplete
-    # Remove all asyncomplete autocommands
-    autocmd!
-
-    # Register asyncomplete sources
-    autocmd User asyncomplete_setup AsyncompleteRegisterSources()
-augroup END
