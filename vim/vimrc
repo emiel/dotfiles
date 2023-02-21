@@ -15,14 +15,9 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/vim-lsp'
 Plug 'preservim/nerdtree'
 Plug 'purescript-contrib/purescript-vim'
 Plug 'rhysd/committia.vim'
-Plug 'rhysd/vim-healthcheck'
-Plug 'rhysd/vim-lsp-ale'
 Plug 'rizzatti/dash.vim'
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'tpope/vim-commentary'
@@ -114,15 +109,17 @@ vnoremap <C-Y> 4<C-Y>
 nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
 
 ##
-## Mappings used frequently
+## Mappings
 ##
 
 nnoremap <unique> <Leader>stw :<C-U>call StripTrailingWhitespace()<CR>
 
 # ALE
-nmap <unique> <Leader>Ad <Plug>(ale_detail)
-nmap <unique> <C-j> <Plug>(ale_next_wrap)
-nmap <unique> <C-k> <Plug>(ale_previous_wrap)
+nnoremap <unique> <Leader>ad <Plug>(ale_detail)
+nnoremap <unique> <Leader>af <Plug>(ale_fix)
+nnoremap <unique> <C-j> <Plug>(ale_next_wrap)
+nnoremap <unique> <C-k> <Plug>(ale_previous_wrap)
+imap <C-Space> <Plug>(ale_complete)
 
 # Dash
 nmap <unique> <silent> <leader>D <Plug>DashSearch
@@ -208,126 +205,44 @@ enddef
 command! -nargs=* -bang FzfRG call FzfRgSuper(<q-args>, <bang>0)
 
 #
-# ALE
-#
-g:ale_completion_enabled = 0
-g:ale_virtualtext_cursor = 'current'
-g:ale_disable_lsp = 1
-g:ale_echo_msg_format = '[%linter%] %code: %%s'
-g:ale_fix_on_save = 1
-g:ale_lint_on_save = 0
-g:ale_sign_error = 'E>'
-g:ale_sign_info = 'I>'
-g:ale_sign_warning = 'W>'
-
-g:ale_python_reorder_python_imports_options = '--py39-plus'
-
-#
 # NERDTree
 #
+
 g:NERDTreeIgnore = ['^__pycache__$', '\~$']
 
 #
-# netrw
+# ALE
 #
-# g:netrw_altv=1
-# g:netrw_banner=0
-# g:netrw_browse_split=4
-# g:netrw_list_hide=netrw_gitignore#Hide()
-# g:netrw_liststyle=3
 
-#
-# vim-lsp
-#
-g:lsp_diagnostics_float_cursor = 1
+g:ale_completion_enabled = 1
+g:ale_echo_msg_format = '[%linter%] %code: %%s'
+g:ale_fix_on_save = 1
+g:ale_lint_on_save = 0
+g:ale_lsp_suggestions = 1
+g:ale_python_reorder_python_imports_options = '--py39-plus'
+g:ale_sign_error = 'E>'
+g:ale_sign_info = 'I>'
+g:ale_sign_warning = 'W>'
+g:ale_virtualtext_cursor = 'current'
 
-# Setting to 1 breaks "Auto-import" in pyright
-g:lsp_use_native_client = 0
+# Use relative pathnames in find references; can also pipe paths to FZF
+nnoremap <silent> <Plug>(ale_find_references_relative) :ALEFindReferences -relative<Return>
 
-# Disable 'A> ' (actions) from showing up in the sign column
-g:lsp_document_code_action_signs_enabled = 0
-
-g:lsp_enable_lua = 1
-# g:lsp_log_file = expand('~/vim-lsp.log')
-# g:lsp_log_verbose = 1
-
-#
-# Bug in pyright-langserver: You must set 'workspace_config' so a
-# 'workspace/didChangeConfiguration' is sent! Not sure what the LSP protocol
-# says about this.
-#
-if executable('pyright-langserver')
-    def LspRegisterPython()
-        lsp#register_server({
-            'name': 'pyright-langserver',
-            'cmd': ['pyright-langserver', '--stdio'],
-            'root_uri': (server_info) => lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pyproject.toml')),
-            'initialization_options': v:null,
-            'allowlist': ['python'],
-            'workspace_config': {},
-            'config': {},
-        })
-    enddef
-
-    autocmd User lsp_setup LspRegisterPython()
-endif
-
-if executable('purescript-language-server')
-    def LspRegisterPureScript()
-        lsp#register_server({
-            'name': 'purescript-language-server',
-            'cmd': ['purescript-language-server', '--stdio'],
-            'allowlist': ['purescript'],
-            'workspace_config': {
-                'purescript.addNpmPath': v:true,
-                'purescript.addSpagoSources': v:true,
-                'purescript.buildCommand': 'spago build --purs-args --json-errors'
-            }
-        })
-    enddef
-
-    autocmd User lsp_setup LspRegisterPureScript()
-endif
-
-if executable('typescript-language-server')
-    def LspRegisterTypeScript()
-        lsp#register_server({
-            'name': 'typescript-language-server',
-            'cmd': ['typescript-language-server', '--stdio'],
-            'root_uri': (server_info) => lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json')),
-            'allowlist': ['typescript', 'typescript.tsx', 'typescriptreact'],
-         })
-    enddef
-
-    autocmd User lsp_setup LspRegisterTypeScript()
-endif
-
-def OnLspBufferEnabled()
-    setlocal omnifunc=lsp#complete
+def OnALELSPStarted()
+    setlocal omnifunc=ale#completion#OmniFunc
     setlocal signcolumn=number
-    if exists('+tagfunc')
-        setlocal tagfunc=lsp#tagfunc
-    endif
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gh <plug>(lsp-hover)
-    nmap <buffer> gi <plug>(lsp-implementation)
-    nmap <buffer> gn <plug>(lsp-rename)
-    nmap <buffer> gp <plug>(lsp-peek-definition)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> gt <plug>(lsp-type-definition)
+
+    nmap <buffer> gd <Plug>(ale_go_to_definition)
+    nmap <buffer> gh <Plug>(ale_hover)
+    nmap <buffer> gi <Plug>(ale_go_to_implementation)
+    nmap <buffer> gI <Plug>(ale_import)
+    nmap <buffer> gn <Plug>(ale_rename)
+    nmap <buffer> gp <Plug>(ale_peek_definition)
+    nmap <buffer> gr <Plug>(ale_find_references_relative)
+    nmap <buffer> gt <Plug>(ale_go_to_type_definition)
 enddef
 
-augroup lsp_install
-    # Remove all lsp_install autocommands
+augroup ale_lsp
     autocmd!
-
-    # Invoke OnLspBufferEnabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled OnLspBufferEnabled()
+    autocmd User ALELSPStarted OnALELSPStarted()
 augroup END
-
-#
-# asyncomplete.vim
-#
-# g:asyncomplete_log_file = expand('~/asyncomplete.log')
-
-imap <C-@> <Plug>(asyncomplete_force_refresh)

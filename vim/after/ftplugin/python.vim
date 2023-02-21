@@ -1,7 +1,7 @@
 vim9script
 
 b:ale_fixers = ['black', 'reorder-python-imports']
-b:ale_linters = ['vim-lsp', 'flake8', 'pylsp', 'pyright']
+b:ale_linters = ['flake8', 'pyright']
 
 setlocal textwidth=120
 
