@@ -61,6 +61,7 @@ set list
 set listchars=tab:>·,trail:·,nbsp:~
 set modelines=0
 set mouse=a
+set mousemodel=popup_setpos
 set nobackup
 set nojoinspaces
 set path-=/usr/include
@@ -98,6 +99,7 @@ endif
 ##
 
 g:mapleader = ','
+g:localmapleader = '\'
 
 # Remap , (Reverse last character-search command) to \ (default leader)
 noremap \ ,
