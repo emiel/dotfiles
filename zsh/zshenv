@@ -12,3 +12,11 @@ export PAGER="less -R"
 NPM_PACKAGES=${HOME}/.npm-packages
 path=(${NPM_PACKAGES}/bin $path)
 manpath=(${NPM_PACKAGES}/share/man $manpath)
+
+# Homebrew
+export HOMEBREW_NO_ENV_HINTS=0
+
+# Homebrew (postgres)
+export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/postgresql@15/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/postgresql@15/include"

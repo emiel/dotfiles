@@ -93,7 +93,7 @@ hash -d dotfiles=~/Projects/dotfiles
 
 # ls
 case $(uname -s) in
-'Darwin'| 'FreeBSD')
+'Darwin' | 'FreeBSD')
     export LSCOLORS=exfxcxdxbxegedabagacad
     alias ls='ls -F -G'
     ;;
@@ -118,30 +118,3 @@ function lb() {
     [[ ! -d $lbdir ]] && mkdir $lbdir
     vim "$lbdir/$(date '+%Y')/$(date '+%Yw%V').md"
 }
-
-gsw() {
-  git switch "$(git branch --list --all | sed -e '/^*/d' -e 's/^  //' | fzf)"
-}
-
-export ZVENV_TRUSTED_VENVS=(
-    "/Users/emiel/Projects/blog/venv"
-    "/Users/emiel/Projects/django-lifecycle/venv"
-    "/Users/emiel/Projects/distributor-portal-service/.venv"
-    "/Users/emiel/Projects/gonos/src/.venv"
-    "/Users/emiel/Projects/tiqets-auth/.venv"
-    "/Users/emiel/Projects/tiqets-backoffice/.venv"
-    "/Users/emiel/Projects/tiqets-sql/.venv"
-    "/Users/emiel/Projects/tiqetsweb/.venv"
-)
-source "${HOME}/Projects/zsh-venv/zsh-venv.zsh"
-
-# saml2aws completion
-eval "$(saml2aws --completion-script-zsh)"
-
-# kubectl completion
-eval "$(kubectl completion zsh)"
-
-# direnv
-eval "$(direnv hook zsh)"
-
-[[ -f ~/.config/zsh/tiqets.zsh ]] && source ~/.config/zsh/tiqets.zsh

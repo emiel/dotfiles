@@ -70,10 +70,8 @@ install-x11:
 	ln -s $(DOTFILES)/x11/Xresources.d $(HOME)/.Xresources.d
 
 install-zsh: ensure_config
-	rm -f $(HOME)/.config/zsh
-	ln -s $(DOTFILES)/zsh $(HOME)/.config/zsh
-
-	rm -f $(HOME)/.zlogout $(HOME)/.zshenv $(HOME)/.zshrc
+	rm -f $(HOME)/.zlogout $(HOME)/.zprofile $(HOME)/.zshenv $(HOME)/.zshrc
 	ln -s $(DOTFILES)/zsh/zlogout $(HOME)/.zlogout
+	ln -s $(DOTFILES)/zsh/zprofile $(HOME)/.zprofile
 	ln -s $(DOTFILES)/zsh/zshenv $(HOME)/.zshenv
 	ln -s $(DOTFILES)/zsh/zshrc $(HOME)/.zshrc
