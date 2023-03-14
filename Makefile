@@ -75,3 +75,12 @@ install-zsh: ensure_config
 	ln -s $(DOTFILES)/zsh/zprofile $(HOME)/.zprofile
 	ln -s $(DOTFILES)/zsh/zshenv $(HOME)/.zshenv
 	ln -s $(DOTFILES)/zsh/zshrc $(HOME)/.zshrc
+
+update-home-manager:
+	home-manager --flake $(CURDIR) switch
+
+brew-bundle-dump:
+	brew bundle dump --force --file=$(CURDIR)/Brewfile
+
+brew-bundle-install:
+	brew bundle install
