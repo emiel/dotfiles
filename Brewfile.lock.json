@@ -1,0 +1,78 @@
+{
+  "entries": {
+    "cask": {
+      "calibre": {
+        "version": "6.14.0",
+        "options": {
+          "full_name": "calibre"
+        }
+      },
+      "daisydisk": {
+        "version": "4.24",
+        "options": {
+          "full_name": "daisydisk"
+        }
+      },
+      "dash": {
+        "version": "6.4.0,1006",
+        "options": {
+          "full_name": "dash"
+        }
+      },
+      "flux": {
+        "version": "42.1",
+        "options": {
+          "full_name": "flux"
+        }
+      },
+      "iterm2": {
+        "version": "3.4.19",
+        "options": {
+          "full_name": "iterm2"
+        }
+      },
+      "macvim": {
+        "version": "176",
+        "options": {
+          "full_name": "macvim"
+        }
+      },
+      "podman-desktop": {
+        "version": "0.12.0",
+        "options": {
+          "full_name": "podman-desktop"
+        }
+      },
+      "rectangle": {
+        "version": "0.67",
+        "options": {
+          "full_name": "rectangle"
+        }
+      },
+      "skim": {
+        "version": "1.6.15",
+        "options": {
+          "full_name": "skim"
+        }
+      },
+      "thunderbird": {
+        "version": "102.8.0",
+        "options": {
+          "full_name": "thunderbird"
+        }
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "ventura": {
+        "HOMEBREW_VERSION": "4.0.6",
+        "HOMEBREW_PREFIX": "/opt/homebrew",
+        "Homebrew/homebrew-core": "api",
+        "CLT": "14.2.0.0.1.1668646533",
+        "Xcode": "14.2",
+        "macOS": "13.2.1"
+      }
+    }
+  }
+}
