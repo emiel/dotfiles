@@ -3,6 +3,4 @@ xrdb -merge ~/.Xresources
 
 urxvtd -q -f -o &
 xcompmgr -r4.2 -o.55 -c -l-5 -t-5 -c &
-VBoxClient --vmsvga &
-VBoxClient --clipboard &
 i3
