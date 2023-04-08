@@ -118,3 +118,5 @@ function lb() {
     [[ ! -d $lbdir ]] && mkdir $lbdir
     vim "$lbdir/$(date '+%Y')/$(date '+%Yw%V').md"
 }
+
+source ~/Projects/dotfiles/zsh/smartpr.zsh

@@ -70,7 +70,7 @@ set ruler
 set scrolloff=3
 set shell=zsh
 set shortmess=atc
-set showbreak=+++
+set showbreak=↳\ 
 set showcmd
 set showmatch
 set smartcase
