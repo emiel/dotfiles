@@ -86,5 +86,5 @@
 [includeIf "hasconfig:remote.*.url:git@github.com:smokeyfeet/**"]
 	path = config-emiel.inc
 
-[includeIf "hasconfig:remote.*.url:git@gitlab.com:tiqets/**"]
-	path = config-tiqets.inc
+[includeIf "hasconfig:remote.*.url:git@github.com:smartpr/**"]
+	path = config-smartpr.inc
