@@ -2,9 +2,9 @@
 ## PARAMETERS (zshparam)
 ##
 
-HISTFILE=~/.zhistory
-HISTSIZE=4096
-SAVEHIST=2048
+export HISTFILE=~/.zhistory
+export HISTSIZE=12000
+export SAVEHIST=10000
 
 ##
 ## OPTIONS (zshoptions)
@@ -19,7 +19,9 @@ setopt CD_SILENT
 setopt EXTENDED_GLOB
 
 # History
+setopt EXTENDED_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_SAVE_NO_DUPS
@@ -125,4 +127,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(kubectl completion zsh)"
 eval "$(direnv hook zsh)"
 
-source ~/Projects/dotfiles/zsh/smartpr.zsh
+source ${ZDOTDIR}/.completion.zsh
+source ${ZDOTDIR}/.fzf.zsh
+source ${ZDOTDIR}/.smartpr.zsh
