@@ -331,3 +331,5 @@ augroup END
 # g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
 imap <C-@> <Plug>(asyncomplete_force_refresh)
+
+au BufRead,BufNewFile */.github/*/*.y{,a}ml b:ale_linters = {'yaml': ['actionlint', 'prettier', 'yamllint']}

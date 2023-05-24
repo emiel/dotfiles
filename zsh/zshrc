@@ -84,6 +84,7 @@ alias vim='vim -N'
 
 alias rg='rg --smart-case'
 alias pgpp='pgpp --semicolon-after-last-statement --preserve-comments'
+alias k='kubectl'
 
 ##
 ## Named directories
@@ -118,5 +119,10 @@ function lb() {
     [[ ! -d $lbdir ]] && mkdir $lbdir
     vim "$lbdir/$(date '+%Y')/$(date '+%Yw%V').md"
 }
+
+# Completion
+eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(kubectl completion zsh)"
+eval "$(direnv hook zsh)"
 
 source ~/Projects/dotfiles/zsh/smartpr.zsh
