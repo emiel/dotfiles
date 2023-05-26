@@ -40,6 +40,9 @@ zstyle ':vcs_info:git:*' actionformats '[%b|%a]'
 
 PROMPT='%n@%m:%~/ %F{32}${vcs_info_msg_0_}%f> '
 
+# Search for my functions (must come before `compinit`).
+fpath=($ZDOTDIR/functions $fpath)
+
 ##
 ## Completion
 ##
@@ -122,11 +125,12 @@ function lb() {
     vim "$lbdir/$(date '+%Y')/$(date '+%Yw%V').md"
 }
 
-# Completion
+# Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Completion
 eval "$(kubectl completion zsh)"
 eval "$(direnv hook zsh)"
 
-source ${ZDOTDIR}/.completion.zsh
 source ${ZDOTDIR}/.fzf.zsh
 source ${ZDOTDIR}/.smartpr.zsh
