@@ -308,6 +308,18 @@ if executable('typescript-language-server')
     autocmd User lsp_setup LspRegisterTypeScript()
 endif
 
+if executable('terraform-ls')
+    def LspRegisterTerraform()
+        lsp#register_server({
+            'name': 'terraform-ls',
+            'cmd': ['terraform-ls', 'serve'],
+            'allowlist': ['terraform'],
+         })
+    enddef
+
+    autocmd User lsp_setup LspRegisterTerraform()
+endif
+
 def OnLspBufferEnabled()
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=number
