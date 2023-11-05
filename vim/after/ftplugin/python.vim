@@ -1,9 +1,13 @@
 vim9script
 
 b:ale_fixers = ['black', 'reorder-python-imports']
-b:ale_linters = ['vim-lsp', 'flake8', 'pylsp', 'pyright']
+b:ale_linters = ['vim-lsp', 'flake8', 'pylsp', 'pyright', 'ruff']
 
-setlocal textwidth=120
+# Disable fix on save for now (smart.pr)
+b:fix_on_save = 0
+
+# Smart.pr appears to default to flake8's default (79)
+setlocal textwidth=79
 
 def PythonRunFile(): void
     silent !clear

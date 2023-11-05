@@ -11,14 +11,19 @@ Plug 'LnL7/vim-nix'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'chrisbra/matchit'
 Plug 'dense-analysis/ale'
+Plug 'evanleck/vim-svelte'
+Plug 'hashivim/vim-terraform'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'othree/html5.vim' # vim-svelte
+Plug 'pangloss/vim-javascript' # vim-svelte
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'preservim/nerdtree'
+Plug 'prisma/vim-prisma'
 Plug 'purescript-contrib/purescript-vim'
 Plug 'rhysd/committia.vim'
 Plug 'rhysd/vim-healthcheck'
@@ -121,6 +126,7 @@ nnoremap <unique> <Leader>stw :<C-U>call StripTrailingWhitespace()<CR>
 
 # ALE
 nmap <unique> <Leader>Ad <Plug>(ale_detail)
+nmap <unique> <Leader>Af <Plug>(ale_fix)
 nmap <unique> <C-j> <Plug>(ale_next_wrap)
 nmap <unique> <C-k> <Plug>(ale_previous_wrap)
 
