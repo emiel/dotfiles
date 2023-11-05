@@ -17,6 +17,11 @@ manpath=(${NPM_PACKAGES}/share/man $manpath)
 export HOMEBREW_NO_ENV_HINTS=0
 
 # Homebrew (postgres)
-export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/postgresql@15/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/postgresql@15/include"
+export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/postgresql@16/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/postgresql@16/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@16/lib/pkgconfig"
+
+# Homebrew (mysql) fixes missing -lzlib???
+export MYSQLCLIENT_CFLAGS=$(/opt/homebrew/bin/pkg-config --cflags mysqlclient)
+export MYSQLCLIENT_LDFLAGS=$(/opt/homebrew/bin/pkg-config --libs mysqlclient)

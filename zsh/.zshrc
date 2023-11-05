@@ -47,6 +47,9 @@ fpath=($ZDOTDIR/functions $fpath)
 ## Completion
 ##
 
+# The following is needed for AWS CLI (and Terraform) completion
+autoload -U +X bashcompinit && bashcompinit
+
 autoload -Uz compinit
 compinit
 
@@ -90,6 +93,9 @@ alias vim='vim -N'
 alias rg='rg --smart-case'
 alias pgpp='pgpp --semicolon-after-last-statement --preserve-comments'
 alias k='kubectl'
+alias tf='terraform'
+alias tm='terramate'
+alias openssl3=/opt/homebrew/opt/openssl@3/bin/openssl
 
 ##
 ## Named directories
@@ -128,9 +134,18 @@ function lb() {
 # Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Docker Desktop / kubernetes; must come after brew path to ensure kubectl is picked up from docker desktop
+path=(/usr/local/bin $path)
+
 # Completion
 eval "$(kubectl completion zsh)"
 eval "$(direnv hook zsh)"
+
+# AWS CLI
+complete -C '/opt/homebrew/bin/aws_completer' aws
+
+# Terraform CLI
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 source ${ZDOTDIR}/.fzf.zsh
 source ${ZDOTDIR}/.smartpr.zsh
