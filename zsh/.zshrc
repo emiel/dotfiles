@@ -102,6 +102,7 @@ alias openssl3=/opt/homebrew/opt/openssl@3/bin/openssl
 ##
 
 hash -d dotfiles=~/Projects/dotfiles
+hash -d aoc=~/Projects/aoc-2023
 
 # ls
 case $(uname -s) in
@@ -146,6 +147,9 @@ complete -C '/opt/homebrew/bin/aws_completer' aws
 
 # Terraform CLI
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+# opam configuration
+[[ ! -r /Users/emiel/.opam/opam-init/init.zsh ]] || source /Users/emiel/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 source ${ZDOTDIR}/.fzf.zsh
 source ${ZDOTDIR}/.smartpr.zsh
