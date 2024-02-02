@@ -1,10 +1,8 @@
 vim9script
 
-b:ale_fixers = ['black', 'reorder-python-imports']
-b:ale_linters = ['vim-lsp', 'flake8', 'pylsp', 'pyright', 'ruff']
-
-# Disable fix on save for now (smart.pr)
-b:fix_on_save = 0
+b:ale_fix_on_save = 0
+b:ale_fixers = ['ruff_format', 'isort']
+b:ale_linters = ['vim-lsp', 'pylsp', 'pyright', 'ruff']
 
 # Smart.pr appears to default to flake8's default (79)
 setlocal textwidth=79

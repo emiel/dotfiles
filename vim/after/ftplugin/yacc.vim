@@ -1,3 +1,5 @@
+vim9script
+
 setlocal shiftwidth=4
 setlocal smartindent
 setlocal smarttab

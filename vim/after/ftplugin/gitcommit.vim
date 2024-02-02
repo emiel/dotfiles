@@ -1,2 +1,5 @@
+vim9script
+
 setlocal spell
-let b:undo_ftplugin .= '|setlocal spell<'
+
+# b:undo_ftplugin .= '|setlocal spell<'

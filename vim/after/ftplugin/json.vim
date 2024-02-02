@@ -1,2 +1,4 @@
-let b:ale_fixers = ['jq']
-let b:ale_linters = ['jsonlint']
+vim9script
+
+b:ale_fixers = ['jq']
+b:ale_linters = ['jsonlint']

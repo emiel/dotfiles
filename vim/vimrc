@@ -36,6 +36,7 @@ Plug 'tpope/vim-git'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
+Plug 'vim-test/vim-test'
 plug#end()
 
 filetype plugin indent on
@@ -122,6 +123,13 @@ nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
 ## Mappings used frequently
 ##
 
+# Spell checking
+nnoremap <unique> <Leader>s :set spell!<CR>
+
+# Toggle pasting
+nnoremap <unique> <Leader>p :set paste!<CR>:set paste?<CR>
+
+# String trailing whitespace
 nnoremap <unique> <Leader>stw :<C-U>call StripTrailingWhitespace()<CR>
 
 # ALE
@@ -144,11 +152,10 @@ nnoremap <unique> <silent>K :execute 'FzfRg' expand('<cword>')<CR>
 nnoremap <unique> <silent> <Leader>d :execute 'NERDTreeToggle' getcwd()<CR>
 nnoremap <unique> <silent> <Leader>t :NERDTreeFind<CR>
 
-# Spell checking
-nnoremap <unique> <Leader>s :set spell!<CR>
+# vim-test
 
-# Toggle pasting
-nnoremap <unique> <Leader>p :set paste!<CR>:set paste?<CR>
+nnoremap <unique> <silent> <Leader>Tf :TestFile<CR>
+nnoremap <unique> <silent> <Leader>Tn :TestNearest<CR>
 
 ##
 ## Automatic commands
@@ -306,6 +313,19 @@ if executable('typescript-language-server')
     enddef
 
     autocmd User lsp_setup LspRegisterTypeScript()
+endif
+
+if executable('ocamllsp')
+    def LspRegisterOcaml()
+        lsp#register_server({
+            'name': 'ocamllsp',
+            'cmd': ['ocamllsp', '--stdio'],
+            'root_uri': (server_info) => lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'dune-project')),
+            'allowlist': ['ocaml'],
+         })
+    enddef
+
+    autocmd User lsp_setup LspRegisterOcaml()
 endif
 
 if executable('terraform-ls')

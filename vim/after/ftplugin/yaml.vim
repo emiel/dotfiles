@@ -1,4 +1,7 @@
-let b:ale_fixers = ['prettier']
+vim9script
+
+"b:ale_fixers = ['prettier']
+
 setlocal expandtab
 setlocal shiftwidth=2
 setlocal smartindent

@@ -1,3 +1,5 @@
+vim9script
+
 setlocal linebreak
 setlocal nolist
 setlocal textwidth=0

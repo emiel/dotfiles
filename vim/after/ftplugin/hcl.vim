@@ -1,1 +1,3 @@
-let b:ale_fixers = ['terraform']
+vim9script
+
+b:ale_fixers = ['terraform']
