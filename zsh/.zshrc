@@ -151,5 +151,10 @@ complete -o nospace -C /opt/homebrew/bin/terraform terraform
 # opam configuration
 [[ ! -r /Users/emiel/.opam/opam-init/init.zsh ]] || source /Users/emiel/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
+# Completion for pnpm
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
 source ${ZDOTDIR}/.fzf.zsh
 source ${ZDOTDIR}/.smartpr.zsh
