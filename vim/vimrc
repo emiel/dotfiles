@@ -30,6 +30,7 @@ Plug 'rhysd/vim-healthcheck'
 Plug 'rhysd/vim-lsp-ale'
 Plug 'rizzatti/dash.vim'
 Plug 'shumphrey/fugitive-gitlab.vim'
+Plug 'terramate-io/vim-terramate'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
@@ -37,6 +38,7 @@ Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
 Plug 'vim-test/vim-test'
+Plug 'wuelnerdotexe/vim-astro'
 plug#end()
 
 filetype plugin indent on
@@ -334,6 +336,18 @@ if executable('terraform-ls')
             'name': 'terraform-ls',
             'cmd': ['terraform-ls', 'serve'],
             'allowlist': ['terraform'],
+         })
+    enddef
+
+    autocmd User lsp_setup LspRegisterTerraform()
+endif
+
+if executable('terramate-ls')
+    def LspRegisterTerramate()
+        lsp#register_server({
+            'name': 'terramate-ls',
+            'cmd': ['terramate-ls', 'serve'],
+            'allowlist': ['terramate'],
          })
     enddef
 
