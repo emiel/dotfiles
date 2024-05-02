@@ -351,7 +351,19 @@ if executable('terramate-ls')
          })
     enddef
 
-    autocmd User lsp_setup LspRegisterTerraform()
+    autocmd User lsp_setup LspRegisterTerramate()
+endif
+
+if executable('tailwindcss-language-server')
+    def LspRegisterTailwind()
+        lsp#register_server({
+            'name': 'tailwindcss-language-server',
+            'cmd': ['tailwindcss-language-server', '--stdio'],
+            'allowlist': ['typescript.tsx', 'typescriptreact'],
+         })
+    enddef
+
+    autocmd User lsp_setup LspRegisterTailwind()
 endif
 
 def OnLspBufferEnabled()
