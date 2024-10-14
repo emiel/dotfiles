@@ -13,15 +13,14 @@ NPM_PACKAGES=${HOME}/.npm-packages
 path=(${NPM_PACKAGES}/bin $path)
 manpath=(${NPM_PACKAGES}/share/man $manpath)
 
-# Homebrew
-export HOMEBREW_NO_ENV_HINTS=0
-
 # Homebrew (postgres)
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/postgresql@16/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/postgresql@16/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@16/lib/pkgconfig"
 
-# Homebrew (mysql) fixes missing -lzlib???
-export MYSQLCLIENT_CFLAGS=$(/opt/homebrew/bin/pkg-config --cflags mysqlclient)
-export MYSQLCLIENT_LDFLAGS=$(/opt/homebrew/bin/pkg-config --libs mysqlclient)
+# Homebrew (mysql)
+export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/mysql@8.0/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/mysql@8.0/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/mysql@8.0/lib/pkgconfig"

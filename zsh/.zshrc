@@ -151,10 +151,25 @@ complete -o nospace -C /opt/homebrew/bin/terraform terraform
 # opam configuration
 [[ ! -r /Users/emiel/.opam/opam-init/init.zsh ]] || source /Users/emiel/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
-# Completion for pnpm
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+# Completion for pnpm (pnpm completion zsh)
+if type compdef &>/dev/null; then
+  _pnpm_completion () {
+    local reply
+    local si=$IFS
 
-source ${ZDOTDIR}/.fzf.zsh
+    IFS=$'\n' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" SHELL=zsh pnpm completion-server -- "${words[@]}"))
+    IFS=$si
+
+    if [ "$reply" = "__tabtab_complete_files__" ]; then
+      _files
+    else
+      _describe 'values' reply
+    fi
+  }
+  compdef _pnpm_completion pnpm
+fi
+
+# FZF
+source <(fzf --zsh)
+
 source ${ZDOTDIR}/.smartpr.zsh
