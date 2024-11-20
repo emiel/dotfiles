@@ -12,4 +12,4 @@ def PythonRunFile(): void
     execute "! python3 " .. bufname("%")
 enddef
 
-nnoremap <buffer> <unique> <silent> <LocalLeader>p <ScriptCmd> PythonRunFile()<CR>
+# nnoremap <buffer> <unique> <silent> <LocalLeader>p <ScriptCmd> PythonRunFile()<CR>

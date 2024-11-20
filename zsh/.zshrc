@@ -95,14 +95,22 @@ alias pgpp='pgpp --semicolon-after-last-statement --preserve-comments'
 alias k='kubectl'
 alias tf='terraform'
 alias tm='terramate'
-alias openssl3=/opt/homebrew/opt/openssl@3/bin/openssl
+
+# git
+# fo() {
+#     git branch --no-color --sort=-committerdate --format='%(refname:short)' | fzf --header 'git checkout' | xargs git checkout
+# }
+
+# myprs() {
+#     gh pr list --author "@me" | fzf --header 'checkout PR' | awk '{print $(NF-5)}' | xargs git checkout
+# }
 
 ##
 ## Named directories
 ##
 
+hash -d blog=~/Projects/blog
 hash -d dotfiles=~/Projects/dotfiles
-hash -d aoc=~/Projects/aoc-2023
 
 # ls
 case $(uname -s) in
