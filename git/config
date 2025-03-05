@@ -5,8 +5,8 @@
 	skippedCherryPicks = false
 
 [core]
-	pager = less -FRSX
 	editor = vim
+	pager = less -FRSX
 
 [init]
 	defaultBranch = main
@@ -23,31 +23,41 @@
 	remote = green
 
 [color "diff"]
-	meta = blue bold
 	frag = magenta bold
-	old = red bold
+	meta = blue bold
 	new = green bold
+	old = red bold
 
 [color "status"]
 	added = yellow
 	changed = green
 	untracked = cyan
 
+[column]
+	ui = auto
+
 [branch]
 	sort = committerdate
 
 [diff]
-	colorMoved = true
+	algorithm = histogram
+	colorMoved = plain
 	colorMovedWS = allow-indentation-change
+	mnemonicPrefix = true
+	renames = true
 
 [fetch]
+	all = true
 	prune = true
+	pruneTags = true
 
 [log]
 	date = iso-local
 
 [rebase]
-	autosquash = true
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
 
 [stash]
 	showPatch = true
@@ -57,6 +67,10 @@
 
 [push]
 	autoSetupRemote = true
+	followTags = true
+
+[tag]
+	sort = version:refname
 
 [sendemail]
 	annotate = true
@@ -88,3 +102,10 @@
 
 [includeIf "hasconfig:remote.*.url:git@github.com:smartpr/**"]
 	path = config-smartpr.inc
+[help]
+	autocorrect = prompt
+[commit]
+	verbose = true
+[rerere]
+	enabled = true
+	autoupdate = true
