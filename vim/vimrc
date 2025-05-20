@@ -1,5 +1,6 @@
 vim9script
 
+# vim -V9
 #set verbose=9
 
 ##
@@ -277,7 +278,7 @@ g:lsp_enable_lua = 1
 # says about this.
 #
 if executable('pyright-langserver')
-    def LspRegisterPython()
+    def LspRegisterPyright()
         lsp#register_server({
             'name': 'pyright-langserver',
             'cmd': ['pyright-langserver', '--stdio'],
@@ -289,7 +290,23 @@ if executable('pyright-langserver')
         })
     enddef
 
-    autocmd User lsp_setup LspRegisterPython()
+    autocmd User lsp_setup LspRegisterPyright()
+endif
+
+if executable('ruff')
+    def LspRegisterRuff()
+        lsp#register_server({
+            'name': 'ruff',
+            'cmd': ['ruff', 'server'],
+            'root_uri': (server_info) => lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pyproject.toml')),
+            'initialization_options': v:null,
+            'allowlist': ['python'],
+            'workspace_config': {},
+            'config': {},
+        })
+    enddef
+
+    autocmd User lsp_setup LspRegisterRuff()
 endif
 
 if executable('purescript-language-server')

@@ -1,11 +1,11 @@
 vim9script
 
-b:ale_fix_on_save = 0
-b:ale_fixers = ['ruff_format', 'isort']
+b:ale_fix_on_save = 1
+b:ale_fixers = ['ruff', 'ruff_format']
 b:ale_linters = ['vim-lsp', 'pylsp', 'pyright', 'ruff']
 
-# Smart.pr appears to default to flake8's default (79)
-setlocal textwidth=79
+# Default to Black line-length
+setlocal textwidth=88
 
 def PythonRunFile(): void
     silent !clear
