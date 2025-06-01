@@ -50,6 +50,10 @@ install-npm:
 	rm -f $(HOME)/.npmrc
 	ln -s $(DOTFILES)/npm/npmrc $(HOME)/.npmrc
 
+install-nvim:
+	rm -f $(HOME)/.config/nvim
+	ln -s $(DOTFILES)/nvim $(HOME)/.config/nvim
+
 install-psql:
 	rm -f $(HOME)/.psqlrc
 	ln -s $(DOTFILES)/psql/psqlrc $(HOME)/.psqlrc
@@ -73,6 +77,9 @@ install-zsh:
 	rm -f $(HOME)/.zshenv
 	echo 'ZDOTDIR=$(DOTFILES)/zsh' >> $(HOME)/.zshenv
 	echo 'source $$ZDOTDIR/.zshenv' >> $(HOME)/.zshenv
+	# ln -s $(DOTFILES)/zsh/.zshenv $(HOME)/.zshenv
+	# ln -s $(DOTFILES)/zsh/.zshrc $(HOME)/.zshrc
+	# ln -s $(DOTFILES)/zsh/.zlogout $(HOME)/.zlogout
 
 update-home-manager:
 	home-manager --flake $(CURDIR) switch

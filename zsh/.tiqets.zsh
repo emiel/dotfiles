@@ -10,6 +10,5 @@ export AIRFLOW_HOME=/Users/emiel/Repos/data-pipeline
 export AIRFLOW__CORE__LOAD_EXAMPLES=False
 export AWS_DEFAULT_PROFILE=tiqets-development
 export ENVIRONMENT=local
-export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export TIQETS_ENV=docker_compose_dependencies

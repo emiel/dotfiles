@@ -1,3 +1,4 @@
 vim/plugged/*
 vim/spell/*
 zsh/.zcompdump
+zsh/.secrets.zsh

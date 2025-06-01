@@ -1,0 +1,4 @@
+vim9script
+
+# vebose: vim -V9
+# no config: vim --clean

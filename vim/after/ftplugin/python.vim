@@ -13,3 +13,5 @@ def PythonRunFile(): void
 enddef
 
 # nnoremap <buffer> <unique> <silent> <LocalLeader>p <ScriptCmd> PythonRunFile()<CR>
+
+setlocal makeprg=python3\ %

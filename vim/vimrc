@@ -1,48 +1,34 @@
 vim9script
 
-# vim -V9
-#set verbose=9
-
 ##
 ## Plugins
 ##
 
 plug#begin('~/.vim/plugged')
-Plug 'LnL7/vim-nix'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'NoahTheDuke/vim-just'
+Plug 'PhilT/vim-fsharp'
+Plug 'cespare/vim-toml'
 Plug 'chrisbra/matchit'
 Plug 'dense-analysis/ale'
-Plug 'evanleck/vim-svelte'
+Plug 'dense-analysis/neural'
 Plug 'hashivim/vim-terraform'
 Plug 'isobit/vim-caddyfile'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
 Plug 'leafgarland/typescript-vim'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'othree/html5.vim' # vim-svelte
-Plug 'pangloss/vim-javascript' # vim-svelte
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/vim-lsp'
 Plug 'preservim/nerdtree'
-Plug 'prisma/vim-prisma'
 Plug 'purescript-contrib/purescript-vim'
 Plug 'rhysd/committia.vim'
-Plug 'rhysd/vim-healthcheck'
-Plug 'rhysd/vim-lsp-ale'
 Plug 'rizzatti/dash.vim'
-Plug 'shumphrey/fugitive-gitlab.vim'
-Plug 'smbl64/vim-black-macchiato'
-Plug 'terramate-io/vim-terramate'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
-Plug 'vim-test/vim-test'
-Plug 'wuelnerdotexe/vim-astro'
+Plug 'tpope/vim-vinegar'
+Plug 'yegappan/lsp'
 plug#end()
 
 filetype plugin indent on
@@ -54,16 +40,19 @@ filetype plugin indent on
 set autoindent
 set autoread
 set backspace=indent,eol,start
+set backup
+set backupdir=~/.vim/backup
+set belloff=all
 set breakindent
 set clipboard^=unnamed,unnamedplus
-set completeopt=menuone,longest,popup,noinsert,noselect
+set completeopt=menuone,longest,popup
 set confirm
 set copyindent
 set cursorline
 set encoding=utf-8
 set formatoptions+=j
 set hidden
-set history=1024
+set history=10000
 set hlsearch
 set ignorecase
 set incsearch
@@ -74,24 +63,30 @@ set listchars=tab:>·,trail:·,nbsp:~
 set modelines=0
 set mouse=a
 set mousemodel=popup_setpos
-set nobackup
 set nojoinspaces
+set nolangremap
+set nostartofline
 set path-=/usr/include
 set preserveindent
 set ruler
 set scrolloff=3
 set shell=zsh
-set shortmess=atc
+set shortmess+=CF
+set shortmess-=S
 set showbreak=↳\ 
 set showcmd
 set showmatch
+set sidescroll=1
 set smartcase
 set smarttab
 set spelllang=en_us
 set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+set tabpagemax=50
 set tags=tags;~
 set termguicolors
 set title
+set ttimeout
+set ttimeoutlen=50
 set ttyfast
 set updatetime=1000
 set visualbell
@@ -100,7 +95,7 @@ set wildmenu
 set wildmode=longest:full
 set wildoptions=pum
 
-# Prefer rg (ripgrep) over grep
+# Prefer ripgrep (rg) over external grep
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
   set grepformat=%f:%l:%c:%m
@@ -159,7 +154,6 @@ nnoremap <unique> <silent> <Leader>d :execute 'NERDTreeToggle' getcwd()<CR>
 nnoremap <unique> <silent> <Leader>t :NERDTreeFind<CR>
 
 # vim-test
-
 nnoremap <unique> <silent> <Leader>Tf :TestFile<CR>
 nnoremap <unique> <silent> <Leader>Tn :TestNearest<CR>
 
@@ -183,6 +177,8 @@ augroup END
 ## Colors
 ##
 
+syntax on
+
 g:PaperColor_Theme_Options = {
   'theme': {
     'default': {
@@ -190,8 +186,6 @@ g:PaperColor_Theme_Options = {
     }
   }
 }
-
-syntax on
 
 colorscheme PaperColor
 
@@ -230,7 +224,6 @@ command! -nargs=* -bang FzfRG call FzfRgSuper(<q-args>, <bang>0)
 # ALE
 #
 g:ale_completion_enabled = 0
-g:ale_virtualtext_cursor = 'current'
 g:ale_disable_lsp = 1
 g:ale_echo_msg_format = '[%linter%] %code: %%s'
 g:ale_fix_on_save = 1
@@ -238,184 +231,53 @@ g:ale_lint_on_save = 0
 g:ale_sign_error = 'E>'
 g:ale_sign_info = 'I>'
 g:ale_sign_warning = 'W>'
-
-g:ale_python_reorder_python_imports_options = '--py39-plus'
+g:ale_virtualtext_cursor = 'current'
 
 #
 # NERDTree
 #
+g:NERDTreeHijackNetrw = 1
 g:NERDTreeIgnore = ['^__pycache__$', '\~$']
 g:NERDTreeWinSize = 41 # default = 31
-
 
 #
 # netrw
 #
-# g:netrw_altv=1
-# g:netrw_banner=0
-# g:netrw_browse_split=4
-# g:netrw_list_hide=netrw_gitignore#Hide()
-# g:netrw_liststyle=3
-
-#
-# vim-lsp
-#
-g:lsp_hover_ui = 'float'
-
-# Setting to 1 breaks "Auto-import" in pyright
-g:lsp_use_native_client = 0
-
-# Disable 'A> ' (actions) from showing up in the sign column
-g:lsp_document_code_action_signs_enabled = 0
-
-g:lsp_enable_lua = 1
-# g:lsp_log_file = expand('~/vim-lsp.log')
-# g:lsp_log_verbose = 1
-
-#
-# Bug in pyright-langserver: You must set 'workspace_config' so a
-# 'workspace/didChangeConfiguration' is sent! Not sure what the LSP protocol
-# says about this.
-#
-if executable('pyright-langserver')
-    def LspRegisterPyright()
-        lsp#register_server({
-            'name': 'pyright-langserver',
-            'cmd': ['pyright-langserver', '--stdio'],
-            'root_uri': (server_info) => lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pyproject.toml')),
-            'initialization_options': v:null,
-            'allowlist': ['python'],
-            'workspace_config': {},
-            'config': {},
-        })
-    enddef
-
-    autocmd User lsp_setup LspRegisterPyright()
-endif
-
-if executable('ruff')
-    def LspRegisterRuff()
-        lsp#register_server({
-            'name': 'ruff',
-            'cmd': ['ruff', 'server'],
-            'root_uri': (server_info) => lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pyproject.toml')),
-            'initialization_options': v:null,
-            'allowlist': ['python'],
-            'workspace_config': {},
-            'config': {},
-        })
-    enddef
-
-    autocmd User lsp_setup LspRegisterRuff()
-endif
-
-if executable('purescript-language-server')
-    def LspRegisterPureScript()
-        lsp#register_server({
-            'name': 'purescript-language-server',
-            'cmd': ['purescript-language-server', '--stdio'],
-            'allowlist': ['purescript'],
-            'workspace_config': {
-                'purescript.addNpmPath': v:true,
-                'purescript.addSpagoSources': v:true,
-                'purescript.buildCommand': 'spago build --purs-args --json-errors'
-            }
-        })
-    enddef
-
-    autocmd User lsp_setup LspRegisterPureScript()
-endif
-
-if executable('typescript-language-server')
-    def LspRegisterTypeScript()
-        lsp#register_server({
-            'name': 'typescript-language-server',
-            'cmd': ['typescript-language-server', '--stdio'],
-            'root_uri': (server_info) => lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json')),
-            'allowlist': ['typescript', 'typescript.tsx', 'typescriptreact'],
-         })
-    enddef
-
-    autocmd User lsp_setup LspRegisterTypeScript()
-endif
-
-if executable('ocamllsp')
-    def LspRegisterOcaml()
-        lsp#register_server({
-            'name': 'ocamllsp',
-            'cmd': ['ocamllsp', '--stdio'],
-            'root_uri': (server_info) => lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'dune-project')),
-            'allowlist': ['ocaml'],
-         })
-    enddef
-
-    autocmd User lsp_setup LspRegisterOcaml()
-endif
-
-if executable('terraform-ls')
-    def LspRegisterTerraform()
-        lsp#register_server({
-            'name': 'terraform-ls',
-            'cmd': ['terraform-ls', 'serve'],
-            'allowlist': ['terraform'],
-         })
-    enddef
-
-    autocmd User lsp_setup LspRegisterTerraform()
-endif
-
-if executable('terramate-ls')
-    def LspRegisterTerramate()
-        lsp#register_server({
-            'name': 'terramate-ls',
-            'cmd': ['terramate-ls', 'serve'],
-            'allowlist': ['terramate'],
-         })
-    enddef
-
-    autocmd User lsp_setup LspRegisterTerramate()
-endif
-
-if executable('tailwindcss-language-server')
-    def LspRegisterTailwind()
-        lsp#register_server({
-            'name': 'tailwindcss-language-server',
-            'cmd': ['tailwindcss-language-server', '--stdio'],
-            'allowlist': ['typescript.tsx', 'typescriptreact'],
-         })
-    enddef
-
-    autocmd User lsp_setup LspRegisterTailwind()
-endif
-
-def OnLspBufferEnabled()
-    setlocal omnifunc=lsp#complete
-    setlocal signcolumn=number
-    if exists('+tagfunc')
-        setlocal tagfunc=lsp#tagfunc
-    endif
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gh <plug>(lsp-hover)
-    nmap <buffer> gi <plug>(lsp-implementation)
-    nmap <buffer> gn <plug>(lsp-rename)
-    nmap <buffer> gp <plug>(lsp-peek-definition)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> gt <plug>(lsp-type-definition)
-enddef
-
-augroup lsp_install
-    # Remove all lsp_install autocommands
-    autocmd!
-
-    # Invoke OnLspBufferEnabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled OnLspBufferEnabled()
-augroup END
+# g:netrw_altv = 1
+g:netrw_banner = 1
+# g:netrw_browse_split = 4
+# g:netrw_list_hide = netrw_gitignore#Hide()
+# g:netrw_liststyle = 3
 
 #
 # asyncomplete.vim
 #
 # g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
-imap <C-@> <Plug>(asyncomplete_force_refresh)
+# imap <C-@> <Plug>(asyncomplete_force_refresh)
 
-au BufRead,BufNewFile */.github/*/*.y{,a}ml b:ale_linters = {'yaml': ['actionlint', 'prettier', 'yamllint']}
+autocmd BufRead,BufNewFile */.github/*/*.y{,a}ml b:ale_linters = {'yaml': ['actionlint', 'prettier', 'yamllint']}
+
+#
+# yegappan/lsp
+#
+runtime vim_y_lsp.vim
+
+#
+# vim-lsp
+#
+# runtime vim_lsp.vim
+
+#
+# neural
+#
+
+g:neural = {
+    'providers': [
+        {
+            'api_key': $MISTRAL_API_KEY,
+            'url': 'https://api.mistral.ai',
+            'model': 'codestral-2508'
+        },
+    ],
+}

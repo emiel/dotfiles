@@ -90,11 +90,15 @@ alias ssh='TERM=xterm-color ssh'
 alias view='vim -N -R'
 alias vim='vim -N'
 
-alias rg='rg --smart-case'
-alias pgpp='pgpp --semicolon-after-last-statement --preserve-comments'
+alias d='docker'
 alias k='kubectl'
+alias mr='mise run'
+alias pgpp='pgpp --semicolon-after-last-statement --preserve-comments'
+alias rg='rg --smart-case'
 alias tf='terraform'
 alias tm='terramate'
+
+alias zconf='vim $ZDOTDIR/.zshrc'
 
 # git
 # fo() {
@@ -130,8 +134,8 @@ alias ll='ls -l'
 alias lsd='ls -ld *(-/DN)'
 
 # Python virtualenv
-alias venv='python3.11 -m venv .venv && . ./.venv/bin/activate && pip install --upgrade pip -q'
-alias venv39='python3.9 -m venv .venv && . ./.venv/bin/activate && pip install --upgrade pip -q'
+alias venv='python3 -m venv .venv && . ./.venv/bin/activate && pip install --upgrade pip -q'
+alias venv310='python3.10 -m venv .venv && . ./.venv/bin/activate'
 
 # My logbook
 function lb() {
@@ -142,22 +146,30 @@ function lb() {
 
 # Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
+alias bubu='brew update && brew upgrade && brew cleanup'
 
 # Docker Desktop / kubernetes; must come after brew path to ensure kubectl is picked up from docker desktop
 path=(/usr/local/bin $path)
 
-# Completion
+# kubectl completion
 eval "$(kubectl completion zsh)"
-eval "$(direnv hook zsh)"
 
-# AWS CLI
+# AWS CLI completion
 complete -C '/opt/homebrew/bin/aws_completer' aws
 
-# Terraform CLI
+# tenv completion
+source $HOME/.tenv.completion.zsh
+
+# Terraform CLI completion
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
-# opam configuration
-[[ ! -r /Users/emiel/.opam/opam-init/init.zsh ]] || source /Users/emiel/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/Users/emiel/.opam/opam-init/init.zsh' ]] || source '/Users/emiel/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration
 
 # Completion for pnpm (pnpm completion zsh)
 if type compdef &>/dev/null; then
@@ -180,4 +192,11 @@ fi
 # FZF
 source <(fzf --zsh)
 
+# mise
+eval "$(mise activate zsh)"
+
+source ${ZDOTDIR}/.secrets.zsh
 source ${ZDOTDIR}/.smartpr.zsh
+
+# OpenJDK
+export PATH="/opt/homebrew/Cellar/openjdk@21/21.0.8/bin:$PATH"

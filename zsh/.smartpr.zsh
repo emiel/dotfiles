@@ -14,12 +14,4 @@ hash -d smartpr-store=~/Projects/smartpr-store
 hash -d smartpr-svcs=~/Projects/smartpr-svcs
 hash -d smartpr-testing=~/Projects/smartpr-testing
 
-# export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
-# export LDFLAGS="-L/opt/homebrew/opt/node@14/lib"
-# export CPPFLAGS="-I/opt/homebrew/opt/node@14/include"
-
 export AWS_PROFILE=smartpr-testing
-
-alias tunnel-db-playground=ssh -L 3306:db.cloud.rabarberjam.nl:3306 emiel@deployments.smart.pr
-
-alias mysql-docker="mysql --host=127.0.0.1 --port=13306 -u root -proot --database=smartpr"
