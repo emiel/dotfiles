@@ -1,0 +1,9 @@
+#:schema https://jj-vcs.github.io/jj/latest/config-schema.json
+
+[user]
+name = "Emiel van de Laar"
+email = "emiel@ttyout.net"
+
+[ui]
+default-command = "log"
+pager = ":builtin"

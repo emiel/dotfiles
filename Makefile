@@ -34,6 +34,10 @@ install-git: ensure_config
 	rm -f $(HOME)/.config/git
 	ln -s $(DOTFILES)/git $(HOME)/.config/git
 
+install-jj: ensure_config
+	rm -f $(HOME)/.config/jj
+	ln -s $(DOTFILES)/jj $(HOME)/.config/jj
+
 install-i3:
 	rm -f $(HOME)/.i3
 	ln -s $(DOTFILES)/i3 $(HOME)/.i3
