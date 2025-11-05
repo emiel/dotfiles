@@ -5,6 +5,7 @@ vim9script
 ##
 
 plug#begin('~/.vim/plugged')
+Plug 'EdenEast/nightfox.nvim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'PhilT/vim-fsharp'
 Plug 'cespare/vim-toml'
@@ -21,6 +22,7 @@ Plug 'preservim/nerdtree'
 Plug 'purescript-contrib/purescript-vim'
 Plug 'rhysd/committia.vim'
 Plug 'rizzatti/dash.vim'
+Plug 'shinglyu/vim-codespell'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
@@ -188,6 +190,7 @@ g:PaperColor_Theme_Options = {
 }
 
 colorscheme PaperColor
+# colorscheme dayfox
 
 ##
 ## Commands

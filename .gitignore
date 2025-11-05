@@ -1,5 +1,7 @@
 git/gitk
 vim/plugged/*
 vim/spell/*
+vim/backup/*
 zsh/.secrets.zsh
 zsh/.zcompdump
+zsh/.zsh_sessions/
