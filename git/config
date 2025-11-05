@@ -95,13 +95,13 @@
 	sw = switch
 
 [includeIf "hasconfig:remote.*.url:git@github.com:emiel/**"]
-	path = config-emiel.inc
+	path = ./default/config
 
 [includeIf "hasconfig:remote.*.url:git@github.com:smokeyfeet/**"]
-	path = config-emiel.inc
+	path = ./default/config
 
 [includeIf "hasconfig:remote.*.url:git@github.com:smartpr/**"]
-	path = config-smartpr.inc
+	path = ./smartpr/config
 [help]
 	autocorrect = prompt
 [commit]

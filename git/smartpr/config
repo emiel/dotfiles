@@ -1,0 +1,4 @@
+[user]
+	email = emiel@smart.pr
+[commit]
+	template = ~/.config/git/smartpr/message.txt
