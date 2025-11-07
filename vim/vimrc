@@ -73,7 +73,7 @@ set preserveindent
 set ruler
 set scrolloff=3
 set shell=zsh
-set shortmess+=CF
+set shortmess+=C
 set shortmess-=S
 set showbreak=↳\ 
 set showcmd
