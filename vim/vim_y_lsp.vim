@@ -3,7 +3,7 @@ vim9script
 var lspServers = [
   {
     name: 'haskell-ls',
-    path: '/opt/homebrew/bin/haskell-language-server-wrapper',
+    path: exepath('haskell-language-server-wrapper'),
     args: ['--lsp'],
     rootSearch: ['stack.yaml', 'cabal.project'],
     filetype: ['haskell'],
@@ -16,20 +16,21 @@ var lspServers = [
   },
   {
     name: 'purescript-ls',
-    path: '/opt/homebrew/bin/purescript-language-server',
+    path: exepath('purescript-language-server'),
     args: ['--stdio'],
     filetype: ['purescript'],
   },
-  {
-    name: 'ruff-ls',
-    path: '/opt/homebrew/bin/ruff',
-    args: ['server'],
-    filetype: ['python'],
-    rootSearch: ['pyproject.toml'],
-  },
+  # Conflicts with pyright-ls (no LspHover...)
+  # {
+  #   name: 'ruff-ls',
+  #   path: exepath('ruff'),
+  #   args: ['server'],
+  #   filetype: ['python'],
+  #   rootSearch: ['pyproject.toml'],
+  # },
   {
     name: 'pyright-ls',
-    path: '/opt/homebrew/bin/pyright-langserver',
+    path: exepath('pyright-langserver'),
     args: ['--stdio'],
     filetype: ['python'],
     rootSearch: ['pyrightconfig.json', 'pyproject.toml'],
@@ -41,25 +42,25 @@ var lspServers = [
   },
   {
     name: 'tailwindcss-ls',
-    path: '/opt/homebrew/bin/tailwindcss-language-server',
+    path: exepath('tailwindcss-language-server'),
     args: ['--stdio'],
     filetype: ['typescript.tsx', 'typescriptreact'],
   },
   {
     name: 'tofu-ls',
-    path: '/opt/homebrew/bin/tofu-ls',
+    path: exepath('tofu-ls'),
     args: ['serve'],
     filetype: ['terraform', 'tf'],
   },
   {
     name: 'toml-ls',
-    path: '/opt/homebrew/bin/tombi',
+    path: exepath('tombi'),
     args: ['lsp'],
     filetype: ['toml'],
   },
   {
     name: 'typescript-ls',
-    path: '/opt/homebrew/bin/typescript-language-server',
+    path: exepath('typescript-language-server'),
     args: ['--stdio'],
     filetype: ['javascript', 'typescript', 'typescript.tsx', 'typescriptreact'],
   },

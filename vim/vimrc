@@ -5,19 +5,20 @@ vim9script
 ##
 
 plug#begin('~/.vim/plugged')
-Plug 'EdenEast/nightfox.nvim'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'PhilT/vim-fsharp'
 Plug 'cespare/vim-toml'
 Plug 'chrisbra/matchit'
 Plug 'dense-analysis/ale'
 Plug 'dense-analysis/neural'
+Plug 'EdenEast/nightfox.nvim'
 Plug 'hashivim/vim-terraform'
 Plug 'isobit/vim-caddyfile'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'kaarmu/typst.vim'
 Plug 'leafgarland/typescript-vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'PhilT/vim-fsharp'
 Plug 'preservim/nerdtree'
 Plug 'purescript-contrib/purescript-vim'
 Plug 'rhysd/committia.vim'
