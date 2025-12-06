@@ -1,5 +1,6 @@
 vim9script
 
+# Why can't this be const?
 var lspServers = [
   {
     name: 'haskell-ls',
@@ -40,12 +41,12 @@ var lspServers = [
         }
     },
   },
-  {
-    name: 'tailwindcss-ls',
-    path: exepath('tailwindcss-language-server'),
-    args: ['--stdio'],
-    filetype: ['typescript.tsx', 'typescriptreact'],
-  },
+  # {
+  #   name: 'tailwindcss-ls',
+  #   path: exepath('tailwindcss-language-server'),
+  #   args: ['--stdio'],
+  #   filetype: ['typescript.tsx', 'typescriptreact'],
+  # },
   {
     name: 'tofu-ls',
     path: exepath('tofu-ls'),
@@ -69,9 +70,8 @@ var lspServers = [
 
 autocmd User LspSetup call LspAddServer(lspServers)
 
-var lspOptions = {
-    aleSupport: true,
-    # showDiagOnStatusLine: true,
+const lspOptions = {
+  aleSupport: true,
 }
 
 autocmd User LspSetup call LspOptionsSet(lspOptions)

@@ -44,7 +44,7 @@ set autoindent
 set autoread
 set backspace=indent,eol,start
 set backup
-set backupdir=~/.vim/backup
+set backupdir=~/.backup/vim
 set belloff=all
 set breakindent
 set clipboard^=unnamed,unnamedplus
@@ -96,7 +96,7 @@ set visualbell
 set wildignore+=*.o,*.pyc
 set wildmenu
 set wildmode=longest:full
-set wildoptions=pum
+set wildoptions=pum,tagfile
 
 # Prefer ripgrep (rg) over external grep
 if executable('rg')
@@ -143,7 +143,7 @@ nmap <unique> <C-j> <Plug>(ale_next_wrap)
 nmap <unique> <C-k> <Plug>(ale_previous_wrap)
 
 # Dash
-nmap <unique> <silent> <leader>D <Plug>DashSearch
+nmap <unique> <silent> <Leader>D <Plug>DashSearch
 
 # fzf.vim
 nnoremap <unique> <Leader>g :FzfRg<SPACE>
@@ -165,15 +165,15 @@ nnoremap <unique> <silent> <Leader>Tn :TestNearest<CR>
 ##
 
 augroup vimrc
-    # Remove all vimrc autocommands
-    autocmd!
+  # Remove all vimrc autocommands
+  autocmd!
 
-    # Jump to last position in file after opening. Nice!
-    autocmd BufReadPost * {
-        if line("'\"") > 0 && line("'\"") <= line('$')
-            exe "normal! g`\""
-        endif
-    }
+  # Jump to last position in file after opening. Nice!
+  autocmd BufReadPost * {
+    if line("'\"") > 0 && line("'\"") <= line('$')
+      exe "normal! g`\""
+    endif
+  }
 augroup END
 
 ##
@@ -181,6 +181,8 @@ augroup END
 ##
 
 syntax on
+
+set background=light
 
 g:PaperColor_Theme_Options = {
   'theme': {
@@ -210,7 +212,7 @@ colorscheme PaperColor
 g:fzf_command_prefix = 'Fzf'
 
 if executable('rg')
-  $FZF_DEFAULT_COMMAND = "rg --files  --hidden --glob '!{node_modules,.git}'"
+  $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!{node_modules,.git}'"
 endif
 
 def FzfRgSuper(query: string, fullscreen: bool)
@@ -277,11 +279,11 @@ runtime vim_y_lsp.vim
 #
 
 g:neural = {
-    'providers': [
-        {
-            'api_key': $MISTRAL_API_KEY,
-            'url': 'https://api.mistral.ai',
-            'model': 'codestral-2508'
-        },
-    ],
+  'providers': [
+    {
+      'api_key': $MISTRAL_API_KEY,
+      'url': 'https://api.mistral.ai',
+      'model': 'codestral-2508'
+    },
+  ],
 }
