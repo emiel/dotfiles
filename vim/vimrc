@@ -120,8 +120,8 @@ nnoremap <C-Y> 4<C-Y>
 vnoremap <C-E> 4<C-E>
 vnoremap <C-Y> 4<C-Y>
 
-# Stop highlighting in addition to clearing and redrawing the screen.
-nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
+# Stop highlighting search matches and clear/redraw screen.
+nnoremap <C-L> :nohlsearch<CR><C-L>
 
 ##
 ## Mappings used frequently
