@@ -114,14 +114,18 @@ g:localmapleader = '\'
 # Remap , (Reverse last character-search command) to \ (default leader)
 noremap \ ,
 
+# Prefer display movement (when lines wrap) over linewise movement.
+nnoremap j gj
+nnoremap k gk
+
 # Scroll the viewport faster
 nnoremap <C-E> 4<C-E>
 nnoremap <C-Y> 4<C-Y>
 vnoremap <C-E> 4<C-E>
 vnoremap <C-Y> 4<C-Y>
 
-# Stop highlighting search matches and clear/redraw screen.
-nnoremap <C-L> :nohlsearch<CR><C-L>
+# Toggle highlighting search matches and clear/redraw screen.
+nnoremap <C-L> :set hlsearch!<CR><C-L>
 
 ##
 ## Mappings used frequently
