@@ -5,3 +5,6 @@ vim/backup/*
 zsh/.secrets.zsh
 zsh/.zcompdump
 zsh/.zsh_sessions/
+
+# vim swap files
+*.swp

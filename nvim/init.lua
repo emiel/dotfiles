@@ -4,16 +4,16 @@
 
 vim.opt.autoindent = true
 vim.opt.autoread = true
-vim.opt.backspace = {"indent", "eol", "start"}
+vim.opt.backspace = { "indent", "eol", "start" }
 vim.opt.backup = true
 vim.opt.backupdir = vim.fn.expand("~/.backup/nvim")
 vim.opt.breakindent = true
-vim.opt.clipboard:prepend({"unnamed", "unnamedplus"})
-vim.opt.completeopt = {"menuone", "preview", "noinsert", "noselect"}
+vim.opt.clipboard:prepend({ "unnamed", "unnamedplus" })
+vim.opt.completeopt = { "menuone", "preview", "noinsert", "noselect" }
 vim.opt.confirm = true
 vim.opt.copyindent = true
 vim.opt.cursorline = true
-vim.opt.formatoptions:remove({"j"})
+vim.opt.formatoptions:remove({ "j" })
 vim.opt.hidden = true
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
@@ -22,7 +22,7 @@ vim.opt.joinspaces = false
 vim.opt.laststatus = 2
 vim.opt.lazyredraw = true
 vim.opt.list = true
-vim.opt.listchars = { nbsp = "~", tab = ">·", trail = "·", }
+vim.opt.listchars = { nbsp = "~", tab = ">·", trail = "·" }
 vim.opt.modelines = 0
 vim.opt.mouse = "a"
 vim.opt.preserveindent = true
@@ -43,7 +43,7 @@ vim.opt.title = true
 vim.opt.ttyfast = true
 vim.opt.updatetime = 1000
 vim.opt.visualbell = true
-vim.opt.wildignore:append({"*.o", "*.pyc"})
+vim.opt.wildignore:append({ "*.o", "*.pyc" })
 vim.opt.wildmenu = true
 vim.opt.wildmode = "longest:full"
 
@@ -52,7 +52,7 @@ vim.opt.wildmode = "longest:full"
 --
 
 vim.g.mapleader = ","
-vim.g.localmapleader = '\\'
+vim.g.localmapleader = "\\"
 
 -- Stop highlighting search matches and clear/redraw screen.
 vim.keymap.set("n", "<c-l>", ":nohlsearch<cr><c-l>")
@@ -64,43 +64,48 @@ vim.keymap.set("n", "<c-j>", "<Plug>(ale_next_wrap)", { unique = true })
 vim.keymap.set("n", "<c-k>", "<Plug>(ale_previous_wrap)", { unique = true })
 
 -- Dash
-vim.keymap.set("n", "<Leader>D", "<Plug>DashSearch", { unique = true, silent = true})
+vim.keymap.set("n", "<Leader>D", "<Plug>DashSearch", { unique = true, silent = true })
 
 -- fzf.vim
-vim.keymap.set("n", "<Leader>g", ":FzfRg<space>", {unique = true})
-vim.keymap.set("n", "<Leader>b", ":FzfBuffers<CR>", {unique = true})
-vim.keymap.set("n", "<Leader>f", ":FzfFiles<CR>", {unique = true})
-vim.keymap.set("n", "<Leader>h", ":FzfHelpTags<CR>", {unique = true})
+vim.keymap.set("n", "<Leader>g", ":FzfRg<space>", { unique = true })
+vim.keymap.set("n", "<Leader>b", ":FzfBuffers<CR>", { unique = true })
+vim.keymap.set("n", "<Leader>f", ":FzfFiles<CR>", { unique = true })
+vim.keymap.set("n", "<Leader>h", ":FzfHelpTags<CR>", { unique = true })
 --NOTE: `K` conflicts with default LSP key binding
-vim.keymap.set("n", "K", ":execute 'FzfRg' expand('<cword>')<CR>", {unique = true, silent = true})
+vim.keymap.set(
+  "n",
+  "K",
+  ":execute 'FzfRg' expand('<cword>')<CR>",
+  { unique = true, silent = true }
+)
 
 -- NERDTree
-vim.keymap.set("n", "<Leader>d", ":execute 'NERDTreeToggle' getcwd()<CR>", {unique = true, silent=true})
-vim.keymap.set("n", "<Leader>t", ":NERDTreeFind<CR>", {silent=true, unique=true})
+vim.keymap.set(
+  "n",
+  "<Leader>d",
+  ":execute 'NERDTreeToggle' getcwd()<CR>",
+  { unique = true, silent = true }
+)
+vim.keymap.set("n", "<Leader>t", ":NERDTreeFind<CR>", { silent = true, unique = true })
 
 -- vim-test
-vim.keymap.set("n", "<Leader>Tf", ":TestFile<CR>", {silent = true, unique=true})
-vim.keymap.set("n", "<Leader>Tn", ":TestNearest<CR>", {silent = true, unique=true})
+vim.keymap.set("n", "<Leader>Tf", ":TestFile<CR>", { silent = true, unique = true })
+vim.keymap.set("n", "<Leader>Tn", ":TestNearest<CR>", { silent = true, unique = true })
 
 --
 -- Automatic commands
 --
 
-local augroup_vimrc = vim.api.nvim_create_augroup('vimrc', { clear = true });
-
 -- Jump to last position in file after opening. Nice!
-vim.api.nvim_create_autocmd(
-  { 'BufReadPost' },
-  {
-    pattern = '*',
-    group = augroup_vimrc,
-    command = vim.cmd([[
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+  group = vim.api.nvim_create_augroup("emiel.init", {}),
+  pattern = "*",
+  command = vim.cmd([[
       if line("'\"") > 0 && line("'\"") <= line('$')
         exe "normal! g`\""
       endif
-  ]])
-  }
-)
+    ]]),
+})
 
 vim.diagnostic.config({
   -- virtual_lines = true,
@@ -126,89 +131,100 @@ vim.keymap.set("n", "gn", vim.lsp.buf.rename)
 vim.keymap.set("n", "gr", vim.lsp.buf.references)
 vim.keymap.set("n", "gt", vim.lsp.buf.type_definition)
 
+vim.api.nvim_create_autocmd({ "LspAttach" }, {
+  group = vim.api.nvim_create_augroup("emiel.lsp", {}),
+  callback = function(ev)
+    local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
+    if client:supports_method("textDocument/completion") then
+      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+    end
+  end,
+})
 
-vim.lsp.config('lua-ls', {
+vim.lsp.config("lua-ls", {
   cmd = { "lua-language-server" },
   filetypes = { "lua" },
-  root_markers = { { '.luarc.json', '.luarc.jsonc' }, '.git' },
+  root_markers = { { ".luarc.json", ".luarc.jsonc" }, ".git" },
+  settings = {
+    Lua = {
+      runtime = {
+        version = "LuaJIT",
+      },
+      diagnostics = {
+        globals = { "vim" },
+      },
+    },
+  },
 })
 
 vim.lsp.config("ocaml-ls", {
-  cmd = { 'ocamllsp', '--stdio' },
-  filetypes = { 'ocaml' },
-  root_markers = { 'dune-project' },
+  cmd = { "ocamllsp", "--stdio" },
+  filetypes = { "ocaml" },
+  root_markers = { "dune-project" },
 })
 
 vim.lsp.config("purescript-ls", {
-  cmd = { 'purescript-language-server', '--stdio' },
-  filetypes = { 'purescript' },
+  cmd = { "purescript-language-server", "--stdio" },
+  filetypes = { "purescript" },
 })
 
 vim.lsp.config("pyright-ls", {
-  cmd = { 'pyright-langserver', '--stdio' },
-  filetypes = { 'python' },
+  cmd = { "pyright-langserver", "--stdio" },
+  filetypes = { "python" },
   root_markers = {
-    '.git',
-    'pyproject.toml',
-    'pyrightconfig.json',
+    ".git",
+    "pyproject.toml",
+    "pyrightconfig.json",
   },
   settings = {
     python = {
       analysis = {
         autoSearchPaths = true,
         useLibraryCodeForTypes = true,
-        diagnosticMode = 'openFilesOnly',
+        diagnosticMode = "openFilesOnly",
       },
     },
-  }
+  },
 })
 
 vim.lsp.config("ruff-ls", {
-  cmd = { 'ruff', 'server' },
-  filetypes = { 'python' },
-  root_markers = { 'pyproject.toml' },
+  cmd = { "ruff", "server" },
+  filetypes = { "python" },
+  root_markers = { "pyproject.toml" },
 })
 
 vim.lsp.config("tailwindcss-ls", {
-  cmd = { 'tailwindcss-language-server', '--stdio' },
-  filetypes = { 'typescript.tsx', 'typescriptreact' },
+  cmd = { "tailwindcss-language-server", "--stdio" },
+  filetypes = { "typescript.tsx", "typescriptreact" },
+  root_markers = { "tailwind.config.ts", "tailwind.config.js" },
 })
 
 vim.lsp.config("terraform-ls", {
-  cmd = { 'terraform-ls', 'serve' },
-  filetypes = { 'terraform' },
+  cmd = { "terraform-ls", "serve" },
+  filetypes = { "terraform" },
 })
 
 vim.lsp.config("terramate-ls", {
-  cmd = { 'terramate-ls', 'serve' },
-  filetypes = { 'terramate' },
+  cmd = { "terramate-ls", "serve" },
+  filetypes = { "terramate" },
 })
 
 vim.lsp.config("typescript-ls", {
-  cmd = { 'typescript-language-server', '--stdio' },
-  filetypes = { 'typescript', 'typescript.tsx', 'typescriptreact' },
-  root_markers = { 'tsconfig.json' },
+  cmd = { "typescript-language-server", "--stdio" },
+  filetypes = { "typescript", "typescript.tsx", "typescriptreact" },
+  root_markers = { "tsconfig.json" },
 })
 
 vim.lsp.enable({
-  -- "lua-ls",
+  "lua-ls",
   "ocaml-ls",
   "purescript-ls",
   "pyright-ls",
-  -- "ruff-ls",
+  "ruff-ls",
   "tailwindcss-ls",
   -- "terraform-ls",
   -- "terramate-ls",
   "typescript-ls",
-})
-
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(ev)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    if client:supports_method("textDocument/completion") then
-      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-    end
-  end,
 })
 
 --
@@ -231,19 +247,19 @@ vim.cmd("silent! colorscheme dayfox")
 
 vim.g.ale_completion_enabled = 0
 vim.g.ale_disable_lsp = 1
-vim.g.ale_echo_msg_format = '[%linter%] %code: %%s'
+vim.g.ale_echo_msg_format = "[%linter%] %code: %%s"
 vim.g.ale_fix_on_save = 1
 vim.g.ale_lint_on_save = 0
-vim.g.ale_sign_error = 'E>'
-vim.g.ale_sign_info = 'I>'
-vim.g.ale_sign_warning = 'W>'
-vim.g.ale_virtualtext_cursor = 'current'
+vim.g.ale_sign_error = "E>"
+vim.g.ale_sign_info = "I>"
+vim.g.ale_sign_warning = "W>"
+vim.g.ale_virtualtext_cursor = "current"
 
 --
 -- fzf.vim
 --
 
-vim.g.fzf_command_prefix = 'Fzf'
+vim.g.fzf_command_prefix = "Fzf"
 
 -- if executable('rg')
 --   $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!{node_modules,.git}'"
@@ -265,5 +281,10 @@ vim.g.fzf_command_prefix = 'Fzf'
 --
 
 vim.g.NERDTreeHijackNetrw = 1
-vim.g.NERDTreeIgnore = {'^__pycache__$'}
+vim.g.NERDTreeIgnore = { "^__pycache__$" }
 vim.g.NERDTreeWinSize = 41 -- NERDTree default is 31
+
+--
+-- Mini completion
+--
+require("mini.completion").setup()

@@ -16,6 +16,24 @@ var lspServers = [
     filetype: ['ocaml'],
   },
   {
+    name: 'lua-ls',
+    path: exepath('lua-language-server'),
+    filetype: ['lua'],
+    workspaceConfig: {
+      Lua: {
+        diagnostics: {
+          globals: ['vim'],
+        },
+        hint: {
+         enable: true,
+        },
+        runtime: {
+          version: 'LuaJIT',
+        },
+      },
+    }
+  },
+  {
     name: 'purescript-ls',
     path: exepath('purescript-language-server'),
     args: ['--stdio'],
@@ -41,12 +59,13 @@ var lspServers = [
         }
     },
   },
-  # {
-  #   name: 'tailwindcss-ls',
-  #   path: exepath('tailwindcss-language-server'),
-  #   args: ['--stdio'],
-  #   filetype: ['typescript.tsx', 'typescriptreact'],
-  # },
+  {
+    name: 'tailwindcss-ls',
+    path: exepath('tailwindcss-language-server'),
+    args: ['--stdio'],
+    filetype: ['typescript.tsx', 'typescriptreact'],
+    rootSearch: ['tailwind.config.ts', 'tailwind.config.js'],
+  },
   {
     name: 'tofu-ls',
     path: exepath('tofu-ls'),
