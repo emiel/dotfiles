@@ -27,9 +27,9 @@ Plug 'shinglyu/vim-codespell'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
-Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'yegappan/lsp'
 plug#end()
@@ -119,13 +119,13 @@ nnoremap j gj
 nnoremap k gk
 
 # Scroll the viewport faster
-nnoremap <C-E> 4<C-E>
-nnoremap <C-Y> 4<C-Y>
-vnoremap <C-E> 4<C-E>
-vnoremap <C-Y> 4<C-Y>
+# nnoremap <C-E> 4<C-E>
+# nnoremap <C-Y> 4<C-Y>
+# vnoremap <C-E> 4<C-E>
+# vnoremap <C-Y> 4<C-Y>
 
-# Toggle highlighting search matches and clear/redraw screen.
-nnoremap <C-L> :set hlsearch!<CR><C-L>
+# Turn of highlighting search matches and clear/redraw screen.
+nnoremap <C-L> :nohlsearch<CR><C-L>
 
 ##
 ## Mappings used frequently
@@ -285,9 +285,11 @@ runtime vim_y_lsp.vim
 g:neural = {
   'providers': [
     {
-      'api_key': $MISTRAL_API_KEY,
-      'url': 'https://api.mistral.ai',
-      'model': 'codestral-2508'
+      'openai': {
+        'url': 'https://api.mistral.ai',
+        'api_key': $MISTRAL_API_KEY,
+        'model': 'codestral-2508'
+      },
     },
   ],
 }

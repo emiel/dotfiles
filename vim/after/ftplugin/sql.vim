@@ -1,6 +1,6 @@
 vim9script
 
-# b:ale_fixers = ['pgformatter']
+b:ale_fixers = ['trim_whitespace']
 
 setlocal expandtab
 setlocal shiftwidth=4

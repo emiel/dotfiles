@@ -7,9 +7,9 @@
 `k` up
 `l` right
 
-`H` head of screen
-`M` middle of screen
-`L` last of screen
+`H` to head of screen ("Home")
+`M` to middle of screen ("Middle")
+`L` to last of screen ("Last")
 
 `0` to the first character of the line.
 `^` to the first non-blank character of the line
@@ -24,12 +24,12 @@
 `ge` back to end of word
 `gE` back to end of WORD
 
-`f` to (inclusive)
-`t` till (exclusive)
-`F` to backwards
-`T` till backwards
-`;` repeat latest `f`, `t`, `F` or `T`.
-`,` repeat latest `f`, `t`, `F` or `T` in opposite direction
+`f` to char (inclusive) "find char"
+`F` to char backwards
+`t` till char (exclusive)
+`T` till char backwards
+`;` repeat latest `f`, `t`, `F` or `T` motion
+`,` repeat latest `f`, `t`, `F` or `T` motion in opposite direction
 
 `*` search forward using word under cursor
 `#` search backward using word under cursor
@@ -43,19 +43,32 @@
 
 ## Scrolling
 
-`ctrl-f` full page forward (page down)
-`ctrl-b` full page backward (page up)
-`ctrl-d` half page forward
-`ctrl-u` half page backward
-`ctrl-e` scroll lines downward (extra lines)
+Scroll down
+`ctrl-e` scroll lines downward "Extra lines"
+`ctrl-d` scroll half page downward "Downwards"
+`ctrl-f` scroll full page forward (page down) "Forwards"
+
+Scroll up
 `ctrl-y` scroll lines upward
+`ctrl-u` scroll half page upwards "Upwards"
+`ctrl-b` scroll full page backward (page up) "Backwards"
+
+"Up/Down", "Forward/Backward"
+
+Scroll relative to cursor
+`zt`
 `zz`
+`zb`
 
 ## Change
+
+`:h change.txt`
 
 `c{motion}` delete to {motion} and start editing
 `cc` or `S` delete lines and start editing
 `C` delete till end of line and start editing
+`<ctrl-a>` increment
+`<ctrl-x>` decrement
 
 Quit with `ZZ`, `ZQ`
 
@@ -139,3 +152,82 @@ Insert mode completion. <https://vimhelp.org/insert.txt.html#ins-completion>
 Show current `omnifunc` value:
 
 `set omnifunc?`
+
+## Filter
+
+`!`
+`!!`
+
+Example:
+`:.!figlet` - replace current line with ascii art.
+
+## Ranges
+
+:h ranges
+
+`%` - entire buffer
+`.` - current line
+`'<,'>` - visual selection
+
+object/text select
+`vip` - visual select inner paragraph
+`viw` - visual select inner word
+
+## Repeats
+
+:help repeat.txt
+
+Command mode
+
+`:global` - lines that match
+`:g`
+`:vglobal` - lines that do NOT match
+`:v`
+
+`[range]g[global]/{pattern}/[cmd]`
+
+examples:
+
+`:g/foo/d` - delete lines matching 'foo'
+`:g/^foo/m4` - move lines beginning with foo to line 4
+
+commands:
+
+see `:h ex-cmd-index`
+see `:h {address}`
+
+d - delete
+m - move
+p - print
+
+examples:
+
+visual select numbers -> `g ctrl-a` -> numbered list
+
+Yank entire buffer:
+From command mode...
+`:%y` yank entire buffer (`%` is a range for the entire buffer)
+Is there a way in normal mode: `ggyG`
+
+# Filters
+
+Format markdown tables:
+
+```
+:'<,'>!column -s"|" -o"|" -t
+```
+
+```
+:%!pandoc -t commonmark_x
+```
+
+# Command Line Window
+
+`:help cmdline.txt`
+
+Edit and reuse command line history.
+
+`q:` edit Ex command-line
+`<ctrl-f>`
+`q/` forward search command-line
+`q?` backward search command-line

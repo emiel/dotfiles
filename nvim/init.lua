@@ -116,21 +116,6 @@ vim.diagnostic.config({
 -- Language Servers
 --
 
--- nnoremap gd <Cmd>LspGotoDefinition<CR>
--- nnoremap gh <Cmd>LspHover<CR>
--- nnoremap gi <Cmd>LspGotoImpl<CR>
--- nnoremap gn <Cmd>LspRename<CR>
--- nnoremap gp <Cmd>LspPeekDefinition<CR>
--- nnoremap gr <Cmd>LspShowReferences<CR>
--- nnoremap gt <Cmd>LspGotoTypeDef<CR>
-
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-vim.keymap.set("n", "gh", vim.lsp.buf.hover)
-vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
-vim.keymap.set("n", "gn", vim.lsp.buf.rename)
-vim.keymap.set("n", "gr", vim.lsp.buf.references)
-vim.keymap.set("n", "gt", vim.lsp.buf.type_definition)
-
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
   group = vim.api.nvim_create_augroup("emiel.lsp", {}),
   callback = function(ev)
@@ -138,7 +123,19 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
     if client:supports_method("textDocument/completion") then
       vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
     end
-  end,
+
+    local opts = { buffer = ev.buf }
+
+    -- custom keymaps
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+    vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    -- vim.keymap.set("n", "oi", vim.lsp.buf.organize_imports, opts)
+    -- vim.keymap.set("n", "pd", vim.lsp.buf.peek_definition, opts)
+  end
 })
 
 vim.lsp.config("lua-ls", {
@@ -195,7 +192,7 @@ vim.lsp.config("ruff-ls", {
 
 vim.lsp.config("tailwindcss-ls", {
   cmd = { "tailwindcss-language-server", "--stdio" },
-  filetypes = { "typescript.tsx", "typescriptreact" },
+  filetypes = { "typescriptreact" },
   root_markers = { "tailwind.config.ts", "tailwind.config.js" },
 })
 
@@ -211,7 +208,7 @@ vim.lsp.config("terramate-ls", {
 
 vim.lsp.config("typescript-ls", {
   cmd = { "typescript-language-server", "--stdio" },
-  filetypes = { "typescript", "typescript.tsx", "typescriptreact" },
+  filetypes = { "typescript", "typescriptreact" },
   root_markers = { "tsconfig.json" },
 })
 
