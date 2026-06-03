@@ -40,7 +40,13 @@ zstyle ':vcs_info:git:*' actionformats '[%b|%a]'
 
 PROMPT='%n@%m:%~/ %F{32}${vcs_info_msg_0_}%f> '
 
-# Search for my functions (must come before `compinit`).
+# Setup Homebrew:
+#  - environment (PATH, HOMEBREW_PREFIX, etc.)
+#  - zsh completions (from Homebrew zsh)
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# fpath additions — Homebrew completions + your own functions
+# Must come before compinit
 fpath=($ZDOTDIR/functions $fpath)
 
 ##
@@ -87,12 +93,13 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
 alias ssh='TERM=xterm-color ssh'
-alias view='vim -N -R'
+alias view='nvim -N -R'
 alias vim='vim -N'
+alias nvim='nvim -N'
 
 alias d='docker'
 alias k='kubectl'
-alias mr='mise run'
+alias mr='NO_COLOR=true mise run'
 alias pgpp='pgpp --semicolon-after-last-statement --preserve-comments'
 alias rg='rg --smart-case'
 alias tf='terraform'
@@ -137,19 +144,23 @@ alias lsd='ls -ld *(-/DN)'
 alias venv='python3 -m venv .venv && . ./.venv/bin/activate && pip install --upgrade pip -q'
 alias venv310='python3.10 -m venv .venv && . ./.venv/bin/activate'
 
+# Vim
+alias vv='vim ~/.vim/vimrc'
+# Zsh
+alias vz='vim $ZDOTDIR/.zshrc'
+
+# Captain's Log
+alias cl='vim $(cd ~/Projects/captains-log && ./main.py ~/Documents/captains-log)'
+
 # My logbook
-function lb() {
-    local lbdir=~/logbook
-    [[ ! -d $lbdir ]] && mkdir $lbdir
-    vim "$lbdir/$(date '+%Y')/$(date '+%Yw%V').md"
-}
+# function lb() {
+#     local lbdir=~/logbook
+#     [[ ! -d $lbdir ]] && mkdir $lbdir
+#     vim "$lbdir/$(date '+%Y')/$(date '+%Yw%V').md"
+# }
 
 # Homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
 alias bubu='brew update && brew upgrade && brew cleanup'
-
-# Docker Desktop / kubernetes; must come after brew path to ensure kubectl is picked up from docker desktop
-path=(/usr/local/bin $path)
 
 # kubectl completion
 eval "$(kubectl completion zsh)"
@@ -162,6 +173,9 @@ source $HOME/.tenv.completion.zsh
 
 # Terraform CLI completion
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+# Jujutsu CLI completion
+source <(jj util completion zsh)
 
 # BEGIN opam configuration
 # This is useful if you're using opam as it adds:
@@ -189,6 +203,36 @@ if type compdef &>/dev/null; then
   compdef _pnpm_completion pnpm
 fi
 
+###-begin-opencode-completions-###
+#
+# yargs command completion script
+#
+# Installation: opencode completion >> ~/.zshrc
+#    or opencode completion >> ~/.zprofile on OSX.
+#
+_opencode_yargs_completions()
+{
+  local reply
+  local si=$IFS
+  IFS=$'
+' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" opencode --get-yargs-completions "${words[@]}"))
+  IFS=$si
+  if [[ ${#reply} -gt 0 ]]; then
+    _describe 'values' reply
+  else
+    _default
+  fi
+}
+if [[ "'${zsh_eval_context[-1]}" == "loadautofunc" ]]; then
+  _opencode_yargs_completions "$@"
+else
+  compdef _opencode_yargs_completions opencode
+fi
+###-end-opencode-completions-###
+
+# worktrunk completion
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
 # FZF
 source <(fzf --zsh)
 
@@ -197,6 +241,3 @@ eval "$(mise activate zsh)"
 
 source ${ZDOTDIR}/.secrets.zsh
 source ${ZDOTDIR}/.smartpr.zsh
-
-# OpenJDK
-export PATH="/opt/homebrew/Cellar/openjdk@21/21.0.8/bin:$PATH"

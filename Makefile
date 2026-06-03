@@ -77,13 +77,11 @@ install-x11:
 	ln -s $(DOTFILES)/x11/Xresources $(HOME)/.Xresources
 	ln -s $(DOTFILES)/x11/Xresources.d $(HOME)/.Xresources.d
 
-install-zsh:
+install-zsh: ensure_config
+	rm -f $(HOME)/.config/zsh
+	ln -s $(DOTFILES)/zsh $(HOME)/.config/zsh
 	rm -f $(HOME)/.zshenv
-	echo 'ZDOTDIR=$(DOTFILES)/zsh' >> $(HOME)/.zshenv
-	echo 'source $$ZDOTDIR/.zshenv' >> $(HOME)/.zshenv
-	# ln -s $(DOTFILES)/zsh/.zshenv $(HOME)/.zshenv
-	# ln -s $(DOTFILES)/zsh/.zshrc $(HOME)/.zshrc
-	# ln -s $(DOTFILES)/zsh/.zlogout $(HOME)/.zlogout
+	ln -s $(DOTFILES)/zsh/.zshenv $(HOME)/.zshenv
 
 update-home-manager:
 	home-manager --flake $(CURDIR) switch

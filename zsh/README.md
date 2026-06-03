@@ -1,10 +1,12 @@
-# zsh
+# ZSH
 
-Create the following `~/.zshenv`:
+Start up sequence:
 
 ```
-ZDOTDIR={{ location of dotfiles }}/zsh
-source $ZDOTDIR/.zshenv
+~/.zshenv          # sets ZDOTDIR
+$ZDOTDIR/.zprofile # (login shell)
+$ZDOTDIR/.zshrc    # (interactive shell)
+$ZDOTDIR/.zlogin   # (login shell)
 ```
 
-All zsh dot files reside in $ZDOTDIR.
+All zsh dot files reside in $ZDOTDIR except .zshenv.
