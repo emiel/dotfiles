@@ -7,6 +7,7 @@ Start up sequence:
 $ZDOTDIR/.zprofile # (login shell)
 $ZDOTDIR/.zshrc    # (interactive shell)
 $ZDOTDIR/.zlogin   # (login shell)
+$ZDOTDIR/.zlogout
 ```
 
 All zsh dot files reside in $ZDOTDIR except .zshenv.

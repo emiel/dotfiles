@@ -42,8 +42,54 @@ PROMPT='%n@%m:%~/ %F{32}${vcs_info_msg_0_}%f> '
 
 # Setup Homebrew:
 #  - environment (PATH, HOMEBREW_PREFIX, etc.)
+#  - Invokes /usr/libexec/path_helper -s
 #  - zsh completions (from Homebrew zsh)
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+#
+# All things $PATH or $path related go here. See:
+# https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2
+#
+# Debug:
+#
+# $ echo $PATH | tr ':' '\n'
+# $ print -l $path
+#
+
+# Ensure unique items
+typeset -U MANPATH manpath
+typeset -U PATH path
+
+# My bin
+path=(~/bin $path)
+
+# Cargo
+path=(~/.cargo/bin $path)
+
+# NPM
+NPM_PACKAGES=${HOME}/.npm-packages
+path=(${NPM_PACKAGES}/bin $path)
+manpath=(${NPM_PACKAGES}/share/man $manpath)
+
+# Docker Desktop / kubernetes; must come before $HOMEBREW_PREFIX/bin to ensure
+# kubectl is picked up from docker desktop.
+path=(/usr/local/bin $path)
+
+# Homebrew: imagemagick-full
+path=("$HOMEBREW_PREFIX/opt/imagemagick-full/bin" $path)
+
+# Homebrew: ffmpeg-full
+path=("$HOMEBREW_PREFIX/opt/ffmpeg-full/bin" $path)
+
+# Homebrew: OpenJDK
+path=("$HOMEBREW_PREFIX/Cellar/openjdk@21/21.0.8/bin" $path)
+
+# Homebrew: postgres
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
+
+#
+# zsh functions
+#
 
 # fpath additions — Homebrew completions + your own functions
 # Must come before compinit
