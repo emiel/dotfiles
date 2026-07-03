@@ -96,7 +96,9 @@ keying `vi` or `va` again will expand the selection to outer brackets.
 
 start vim without loading config files
 
-`vim -u NONE`
+```
+vim -u NONE
+```
 
 # Commands starting with `g`
 
@@ -231,3 +233,11 @@ Edit and reuse command line history.
 `<ctrl-f>`
 `q/` forward search command-line
 `q?` backward search command-line
+
+# Terminal
+
+```
+:vert terminal
+```
+
+`<C-\><C-n>` -> terminal mode

@@ -31,6 +31,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
+Plug 'wuelnerdotexe/vim-astro'
 Plug 'yegappan/lsp'
 plug#end()
 
@@ -197,7 +198,6 @@ g:PaperColor_Theme_Options = {
 }
 
 colorscheme PaperColor
-# colorscheme dayfox
 
 ##
 ## Commands
