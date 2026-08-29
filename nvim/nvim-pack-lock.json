@@ -1,11 +1,11 @@
 {
   "plugins": {
     "ale": {
-      "rev": "d0ea94323207abcdee717d76bb57b38d46055664",
+      "rev": "e1789bc54483d76ac9ddb40b633d1645c8281914",
       "src": "https://www.github.com/dense-analysis/ale"
     },
     "codecompanion.nvim": {
-      "rev": "2e8865f81a0c8b5900fced953a81fe86c53416b1",
+      "rev": "fd07e440c115e318031c5f3f8c746f01eb4cac56",
       "src": "https://www.github.com/olimorris/codecompanion.nvim",
       "version": "19.0.0 - 20.0.0"
     },
@@ -22,7 +22,7 @@
       "src": "https://www.github.com/kepano/flexoki-neovim"
     },
     "fzf": {
-      "rev": "9e2856559d50637df482b8598fd7b35b2d746485",
+      "rev": "f7ae439ff5b2f8298716d39783a546db793b0625",
       "src": "https://www.github.com/junegunn/fzf"
     },
     "fzf.vim": {
@@ -38,7 +38,7 @@
       "src": "https://www.github.com/chrisbra/matchit"
     },
     "mini.nvim": {
-      "rev": "c5cdbadeb423ff724e27a42ab2d1c504d1d6fc5a",
+      "rev": "fb2bbae327f3c306f3c825031345b89dd176ce60",
       "src": "https://www.github.com/nvim-mini/mini.nvim"
     },
     "nerdtree": {
@@ -50,7 +50,7 @@
       "src": "https://www.github.com/dense-analysis/neural"
     },
     "nightfox.nvim": {
-      "rev": "26b61b1f856ec37cae3cb64f5690adb955f246a1",
+      "rev": "4dacd3f0185a2227bdf3b6c0975a8f0bf87cac9a",
       "src": "https://www.github.com/EdenEast/nightfox.nvim"
     },
     "papercolor-theme": {
@@ -58,7 +58,7 @@
       "src": "https://www.github.com/NLKNguyen/papercolor-theme"
     },
     "papercolor-theme-slim": {
-      "rev": "1b923dae2cea6ccb6578475abf947bb3cd9fb202",
+      "rev": "28a1cf810091fd9d903caf4473327afca7418c33",
       "src": "https://www.github.com/pappasam/papercolor-theme-slim"
     },
     "plenary.nvim": {
