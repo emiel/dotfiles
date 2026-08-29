@@ -44,7 +44,9 @@ PROMPT='%n@%m:%~/ %F{32}${vcs_info_msg_0_}%f> '
 #  - environment (PATH, HOMEBREW_PREFIX, etc.)
 #  - Invokes /usr/libexec/path_helper -s
 #  - zsh completions (from Homebrew zsh)
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ -x "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 #
 # All things $PATH or $path related go here. See:
@@ -209,19 +211,31 @@ alias cl='vim $(cd ~/Projects/captains-log && ./main.py ~/Documents/captains-log
 alias bubu='brew update && brew upgrade && brew cleanup'
 
 # kubectl completion
-eval "$(kubectl completion zsh)"
+if command -v kubectl > /dev/null 2>&1; then
+    eval "$(kubectl completion zsh)"
+else
+    echo "Skipping kubectl zsh completion setup"
+fi
 
 # AWS CLI completion
 complete -C '/opt/homebrew/bin/aws_completer' aws
 
 # tenv completion
-source $HOME/.tenv.completion.zsh
+if [[ -f $HOME/.tenv.completion.zsh ]]; then
+    source $HOME/.tenv.completion.zsh
+else
+    echo "Skipping tenv zsh completion setup"
+fi
 
 # Terraform CLI completion
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 # Jujutsu CLI completion
-source <(jj util completion zsh)
+if command -v jj > /dev/null 2>&1; then
+    source <(jj util completion zsh)
+else
+    echo "Skipping jj zsh completion setup"
+fi
 
 # BEGIN opam configuration
 # This is useful if you're using opam as it adds:
@@ -277,13 +291,32 @@ fi
 ###-end-opencode-completions-###
 
 # worktrunk completion
-if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+if command -v wt > /dev/null 2>&1; then
+    eval "$(command wt config shell init zsh)"
+else
+    echo "Skipping wt zsh completion setup"
+fi
 
 # FZF
-source <(fzf --zsh)
+if command -v fzf > /dev/null 2>&1; then
+    source <(fzf --zsh)
+else
+    echo "Skipping fzf setup"
+fi
 
 # mise
-eval "$(mise activate zsh)"
+if command -v mise > /dev/null 2>&1; then
+    eval "$(mise activate zsh)"
+else
+    echo "Skipping mise setup"
+fi
 
-source ${ZDOTDIR}/.secrets.zsh
-source ${ZDOTDIR}/.smartpr.zsh
+# Custom zsh setup (secrects)
+if [[ -f ${ZDOTDIR}.secrets.zsh ]]; then
+    source ${ZDOTDIR}/.secrets.zsh
+fi
+
+# Custom zsh setup (work)
+if [[ -f ${ZDOTDIR}.smartpr.zsh ]]; then
+    source ${ZDOTDIR}/.smartpr.zsh
+fi
