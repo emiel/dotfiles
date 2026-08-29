@@ -5,7 +5,7 @@
 	skippedCherryPicks = false
 
 [core]
-	editor = vim
+	editor = nvim
 	pager = less -FRSX
 
 [init]
