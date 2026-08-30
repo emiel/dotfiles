@@ -44,7 +44,7 @@ vim.opt.visualbell = true
 vim.opt.wildignore:append({ "*.o", "*.pyc" })
 vim.opt.wildmenu = true
 vim.opt.wildmode = "longest:full"
-vim.opt.winborder = "double"
+vim.opt.winborder = "rounded"
 
 --
 -- Mappings
@@ -286,22 +286,33 @@ vim.cmd("silent! colorscheme PaperColorSlimLight")
 --
 -- nvim diagnostics
 --
+
 vim.diagnostic.config({
+  -- virtual_lines = { current_line = true, source = true },
+  virtual_text = { current_line = true, source = true },
   float = {
     source = true,
     border = "double",
-    -- generic
-    close_events = { "CursorMoved", "InsertEnter" },
+    close_events = { "CursorMoved", "CursorMovedI", "InsertEnter", "BufLeave" },
   },
   update_in_insert = false, -- don't update diagnostics while typing
   severity_sort = true, -- sort diagnostics by severity
 })
 
-vim.api.nvim_create_autocmd("CursorHold", {
-  callback = function()
-    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
-  end,
-})
+-- toggle diag
+vim.keymap.set("n", "<Leader>td", vim.diagnostic.open_float)
+-- vim.keymap.set("n", "<Leader>td", vim.diagnostic.setqflist())
+
+-- vim.api.nvim_create_autocmd("CursorHold", {
+--   callback = function()
+--     for _, win in ipairs(vim.api.nvim_list_wins()) do
+--       if vim.api.nvim_win_get_config(win).relative ~= "" then
+--         return -- hover (or another float) is open, don't clobber it
+--       end
+--     end
+--     vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+--   end,
+-- })
 
 --
 -- ALE
@@ -309,16 +320,19 @@ vim.api.nvim_create_autocmd("CursorHold", {
 
 vim.g.ale_completion_enabled = 0
 vim.g.ale_disable_lsp = 1
-vim.g.ale_echo_msg_format = "[%linter%] %code: %%s"
+-- vim.g.ale_echo_msg_format = "[%linter%] %code%: %s [%severity%]"
 vim.g.ale_fix_on_save = 1
 vim.g.ale_lint_on_save = 0
-vim.g.ale_sign_error = "E>"
-vim.g.ale_sign_info = "I>"
-vim.g.ale_sign_warning = "W>"
-vim.g.ale_virtualtext_cursor = "current"
+-- vim.g.ale_loclist_msg_format = "[%linter%] %s"
+-- vim.g.ale_sign_error = "E>"
+-- vim.g.ale_sign_info = "I>"
+-- vim.g.ale_sign_warning = "W>"
+-- Prefer neovim diagnostics
+vim.g.ale_virtualtext_cursor = "disabled"
+-- vim.g.ale_virtualtext_prefix = "%comment% [%linter%] "
 
-vim.g.ale_use_neovim_diagnostics_api = 1
--- vim.g.ale_use_neovim_lsp_api = 0
+-- vim.g.ale_use_neovim_diagnostics_api = 1
+-- vim.g.ale_use_neovim_lsp_api = 1
 --
 
 --
@@ -398,3 +412,31 @@ require("ts_expand_hover").setup({
     max_height = 30,
   },
 })
+
+require("render-markdown").setup({
+  render_modes = false, -- never render in normal editable buffers
+  overrides = {
+    buftype = {
+      nofile = {
+        render_modes = true, -- but always render in the preview buffer
+      },
+    },
+  },
+})
+
+vim.keymap.set(
+  "n",
+  "<Leader>mp",
+  ":RenderMarkdown preview<CR>",
+  { desc = "Markdown split preview" }
+)
+
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "markdown",
+--   callback = function()
+--     -- Open the preview in a vertical split
+--     vim.cmd("vsplit | RenderMarkdown")
+--     -- Focus back to the original window
+--     vim.cmd("wincmd p")
+--   end,
+-- })

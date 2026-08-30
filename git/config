@@ -1,10 +1,12 @@
 [user]
 	name = Emiel van de Laar
+	email = emiel@ttyout.net
 
 [advice]
 	skippedCherryPicks = false
 
 [core]
+	autocrlf = input
 	editor = nvim
 	pager = less -FRSX
 
@@ -57,7 +59,6 @@
 [rebase]
 	autoSquash = true
 	autoStash = true
-	updateRefs = true
 
 [stash]
 	showPatch = true
@@ -93,6 +94,20 @@
 	rs = restore
 	st = status
 	sw = switch
+	showmsg = show --format=%B -s
+
+[help]
+	autocorrect = prompt
+
+[commit]
+	verbose = true
+
+[rerere]
+	enabled = true
+	autoupdate = true
+
+[merge]
+	tool = vimdiff
 
 [includeIf "hasconfig:remote.*.url:git@github.com:emiel/**"]
 	path = ./default/config
@@ -102,10 +117,3 @@
 
 [includeIf "hasconfig:remote.*.url:git@github.com:smartpr/**"]
 	path = ./smartpr/config
-[help]
-	autocorrect = prompt
-[commit]
-	verbose = true
-[rerere]
-	enabled = true
-	autoupdate = true

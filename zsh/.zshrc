@@ -75,7 +75,10 @@ manpath=(${NPM_PACKAGES}/share/man $manpath)
 
 # Docker Desktop / kubernetes; must come before $HOMEBREW_PREFIX/bin to ensure
 # kubectl is picked up from docker desktop.
-path=(/usr/local/bin $path)
+# path=(/usr/local/bin $path)
+#
+# Homebrew: orbstack
+path=(~/.orbstack/bin $path)
 
 # Homebrew: imagemagick-full
 path=("$HOMEBREW_PREFIX/opt/imagemagick-full/bin" $path)
@@ -142,10 +145,9 @@ alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
 alias ssh='TERM=xterm-color ssh'
 alias view='nvim -N -R'
-alias vim='vim -N'
+alias vim='nvim -N'
 alias nvim='nvim -N'
 
-alias d='docker'
 alias k='kubectl'
 alias mr='NO_COLOR=true mise run'
 alias pgpp='pgpp --semicolon-after-last-statement --preserve-comments'
@@ -153,7 +155,7 @@ alias rg='rg --smart-case'
 alias tf='terraform'
 alias tm='terramate'
 
-alias zconf='vim $ZDOTDIR/.zshrc'
+alias zconf='${EDITOR} $ZDOTDIR/.zshrc'
 
 # git
 # fo() {
@@ -163,13 +165,6 @@ alias zconf='vim $ZDOTDIR/.zshrc'
 # myprs() {
 #     gh pr list --author "@me" | fzf --header 'checkout PR' | awk '{print $(NF-5)}' | xargs git checkout
 # }
-
-##
-## Named directories
-##
-
-hash -d blog=~/Projects/blog
-hash -d dotfiles=~/Projects/dotfiles
 
 # ls
 case $(uname -s) in
@@ -193,22 +188,28 @@ alias venv='python3 -m venv .venv && . ./.venv/bin/activate && pip install --upg
 alias venv310='python3.10 -m venv .venv && . ./.venv/bin/activate'
 
 # Vim
-alias vv='vim ~/.vim/vimrc'
+alias e_vim='${EDITOR} ~/.vim/vimrc'
+alias e_nvim='pushd ~/.config/nvim && ${EDITOR} . && popd'
+
 # Zsh
-alias vz='vim $ZDOTDIR/.zshrc'
+alias e_zsh='${EDITOR} $ZDOTDIR/.zshrc'
 
 # Captain's Log
-alias cl='vim $(cd ~/Projects/captains-log && ./main.py ~/Documents/captains-log)'
-
-# My logbook
-# function lb() {
-#     local lbdir=~/logbook
-#     [[ ! -d $lbdir ]] && mkdir $lbdir
-#     vim "$lbdir/$(date '+%Y')/$(date '+%Yw%V').md"
-# }
+alias cl='${EDITOR} $(cd ~/Projects/captains-log && ./main.py ~/Documents/captains-log)'
 
 # Homebrew
-alias bubu='brew update && brew upgrade && brew cleanup'
+alias bubu='brew update && brew upgrade --no-ask && brew cleanup'
+
+##
+## Named directories
+##
+
+hash -d blog=~/Projects/blog
+hash -d dotfiles=~/Projects/dotfiles
+
+##
+## Completion
+##
 
 # kubectl completion
 if command -v kubectl > /dev/null 2>&1; then
@@ -312,11 +313,11 @@ else
 fi
 
 # Custom zsh setup (secrects)
-if [[ -f ${ZDOTDIR}.secrets.zsh ]]; then
+if [[ -f ${ZDOTDIR}/.secrets.zsh ]]; then
     source ${ZDOTDIR}/.secrets.zsh
 fi
 
 # Custom zsh setup (work)
-if [[ -f ${ZDOTDIR}.smartpr.zsh ]]; then
+if [[ -f ${ZDOTDIR}/.smartpr.zsh ]]; then
     source ${ZDOTDIR}/.smartpr.zsh
 fi

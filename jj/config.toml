@@ -4,6 +4,9 @@
 name = "Emiel van de Laar"
 email = "emiel@ttyout.net"
 
+[templates]
+git_push_bookmark = '"emiel/jj-" ++ change_id.short()'
+
 [ui]
 default-command = "log"
 pager = ":builtin"

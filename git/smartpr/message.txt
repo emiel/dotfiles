@@ -1,6 +1,6 @@
 
 
-**Problem**
+<problem-para>
 
-**Resolution**
+<solution-para>
 
