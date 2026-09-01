@@ -1,5 +1,3 @@
-hash -d nr-ui=~/Projects/smartpr-newsroom/packages/newsroom
-hash -d nr=~/Projects/smartpr-newsroom
 hash -d smartpr-api=~/Projects/smartpr-api
 hash -d smartpr-build=~/Projects/smartpr-build
 hash -d smartpr-client=~/Projects/smartpr-client

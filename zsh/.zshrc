@@ -215,92 +215,58 @@ hash -d dotfiles=~/Projects/dotfiles
 if command -v kubectl > /dev/null 2>&1; then
     eval "$(kubectl completion zsh)"
 else
-    echo "Skipping kubectl zsh completion setup"
+    echo "Skipping zsh completion setup: kubectl"
+fi
+
+# tenv completion
+if command -v tenv > /dev/null 2>&1; then
+    eval "$(tenv completion zsh)"
+else
+    echo "Skipping zsh completion setup: tenv"
+fi
+
+# Jujutsu CLI completion
+if command -v jj > /dev/null 2>&1; then
+    eval "$(jj util completion zsh)"
+else
+    echo "Skipping zsh completion setup: jj"
+fi
+
+# pnpm completion
+if command -v pnpm > /dev/null 2>&1; then
+    eval "$(pnpm completion zsh)"
+else
+    echo "Skipping zsh completion setup: pnpm"
+fi
+
+# worktrunk completion
+if command -v wt > /dev/null 2>&1; then
+    eval "$(wt config shell init zsh)"
+else
+    echo "Skipping zsh completion setup: wt"
 fi
 
 # AWS CLI completion
 complete -C '/opt/homebrew/bin/aws_completer' aws
 
-# tenv completion
-if [[ -f $HOME/.tenv.completion.zsh ]]; then
-    source $HOME/.tenv.completion.zsh
-else
-    echo "Skipping tenv zsh completion setup"
-fi
-
 # Terraform CLI completion
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
-
-# Jujutsu CLI completion
-if command -v jj > /dev/null 2>&1; then
-    source <(jj util completion zsh)
-else
-    echo "Skipping jj zsh completion setup"
-fi
 
 # BEGIN opam configuration
 # This is useful if you're using opam as it adds:
 #   - the correct directories to the PATH
 #   - auto-completion for the opam binary
 # This section can be safely removed at any time if needed.
-[[ ! -r '/Users/emiel/.opam/opam-init/init.zsh' ]] || source '/Users/emiel/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+if [[ -r "${HOME}/.opam/opam-init/init.zsh" ]] then
+    source '/Users/emiel/.opam/opam-init/init.zsh'
+else
+    echo "Skipping opam setup"
+fi
 # END opam configuration
-
-# Completion for pnpm (pnpm completion zsh)
-if type compdef &>/dev/null; then
-  _pnpm_completion () {
-    local reply
-    local si=$IFS
-
-    IFS=$'\n' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" SHELL=zsh pnpm completion-server -- "${words[@]}"))
-    IFS=$si
-
-    if [ "$reply" = "__tabtab_complete_files__" ]; then
-      _files
-    else
-      _describe 'values' reply
-    fi
-  }
-  compdef _pnpm_completion pnpm
-fi
-
-###-begin-opencode-completions-###
-#
-# yargs command completion script
-#
-# Installation: opencode completion >> ~/.zshrc
-#    or opencode completion >> ~/.zprofile on OSX.
-#
-_opencode_yargs_completions()
-{
-  local reply
-  local si=$IFS
-  IFS=$'
-' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" opencode --get-yargs-completions "${words[@]}"))
-  IFS=$si
-  if [[ ${#reply} -gt 0 ]]; then
-    _describe 'values' reply
-  else
-    _default
-  fi
-}
-if [[ "'${zsh_eval_context[-1]}" == "loadautofunc" ]]; then
-  _opencode_yargs_completions "$@"
-else
-  compdef _opencode_yargs_completions opencode
-fi
-###-end-opencode-completions-###
-
-# worktrunk completion
-if command -v wt > /dev/null 2>&1; then
-    eval "$(command wt config shell init zsh)"
-else
-    echo "Skipping wt zsh completion setup"
-fi
 
 # FZF
 if command -v fzf > /dev/null 2>&1; then
-    source <(fzf --zsh)
+    eval $(fzf --zsh)
 else
     echo "Skipping fzf setup"
 fi
@@ -313,11 +279,11 @@ else
 fi
 
 # Custom zsh setup (secrects)
-if [[ -f ${ZDOTDIR}/.secrets.zsh ]]; then
+if [[ -r ${ZDOTDIR}/.secrets.zsh ]]; then
     source ${ZDOTDIR}/.secrets.zsh
 fi
 
 # Custom zsh setup (work)
-if [[ -f ${ZDOTDIR}/.smartpr.zsh ]]; then
+if [[ -r ${ZDOTDIR}/.smartpr.zsh ]]; then
     source ${ZDOTDIR}/.smartpr.zsh
 fi
